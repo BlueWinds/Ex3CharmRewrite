@@ -37,7 +37,7 @@
   \ifcase#1\or{One}\or{Two}\or{Three}\or{Four}\or{Five}\or{Six}\or{Seven}\or{Eight}\or{Nine}\or{Ten}\or{Eleven}\else\@ctrerr\fi
 }
 
-\titleformat{\chapter}[display]{\centering\Large\bfseries}{\chaptertitlename\ \spelled{\thechapter}}{-10pt}{\chapfont\color{MidnightBlue}\Huge\thispagestyle{fancy}}
+\titleformat{\chapter}[display]{\centering\Large}{\chaptertitlename\ \spelled{\thechapter}}{-10pt}{\chapfont\color{MidnightBlue}\Huge\thispagestyle{fancy}}
 \titlespacing*{\chapter}{0pt}{0pt}{20pt}
 \renewcommand\thesection{}
 \titlespacing*{\subsection}{0pt}{0pt}{0pt}
@@ -105,7 +105,7 @@
 \setlength\headsep{30pt}
 \renewcommand{\headrulewidth}{0pt}
 \setlength\textheight{659pt}
-\setlength\footskip{20pt}
+\setlength\footskip{25pt}
 \fancyhf{}
 \cfoot{\color{White}\chapfont\thepage}
 
@@ -992,13 +992,20 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
 \end{Ability}
 
 \begin{Ability}{Investigation}
+
+  \permanentCharm{Inquisitor's Unfailing Notice}
+  {Investigation 2}
+  In addition to any normal Awareness rolls the Solar might receive, she becomes automatically aware of anyone who picks a pocket, attempts to pass off a forgery, relies on a disguise or other similarly larcenous actions in her presence. This does not grant knowledge of what caught the Solar's attention, only who.
+
+  \charm{Irresistible Questioning Technique}
+  {5m, 1wp}
+  {Supplemental}{Instant}{Psyche, Once/Story per Target}
+  {Investigation 5, Essence 2, Inquisitor's Unfailing Notice}
+  This Charm supplements a Persuade action in the form of a question, outside of combat. If she succeeds, the target must answer truthfully, and to the fullest extent of his knowledge. For each threshold success, the Solar may ask a further question elaborating on the same theme (including repeating a question the target has resisted). The target may resist any question by spending 1wp (the same question may not be asked again during the use of this charm), or end the questioning immediately by leaving the scene (if able).
+
   \permanentCharm{Watchman's Infallible Eye}
   {Investigation 1}
   The Lawgiver becomes automatically aware of when she enters a location where a Case Scene action would be appropriate, or enters the presence of a character against whom a Profile action might reveal a clue in an ongoing investigation (she also knows which person, even in a crowd).
-
-  \permanentCharm{Inquisitor's Unfailing Notice}
-  {Investigation 2, Watchman's Infallible Eye}
-  In addition to any normal Awareness rolls the Solar might receive, she becomes automatically aware of anyone who picks a pocket, attempts to pass off a forgery, relies on a disguise or other similarly larcenous actions in her presence. This does not grant knowledge of what caught the Solar's attention, only who.
 
   \charm{Crafty Observation Method}
   {5m}
@@ -1006,23 +1013,23 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   {Investigation 3, Watchman's Infallible Eye}
   This charm supplements a Case Scene action. It takes only a few seconds rather than the usual 15 minutes.
 
+  \charm{Ten Magistrate Eyes}
+  {3m}
+  {Supplemental}{Instant}{-}
+  {Investigation 5, Essence 3, Watchman's Infallible Eye}
+  This charm supplements a Case Scene action. The Solar doesn't need to interact with the area she's examining - no need to walk around, search through drawers, reach under the bed, etc.
+
   \charm{Evidence-Discerning Method}
   {2m, 1wp}
   {Simple}{Instant}{-}
-  {Investigation 5, Crafty Observation Method}
+  {Investigation 3}
   By sorting through possessions, physical evidence and so on left by a particular person, the Exalt makes a Profile action against that person. If the evidence left at this location is scanty or intentionally obscured, the Storyteller should grant him a bonus to his Guile.
 
   \charm{Watchful Justiciar's Eye}
   {1m, 1wp}
   {Reflexive}{Instant}{-}
-  {Investigation 5, Essence 2, Evidence-Discerning Method}
+  {Investigation 3, Essence 2, Evidence-Discerning Method}
   The Solar may activate this charm whenever she sees a character she's previously Profiled acts outside the bounds of the profile she's established. She may immediately make a new Profile action without the need for further interaction.
-
-  \charm{Irresistible Questioning Technique}
-  {5m, 1wp}
-  {Supplemental}{Instant}{Psyche, Once/Story per Target}
-  {Investigation 5, Essence 2, Judge's Ear Technique}
-  This Charm supplements a Persuade action in the form of a question, outside of combat. If she succeeds, the target must answer truthfully, and to the fullest extent of his knowledge. For each threshold success, the Solar may ask a further question elaborating on the same theme (including repeating a question the target has resisted). The target may resist any question by spending 1wp (the same question may not be asked again during the use of this charm), or end the questioning immediately by leaving the scene (if able).
 
   \charm{Destroyed Evidence Prana}
   {6m}
@@ -1030,16 +1037,10 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   {Investigation 5, Essence 3, Evidence-Discerning Method}
   This charm supplements a Case Scene action. The Solar suffers no penalties to the action due to damage to or destruction of the scene - she might understand the occupants of a building destroyed by a tornado, or read the ashes of a burned note, for example.
 
-  \charm{Ten Magistrate Eyes}
-  {3m}
-  {Supplemental}{Instant}{-}
-  {Investigation 5, Essence 3, Watchman's Infallible Eye}
-  This charm supplements a Case Scene action. The Solar doesn't need to interact with the area she's examining - no need to walk around, search through drawers, reach under the bed, etc.
-
   \charm{Unknown Wisdom Epiphany}
   {10m, 1wp}
   {Simple}{Instant}{-}
-  {Investigation 5, Essence 3, Ten Magistrate Eyes}
+  {Investigation 4, Essence 2}
   The Solar goes over a location and chooses an event that happened there within the last (Essence) days. She then retraces the steps and mimics the actions of one of the participants. As she does so she has flashbacks, both visual and emotional, from the perspective of the person she's emulating, spread over the course of the event.
 
   \charm{Enlightened Touch Insight}
@@ -1051,8 +1052,9 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Empathic Recall Discipline}
   {1m, 1wp}
   {Reflexive}{Instant}{-}
-  {Investigation 5, Essence 4, Enlightened Touch Insight, Destroyed Evidence Prana}
+  {Investigation 5, Essence 4, Enlightened Touch Insight}
   This charm may be activated when the Solar succeeds on a Case Scene action. She may immediately make a Read Intentions action against the perpetrator (even if they are long gone). If successful, she learns the intentions behind their actions.
+
 \end{Ability}
 
 \begin{Ability}{Larceny}
@@ -1096,41 +1098,17 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   {Larceny 4}
   This charm supplements a Larceny action to cheat at a game or poison her target's food or drink without notice. The target's Awareness roll to oppose the Solar is delayed until the charm ends. The duration decreases by one hour each subsequent time she uses this charm in a single scene, and ends immediately if her poison knocks out or kills.
 
-  \charm{Lock-Opening Touch}
-  {5m}
-  {Supplemental}{Instant}{-}
-  {Larceny 2}
-  This charm supplements an attempt to pick a lock. If the lock is mundane, it opens at her touch without need for tools or a roll. Against a magical lock, she may attempt to pick it one interval faster (usually in seconds rather than minutes).
-
-  \charm{Flawlessly Impenetrable Disguise}
-  {5m}
-  {Supplemental}{Until the Exalt sleeps}{-}
-  {Larceny 4}
-  This charm supplements a Disguise action. The Solar ignores penalties for disguising herself as a different sex, race or body type. If someone sees through the disguise, instead of getting a sense of what she really looks like he merely learns that she is not what she appears to be.
-
   \charm{Proof-Eating Palm}
   {1m}
   {Simple}{Indefinite}{Stackable}
   {Larceny 4, Essence 2, Lightning-Hand Sleight}
   The solar performs some slight-of-hand with an object small enough to fit in her palm. Instead of merely being hidden, the object goes Elsewhere. When she ends the charm, it reappears in her hand. She may have no more than five instances of this charm active at a time.
 
-  \charm{Stealing From Plain Sight Spirit}
-  {6m}
-  {Supplemental}{Instant}{Mute}
-  {Larceny 4, Essence 2, Flawless Pickpocketing Technique}
-  This charm supplements a pickpocketing attempt, allowing it to be used on normally invalid targets that the Solar could move without a feat of strength. The attempt takes a penalty ranging from -1 (mildly improbably - a table in the middle of the room) to -5 (blatantly unfeasible - the chair someone is sitting in, worn pants). Anyone who fails their Awareness roll to notice the theft cannot notice the absence for (Solar's Essence) minutes or until circumstances call attention to the theft.
-
-  \charm{Magpie's Invisible Talon}
-  {1wp}
+  \charm{Lock-Opening Touch}
+  {5m}
   {Supplemental}{Instant}{-}
-  {Larceny 5, Essence 2, Flawless Pickpocketing Technique, Lock Opening Touch}
-  This charm supplements a pickpocket attempt, allowing the Solar to steal small items from up to (Essence) yards away, even if a solid barrier blocks her reach.
-
-  \charm{Perfect Mirror}
-  {5m, 1wp}
-  {Supplemental}{Until the Exalt sleeps}{Mute}
-  {Larceny 5, Essence 2, Flawlessly Impenetrable Disguise}
-  This charm supplements a Disguise action. The Solar ignores the penalty for disguising herself as a specific person. In addition, the disguise may mimic the Dim level of any exalt's anima as appropriate for the role adopted, or similar minor magical effects. Any character who attempts to pierce the disguise and fails suffers a -2 penalty on subsequent attempts.
+  {Larceny 2}
+  This charm supplements an attempt to pick a lock. If the lock is mundane, it opens at her touch without need for tools or a roll. Against a magical lock, she may attempt to pick it one interval faster (usually in seconds rather than minutes).
 
   \charm{Door-Evading Technique}
   {10m, 1wp}
@@ -1138,31 +1116,51 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   {Larceny 4, Essence 3, Lock-Opening Touch}
   The Solar passes through a door, window, grate or other portal without opening it.
 
-  \charm{Flashing Ruse Prana}
-  {10m}
+  \charm{Stealing From Plain Sight Spirit}
+  {6m}
   {Supplemental}{Instant}{Mute}
-  {Larceny 5, Essence 3, Flawlessly Impenetrable Disguise}
-  This charm supplements a Disguise action. It takes only a single action, rather than the usual 5 minutes.
+  {Larceny 4, Essence 2}
+  This charm supplements a pickpocketing attempt, allowing it to be used on normally invalid targets that the Solar could move without a feat of strength. The attempt takes a penalty ranging from -1 (mildly improbably - a table in the middle of the room) to -5 (blatantly unfeasible - the chair someone is sitting in, worn pants). Anyone who fails their Awareness roll to notice the theft cannot notice the absence for (Solar's Essence) minutes or until circumstances call attention to the theft.
+
+  \charm{Magpie's Invisible Talon}
+  {1wp}
+  {Supplemental}{Instant}{-}
+  {Larceny 5, Essence 3, Stealing From Plain Sight}
+  This charm supplements a pickpocket attempt, allowing the Solar to steal small items from up to (Essence) yards away, even if a solid barrier blocks her reach.
+
+  \charm{Flawlessly Impenetrable Disguise}
+  {5m}
+  {Supplemental}{Until the Exalt sleeps}{-}
+  {Larceny 4}
+  This charm supplements a Disguise action. The Solar ignores penalties for disguising herself as a different sex, race or body type. If someone sees through the disguise, instead of getting a sense of what she really looks like he merely learns that she is not what she appears to be.
+
+  \charm{Perfect Mirror}
+  {5m, 1wp}
+  {Supplemental}{Until the Exalt sleeps}{Mute}
+  {Larceny 5, Essence 2, Flawlessly Impenetrable Disguise}
+  This charm supplements a Disguise action. The Solar ignores the penalty for disguising herself as a specific person. In addition, the disguise may mimic the Dim level of any exalt's anima as appropriate for the role adopted, or similar minor magical effects. Any character who attempts to pierce the disguise and fails suffers a -2 penalty on subsequent attempts.
 
   \charm{Split Deception Method}
   {5m}
   {Reflexive}{Indefinite}{Stackable}
   {Larceny 5, Essence 3, Perfect Mirror}
   The Solar may activate this charm when she finishes a Disguise action. She immediately makes another Disguise action. When later seen by other characters, the Solar chooses which disguise each witness or group of witnesses sees. If she's unaware of them, they see the final one donned. She may have this charm active no more than (Essence) times at once.
+
 \end{Ability}
 
 \begin{Ability}{Linguistics}
+
   \charm{Whirling Brush Method}
   {3m}
   {Supplemental}{Instant}{Mute}
   {Linguistics 1}
   This charm supplements a Linguistics action to copy an existing document (or a short portion of one) or to create a written work requiring little creativity or careful consideration. This action takes two intervals less time. It may also be used to transcribe a spoken conversation - the Solar can keep up with a rapid conversation involving multiple parties.
 
-  \charm{Letter-Within-A-Letter Technique}
-  {4m}
-  {Supplemental}{Instant}{Mute}
-  {Linguistics 3}
-  This charm supplements writing a document. The Solar infuses it with meaning for a specific recipient, who automatically notices and understands. She rolls (Manipulation + Linguistics) to set the difficulty others must meet to notice anything amiss with the document (usually Perception + Linguistics), and only with 3 threshold successes can they understand the hidden message.
+  \charm{Flashing Quill Atemi}
+  {1m}
+  {Simple}{One minute}{-}
+  {Linguistics 5, Essence 3, Whirling Brush Method}
+  The Solar edits an existing document - changing words on the page, adding or removing text, adjusting tone. This destroys any existing social influence or magic encoded in the text, though she may add her own as though she were writing the document herself. She rolls (Manipulation + Linguistics) - any reader must meet that difficulty with a (Perception + Linguistics) roll to notice the document has been altered.
 
   \charm{Subtle Speech Method}
   {3m}
@@ -1170,16 +1168,10 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   {Linguistics 3}
   This charm supplements an attempt to convey information covertly during another conversation. Only the intended targets hear the subtext (which may be completely unrelated to what the conversation seemed to be about). Attempts by other listeners to notice any covert meaning automatically fail.
 
-  \charm{Mingled Tongue Technique}
-  {4m, 1wp + 3m per extra language}
-  {Supplemental}{One scene}{-}
-  {Linguistics 5, Strange Tongue Understanding}
-  This charm supplements an attempt to speak to a group. The Solar chooses two languages she knows - for the rest of the scene she may speak in a way comprehensible to speakers of either. She may add any number of additional languages to the mix, paying an additional 3m for each.
-
   \charm{Moving the Unseen Hand}
   {4m}
   {Supplemental}{Instant}{Mute}
-  {Linguistics 5, Essence 2, Flawless Brush Discipline x2}
+  {Linguistics 5, Essence 2, Subtle Speech Method}
   This charm supplements writing an unsigned message. The Exalt rolls (Manipulation + Linguistics), and chooses an effect:
 
   \begin{itemize}
@@ -1190,17 +1182,11 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
 
   Whenever anyone reads the document, compare this roll against their Resolve. If successful, they are taken in.
 
-  \charm{Voice-Caging Calligraphy}
-  {2m, 1wp}
-  {Supplemental}{Instant}{Mute, Psyche}
-  {Linguistics 5, Essence 2, Letter-Within-A-Letter Technique}
-  This charm supplements writing a letter or other brief work. The reader may not share the contents of the letter with anyone else - he forgets what he was going to say, writes nothing, or otherwise fails to act upon his intention to do so unless he spends 5wp to end the effect. If one of his Defining intimacies is threatened, the cost drops to to 2wp.
-
-  \charm{Discerning Savant's Eye}
-  {1m, 1wp}
+  \charm{Mingled Tongue Technique}
+  {4m, 1wp + 3m per extra language}
   {Supplemental}{One scene}{-}
-  {Linguistics 5, Essence 2, Sagacious Reading of Intent}
-  This charm supplements an attempt to read or copy a damaged text, allowing the Exalt to ignore the damage as long as some fragment remains.
+  {Linguistics 5, Strange Tongue Understanding}
+  This charm supplements an attempt to speak to a group. The Solar chooses two languages she knows - for the rest of the scene she may speak in a way comprehensible to speakers of either. She may add any number of additional languages to the mix, paying an additional 3m for each.
 
   \charm{Excellent Emissary's Tongue}
   {6m}
@@ -1208,19 +1194,11 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   {Linguistics 5, Essence 2, Mingled Tongue Technique}
   The Solar may use this charm when she hears an unfamiliar language being spoken. She learns the language, both written and spoken, though she retains a -3 penalty to social influence in the new language until the charm has been active for a week. If she uses the language (and the charm remains active) for more than a season, she learns the language naturally, and the knowledge does not fade with the end of the charm.
 
-  \charm{Flashing Quill Atemi}
-  {1m}
-  {Simple}{One minute}{-}
-  {Linguistics 5, Essence 3, Power-Snaring Image}
-  The Solar edits an existing document - changing words on the page, adding or removing text, adjusting tone. This destroys any existing social influence or magic encoded in the text, though she may add her own as though she were writing the document herself. She rolls (Manipulation + Linguistics) - any reader must meet that difficulty with a (Perception + Linguistics) roll to notice the document has been altered.
-
-  \charm{Twisted Words Technique}
+  \charm{Discerning Savant's Eye}
   {1m, 1wp}
-  {Supplemental}{Instant}{Psyche}
-  {Linguistics 5, Essence 3, Flowing Elegant Hand, Letter Within-A-Letter Technique, Subtle Speech Method}
-  This charm supplements social influence of any ability. Though the target applies Intimacies as normal for the apparent effect, the influence has an actual effect opposite of that - if it seems like it should strengthen an intimacy, it weakens it instead. For example, the Solar might make a passionate speech on the evils of harlotry which forms an Intimacy of support in her listeners.
-
-  This influence can always be resisted by spending 1wp, regardless of intimacies.
+  {Supplemental}{One scene}{-}
+  {Linguistics 5, Essence 2, Whirling Brush Method}
+  This charm supplements an attempt to read or copy a damaged text, allowing the Exalt to ignore the damage as long as some fragment remains.
 
   \charm{Perfect Recollection Discipline}
   {1m}
@@ -1230,6 +1208,26 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
 
   With a repurchase, she can read the material to be memorized as quickly as she can unroll a scroll or turn pages (approximately two per second) with full comprehension.
 
+  \charm{Letter-Within-A-Letter Technique}
+  {4m}
+  {Supplemental}{Instant}{Mute}
+  {Linguistics 3}
+  This charm supplements writing a document. The Solar infuses it with meaning for a specific recipient, who automatically notices and understands. She rolls (Manipulation + Linguistics) to set the difficulty others must meet to notice anything amiss with the document (usually Perception + Linguistics), and only with 3 threshold successes can they understand the hidden message.
+
+  \charm{Voice-Caging Calligraphy}
+  {2m, 1wp}
+  {Supplemental}{Instant}{Mute, Psyche}
+  {Linguistics 5, Essence 2, Letter-Within-A-Letter Technique}
+  This charm supplements writing a letter or other brief work. The reader may not share the contents of the letter with anyone else - he forgets what he was going to say, writes nothing, or otherwise fails to act upon his intention to do so unless he spends 5wp to end the effect. If one of his Defining intimacies is threatened, the cost drops to to 2wp.
+
+  \charm{Twisted Words Technique}
+  {1m, 1wp}
+  {Supplemental}{Instant}{Psyche}
+  {Linguistics 5, Essence 3, Flowing Elegant Hand, Letter Within-A-Letter Technique, Subtle Speech Method}
+  This charm supplements social influence of any ability. Though the target applies Intimacies as normal for the apparent effect, the influence has an actual effect opposite of that - if it seems like it should strengthen an intimacy, it weakens it instead. For example, the Solar might make a passionate speech on the evils of harlotry which forms an Intimacy of support in her listeners.
+
+  This influence can always be resisted by spending 1wp, regardless of intimacies.
+
   \charm{Unbreakable Fascination Method}
   {6m, 1wp}
   {Simple}{Indefinite}{Psyche}
@@ -1237,39 +1235,15 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   The Solar speaks, and rolls (Manipulation + Linguistics) with (Essence) automatic successes, applying it against the Resolve of everyone listening. Anyone who's Resolve is met is held enraptured until she ceases speaking, even those who do not understand her language. The charm ends if the listeners come under direct physical danger.
 
   This charm may instead be used to supplement a written work - if it is, as long as the Solar leaves the motes committed, anyone who reads even a single line is required to spend at least (Solar's Essence) minutes reading more of the text.
+
 \end{Ability}
 
 \begin{Ability}{Lore}
-  \charm{Wyld-Dispelling Prana}
-  {5m, 1wp}
-  {Supplemental}{Varies}{-}
-  {Lore 2}
-  This charm supplements a defense against the soul or body twisting power of the wyld, either on the Solar or on an object, structure or character within Short range. The target ignores the effect, and the Lawgiver rolls ([Wits, Perception or Intelligence] + Lore), with (Essence) automatic successes against a difficulty of 1 for the bordermarches, 5 for the middlemarches or 7 for the deep wyld. The charm lasts (threshold successes) minutes out of combat or that many rounds in-combat. Ignore the wp cost on subsequent activations during the same scene.
-
-  \charm{Chaos-Repelling Pattern}
-  {10m, 1wp}
-  {Simple}{One hour}{-}
-  {Lore 3, Wyld-Dispelling Prana}
-  The area around the Solar out to short range behaves according to the laws of Creation - it will not twist character's souls as the wyld, nor will the ground transform beneath her feet. This does nothing to protect against direct attacks or prevent the environment from being harmful. If she chooses to reactivate the charm at the end of the hour, ignore the willpower cost.
-
-  \charm{Flowing Mind Prana}
-  {4m, 1wp}
-  {Simple}{Varies}{-}
-  {Lore 4, Harmonious Academic Methodology}
-  The Lawgiver spends time teaching or training up to (Essence * 5) willing pupils. They gain one dot of an attribute or ability of the Solar's choice, up to a maximum of what she herself possesses. This takes one increment less than the normal training time. If any of them track experience points (other PCs, for example), they must pay for the new dot as normal. In addition, she may teach her pupils any intimacy she possesses, creating it at Minor or strengthening it - they may not resist this, having already agreed to become her student.
-
-  As Essence 3+ repurchase allows her to teach a single Charm or Spell that her pupils otherwise meet the prerequisites for instead of the normal dot, and she may give pupils intimacies she does not possess.
-
-  \charm{Hidden Wisdom Bestowal}
-  {10m, 1wp}
-  {Supplemental}{One scene}{Mute}
-  {Lore 5, Essence 2, Flowing Mind Prana}
-  This charm supplements any action to teach someone, disguising the Solar's lessons as harmless regardless of their true content. Only the target understands the true meaning of her lessons. She might teach demonolgy while discussing the Immaculate texts during a casual stroll, or teach brawling during a dance lesson.
 
   \charm{Essence-Draining Touch}
   {1wp}
   {Simple}{Instant}{-}
-  {Lore 5, Essence 3, Essence Font Technique}
+  {Lore 2, Essence 1}
   This Solar touches a target with a mote pool, and rolls (Wits + Lore) against his Resolve. She steals up to (threshold successes) of his motes, starting with peripheral and moving on to personal if he runs out. If used on an unwilling target in combat, this requires a difficulty 2 gambit with Brawl, Martial Arts or Melee.
 
   \charm{Force-Draining Whisper}
@@ -1282,13 +1256,57 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
 
   At Essence 4+, she may also use this charm to supplement the defense of an ally at up to Long range.
 
+  \charm{Will-Shattering Illusion}
+  {10m}
+  {Simple}{Instant}{Mute, Once/Scene}
+  {Lore 5, Essence 4, Force Draining Whisper}
+  The Solar rolls (Wits + Lore) with (Essence) bonus dice against a target within Long range, and he contests with ([Intelligence or Wits] + Lore). If she's successful, he loses 2wp, and (if in combat) she steals 4i. If he has equal or greater Essence, she also gains 1wp.
+
   \charm{Power-Restoring Invocation}
   {2i}
   {Simple}{Instant}{Once/Scene}
-  {Lore 5, Essence 3, Essence Lending Method}
+  {Lore 5, Essence 3, Essence-Draining Touch}
   The Solar rolls (Perception + Lore), granting that many motes of essence divided as she chooses among herself and any allies within Extreme range.
 
   At Essence 5, she may use this charm even in crash, spending herself into negative initiative.
+
+  \charm{Flowing Mind Prana}
+  {4m, 1wp}
+  {Simple}{Varies}{-}
+  {Lore 4}
+  The Lawgiver spends time teaching or training up to (Essence * 5) willing pupils. They gain one dot of an attribute or ability of the Solar's choice, up to a maximum of what she herself possesses. This takes one increment less than the normal training time. If any of them track experience points (other PCs, for example), they must pay for the new dot as normal. In addition, she may teach her pupils any intimacy she possesses, creating it at Minor or strengthening it - they may not resist this, having already agreed to become her student.
+
+  An Essence 3+ repurchase allows her to teach a single Charm or Spell that her pupils otherwise meet the prerequisites for instead of the normal dot, and she may give pupils intimacies she does not possess.
+
+  \charm{Hidden Wisdom Bestowal}
+  {10m, 1wp}
+  {Supplemental}{One scene}{Mute}
+  {Lore 5, Essence 2, Flowing Mind Prana}
+  This charm supplements any action to teach someone, disguising the Solar's lessons as harmless regardless of their true content. Only the target understands the true meaning of her lessons. She might teach demonolgy while discussing the Immaculate texts during a casual stroll, or teach brawling during a dance lesson.
+
+  \charm{Power-Awarding Prana}
+  {10m}
+  {Simple}{Indefinite}{Mute, Stackable}
+  {Lore 5, Essence 3, Flowing Mind Prana}
+  The Solar touches another Lawgiver, and grants him knowledge of one of her charms he meets the minimums and prerequisites for. As long as she maintains this charm, he may use it as though he had learned it himself.
+
+  \charm{Power-Awarding Prana}
+  {10m}
+  {Simple}{Indefinite}{Mute, Stackable}
+  {Lore 5, Essence 3, Essence Font Technique, Flowing Mind Prana x 3}
+  The Solar touches another Lawgiver, and grants him knowledge of one of her charms he meets the minimums and prerequisites for. As long as she maintains this charm, he may use it as though he had learned it himself.
+
+  \charm{Wyld-Dispelling Prana}
+  {5m, 1wp}
+  {Supplemental}{Varies}{-}
+  {Lore 2}
+  This charm supplements a defense against the soul or body twisting power of the wyld, either on the Solar or on an object, structure or character within Short range. The target ignores the effect, and the Lawgiver rolls ([Wits, Perception or Intelligence] + Lore), with (Essence) automatic successes against a difficulty of 1 for the bordermarches, 5 for the middlemarches or 7 for the deep wyld. The charm lasts (threshold successes) minutes out of combat or that many rounds in-combat. Ignore the wp cost on subsequent activations during the same scene.
+
+  \charm{Chaos-Repelling Pattern}
+  {10m, 1wp}
+  {Simple}{One hour}{-}
+  {Lore 3, Wyld-Dispelling Prana}
+  The area around the Solar out to short range behaves according to the laws of Creation - it will not twist character's souls as the wyld, nor will the ground transform beneath her feet. This does nothing to protect against direct attacks or prevent the environment from being harmful. If she chooses to reactivate the charm at the end of the hour, ignore the willpower cost.
 
   \charm{Order-Affirming Blow}
   {15m, 1wp}
@@ -1338,17 +1356,6 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
 
   An Essence 5 repurchase reduces the cost of Wyld-Shaping Technique by 5m, and reduces the difficulty by a further 1.
 
-  \charm{Power-Awarding Prana}
-  {10m}
-  {Simple}{Indefinite}{Mute, Stackable}
-  {Lore 5, Essence 4, Essence Font Technique, Flowing Mind Prana x 3}
-  The Solar touches another Lawgiver, and grants him knowledge of one of her charms he meets the minimums and prerequisites for. As long as she maintains this charm, he may use it as though he had learned it himself.
-
-  \charm{Will-Shattering Illusion}
-  {10m}
-  {Simple}{Instant}{Mute, Once/Scene}
-  {Lore 5, Essence 4, Force Draining Whisper}
-  The Solar rolls (Wits + Lore) with (Essence) bonus dice against a target within Long range, and he contests with ([Intelligence or Wits] + Lore). If she's successful, he loses 2wp, and (if in combat) she steals 4i. If he has equal or greater Essence, she also gains 1wp.
 \end{Ability}
 
 \begin{Ability}{Medicine}
@@ -2425,7 +2432,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   {10m, 1wp}
   {Reflexive}{Instant}{Once/Scene}
   {War 5, Essence 3, Magnanimity of the Unstoppable Icon}
-  This charm may be activated at any time. The Solar makes an immediate Rally for Numbers action with (Essence) automatic successes. If her rolled successes would restore more points of magnitude than the battle group has, it gains that many additional temporary magnitude points, as animals, local spirits, or even the trees themselves answer her call. These extra points of magnitude - and extra troops - fade away at the end of the scene.
+  This charm may be activated at any time. The Solar makes an immediate Rally for Numbers action with (Essence) automatic successes. If her rolled successes would restore more points of magnitude than the battle group has, it gains that many additional temporary magnitude points, as animals, local spirits, or even the trees themselves answer her call. These extra points of magnitude (and extra troops) fade away at the end of the scene.
 
   \charm{God-General's Command}
   {5m, 1wp}
