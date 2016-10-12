@@ -1358,6 +1358,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
 \end{Ability}
 
 \begin{Ability}{Medicine}
+
   \charm{Ailment-Rectifying Method}
   {3m}
   {Simple}{Instant}{-}
@@ -1365,6 +1366,30 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   The Solar spends an hour treating a patient with herbs or other remedies appropriate to his disease, and rolls (Intelligence + Medicine) against the disease's Morbidity. As long as he spends his time resting and cared for, her patient receives half of her threshold successes on his next resistance roll.
 
   With a repurchase at Medicine 3+, if she rolls twice the disease's Morbidity, she may spend an additional 3m to end it immediately - her patient recovers from the disease over the course of a day.
+
+  \charm{Contagion-Curing Touch}
+  {1m}
+  {Supplemental}{Instant}{-}
+  {Medicine 4, Essence 2, Ailment-Rectifying Method}
+  This charm supplements any Medicine roll to treat disease, allowing her to do so even if lacking the proper medicines or herbs. In addition, if the patient recovers, he gains (Solar's Essence) automatic successes on all rolls to resist disease for a season.
+
+  \charm{Body-Purifying Admonitions}
+  {4m, 1wp}
+  {Reflexive}{Instant}{-}
+  {Medicine 5, Essence 2, Ailment Rectifying Method}
+  This charm may be activated at any time. The Solar touches a target suffering from poison. She rolls (Wits + Medicine), removing successes from the poison's remaining duration as it boils out from its point of entry.
+
+  \charm{Living Lands Approach}
+  {15m}
+  {Simple}{Instant}{-}
+  {Medicine 5, Essence 4, Body Purifying Admonitions, Contagion-Curing Touch}
+  The Lawgiver spends a day leading a group in planting, clearing, weeding and generally treating an area of Shadowland no larger than (Essence * 10) acres. If living humans frequent it and attend to the land's needs over the course of the next month, it gradually returns to being a normal part of Creation.
+
+  \charm{Wound-Cleansing Meditation}
+  {10m}
+  {Simple}{Instant}{-}
+  {Medicine 3}
+  The Solar spends an hour cleaning and wrapping her patient's wounds, after which he converts all Aggravated damage he's suffered to Lethal. She may also reattach any severed limbs or digits, as long as they're still fresh.
 
   \charm{Wound-Mending Care Technique}
   {5m}
@@ -1374,46 +1399,16 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
 
   With a repurchase at Essence 3+, Once/Day she may have him instead heal by the time the treatment is complete, with no need for bed rest.
 
-  \charm{Wound-Cleansing Meditation}
-  {10m}
-  {Simple}{Instant}{-}
-  {Medicine 3, Wound-Mending Care Technique}
-  The Solar spends an hour cleaning and wrapping her patient's wounds, after which he converts all Aggravated damage he's suffered to Lethal. She may also reattach any severed limbs or digits, as long as they're still fresh.
-
-  \charm{Contagion-Curing Touch}
-  {1m}
-  {Supplemental}{Instant}{-}
-  {Medicine 4, Essence 2, Ailment-Rectifying Method x 2}
-  This charm supplements any Medicine roll to treat disease, allowing her to do so even if lacking the proper medicines or herbs. In addition, if the patient recovers, he gains (Solar's Essence) automatic successes on all rolls to resist disease for a season.
-
   \charm{Instant Treatment Methodology}
   {5m, 1wp or 5i, 1wp}
   {Supplemental}{Instant}{-}
-  {Medicine 4, Essence 2, Wound-Cleansing Meditation}
+  {Medicine 4, Essence 2, Wound-Mending Care Technique}
   This charm supplements any Medicine charm that requires an hour of treatment, reducing it to seconds (a single combat action). An appropriate stunt may remove the need for tools as well.
-
-  \charm{Touch of Blissful Release}
-  {5m}
-  {Simple}{One Scene}{-}
-  {Medicine 3, Essence 2, Flawless Diagnosis Technique}
-  The Solar touches a target (herself or another), and rolls (Intelligence + Medicine). He ignores up to (Successes) wound or other crippling penalties, down to a minimum of -1 penalty.
-
-  \charm{Wound-Accepting Technique}
-  {3m per health level, 1wp}
-  {Simple}{Instant}{Once/Scene per Patient}
-  {Medicine 4, Essence 2, Touch of Blissful Release}
-  The Lawgiver touches another, and heals him up to (Essence) Bashing or Lethal levels of damage. She takes a like amount of damage of the same type.
-
-  \charm{Body-Purifying Admonitions}
-  {4m, 1wp}
-  {Reflexive}{Instant}{-}
-  {Medicine 5, Essence 2, Touch of Blissful Release}
-  This charm may be activated at any time. The Solar touches a target suffering from poison. She rolls (Wits + Medicine), removing successes from the poison's remaining duration as it boils out from its point of entry.
 
   \charm{Wholeness-Restoring Meditation}
   {7m, 1wp}
   {Simple}{Until treatment ends}{-}
-  {Medicine 5, Essence 3, Instant Treatment Methedology}
+  {Medicine 5, Essence 3, Wound Mending Care Technique}
   This Lawgiver begins treating a patient with some sort of permanent debilitation. The Storyteller should decide if this is Minor, Major or Defining. She begins an extended (Intelligence + Medicine) roll, difficulty 5 and terminus 5. The interval and goal depends on the severity.
 
   \begin{itemize}
@@ -1424,41 +1419,55 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
 
   If she succeeds in the extended roll, her patient is cured of the issue at hand. If she botches a roll or fails to reach the goal inside the Terminus, the Solar may not try again until she learns a new Medicine charm.
 
+  \charm{Science of Mutation}
+  {8m, 1wp}
+  {Simple}{Until treatment ends}{-}
+  {Medicine 5, Essence 5, Wholeness-Restoring Meditation, Instant Treatment Methodology}
+  The Solar takes her patient to the wyld, and spends at least a day applying powerful herbs, operating, or otherwise working on her patient as appropriate to her methods. She selects an Innate merit, and begins an extended (Perception or Intelligence + Medicine) roll, interval one day in the bordermarches or one one hour on the middlemarches. The difficulty is equal to (sum of the dots of all his existing innate merits). The Storyteller should estimate the dots of innate merits possessed by an NPC without a full character sheet. The goal is 5 * dots of new merit, and there is no terminus.
+
+  If she succeeds, her patient gains the mutation. If he tracks experience, he must pay for it as though it were a purchased Merit. If she botches or abandons the project before completion (or her patient escapes), he instead gains one or more mutations of the Storyteller's choice (often starting with Hideous) related to the attempted change.
+
+  She may substitute a sufficiently advanced and well supplied laboratory for the wyld energy of the bordermarches by committing an additional 5m.
+
+  \charm{Touch of Blissful Release}
+  {5m}
+  {Simple}{One Scene}{-}
+  {Medicine 3, Essence 2}
+  The Solar touches a target (herself or another), and rolls (Intelligence + Medicine). He ignores up to (Successes) wound or other crippling penalties, down to a minimum of -1 penalty.
+
+  \charm{Wound-Accepting Technique}
+  {3m per health level, 1wp}
+  {Simple}{Instant}{Once/Scene per Patient}
+  {Medicine 4, Essence 2, Touch of Blissful Release}
+  The Lawgiver touches another, and heals him up to (Essence) Bashing or Lethal levels of damage. She takes a like amount of damage of the same type.
+
   \charm{Life-Exchanging Prana}
   {1lhl per 3m, 1wp}
   {Reflexive}{One Round}{-}
   {Medicine 5, Essence 3, Wound-Accepting Technique}
   This charm may be activated at any time. The Solar gains 3m for every 1lhl she pays, trading her vital energies for Essence. Until her next turn, she ignores all wound and fatigue penalties. She may not reduce herself below Incapacitated with this charm, and doesn't fall unconscious until her next turn if she goes that far.
 
-  \charm{Living Lands Approach}
-  {15m}
-  {Simple}{Instant}{-}
-  {Medicine 5, Essence 4, Body Purifying Admonitions, Contagion-Curing Touch}
-  The Lawgiver spends a day leading a group in planting, clearing, weeding and generally treating an area of Shadowland no larger than (Essence * 10) acres. If living humans frequent it and attend to the land's needs over the course of the next month, it gradually returns to being a normal part of Creation.
-
-  \charm{Science of Mutation}
-  {8m, 1wp}
-  {Simple}{Until treatment ends}{-}
-  {Medicine 5, Essence 5, Wholeness-Restoring Meditation}
-  The Solar takes her patient to the wyld, and spends at least a day applying powerful herbs, operating, or otherwise working on her patient as appropriate to her methods. She selects an Innate merit, and begins an extended (Perception or Intelligence + Medicine) roll, interval one day in the bordermarches or one one hour on the middlemarches. The difficulty is equal to (sum of the dots of all his existing innate merits). The Storyteller should estimate the dots of innate merits possessed by an NPC without a full character sheet. The goal is 5 * dots of new merit, and there is no terminus.
-
-  If she succeeds, her patient gains the mutation. If he tracks experience, he must pay for it as though it were a purchased Merit. If she botches or abandons the project before completion (or her patient escapes), he instead gains one or more mutations of the Storyteller's choice (often starting with Hideous) related to the attempted change.
-
-  She may substitute a sufficiently advanced and well supplied laboratory for the wyld energy of the bordermarches by committing an additional 5m.
 \end{Ability}
 
 \begin{Ability}{Melee}
+
   \charm{Fire and Stones Strike}
   {1m per die or success}
   {Supplemental}{Instant}{-}
   {Melee 3, Excellent Strike}
   This charm supplements a Melee attack. If it's Withering, the Solar may spend up to (Strength) motes, adding that many dice to the post-soak damage. If Decisive, she may spend up to (Essence) motes, adding up to that many threshold successes from the attack roll to the raw damage.
 
-  \charm{One Weapon, Two Blows}
-  {3m}
-  {Reflexive}{Instant}{Advantage}
-  {Melee 2, Excellent Strike}
-  This charm may be activated immediately after one of the Solar's Melee Withering attacks reduces her opponent from higher initiative than her to lower. She makes another Melee attack against that same opponent.
+  \charm{Call the Blade}
+  {1m}
+  {Reflexive}{Instant}{-}
+  {Melee 1}
+  This charm may be activated at any time. The Solar summons a weapon she owns within Short range into her hand. If the path is obstructed (doors, chains, or similar obstacles block it from reaching her), she rolls (Wits + Melee), difficulty 4. On a success, she summons it anyway - it might break a weak barrier, or simply teleport into her hand. If she fails, she can't use this charm again until her next turn.
+
+  \charm{Sandstorm-Wind Attack}
+  {5m, 2i}
+  {Supplemental}{Instant}{-}
+  {Melee 4, Essence 2, Call the Blade}
+  This charm supplements a Decisive Melee attack, allowing the Solar to target opponents at up to Short range, or medium range if she spends an additional 3m. She ignores hardness, and her target cannot benefit from cover. Flimsy cover may be destroyed at the Storyteller's discretion.
 
   \charm{Dipping Swallow Defense}
   {2m}
@@ -1468,6 +1477,26 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
 
   At Essence 2+ she may spend an additional 3m when activating this charm to parry unblockable attacks.
 
+  \charm{Solar Counterattack}
+  {3m}
+  {Reflexive}{Instant}{Counterattack}
+  {Melee 4, Dipping Swallow Defense}
+  This charm may be activated after an attack the Solar attempted to Parry. She makes a Decisive Melee attack against the foe who attacked her.
+
+  \charm{Fivefold Bulwark Stance}
+  {5m, 1wp}
+  {Simple}{One scene}{-}
+  {Melee 5, Essence 2, Dipping Swallow Defense}
+  The Solar ignores penalties to her Parry from wounds, onslaught and being grappled. Dipping Swallow Defense costs 1m less to activate.
+
+  \charm{Heavenly Guardian Defense}
+  {4m + 1i per success, or 4m, 1wp}
+  {Supplemental}{Instant}{Post-roll}
+  {Melee 5, Essence 2, Fivefold Bulward Stance}
+  This charm supplements a Parry against a Decisive attack, after damage has been rolled. Reduce the damage dealt by one level per initiative spent.
+
+  If an attack would deal uncountable reoccurring damage (such as an exploding volcano or a swirling maelstrom of adamant blades), she may instead spend 4m, 1wp to block all damage.
+
   \charm{War Lion Stance}
   {2m}
   {Reflexive}{One scene}{-}
@@ -1476,45 +1505,11 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
 
   At Essence 3+ she may also choose to spend 1wp to redirect damage to herself from her ward that doesn't come from an attack, such as an explosion or environmental effect.
 
-  \charm{Solar Counterattack}
-  {3m}
-  {Reflexive}{Instant}{Counterattack}
-  {Melee 4, Dipping Swallow Defense}
-  This charm may be activated after an attack the Solar attempted to Parry. She makes a Decisive Melee attack against the foe who attacked her.
-
-  \charm{Call the Blade}
-  {1m}
-  {Reflexive}{Instant}{-}
-  {Melee 1}
-  This charm may be activated at any time. The Solar summons a weapon she owns within Short range into her hand. If the path is obstructed (doors, chains, or similar obstacles block it from reaching her), she rolls (Wits + Melee), difficulty 4. On a success, she summons it anyway - it might break a weak barrier, or simply teleport into her hand. If she fails, she can't use this charm again until her next turn.
-
   \charm{Summoning the Loyal Steel}
   {1m}
   {Simple}{Indefinite}{Stackable}
-  {Melee 3, Call the Blade}
+  {Melee 3}
   The Solar banishes a weapon she's holding Elsewhere. It reappears in her hand when the charm ends.
-
-  \charm{Iron Whirlwind Attack}
-  {5m, 1wp}
-  {Simple}{Instant}{-}
-  {Melee 5, Essence 2, Peony Blossom Technique}
-  The Solar makes up to (lowest of Strength, Dexterity or Stamina) Decisive Melee attacks, dividing her initiative evenly among them, spread among one or more targets as she chooses. Any non-excellency supplemental charms applied to the first attack are applied to all later ones at no additional cost.
-
-  With an Essence 3+ repurchase, she may instead make up to (highest of Strength, Dexterity or Stamina attacks), and adds 1 to the raw damage of each, and may move one range band in order to make each attack.
-
-  \charm{Fivefold Bulwark Stance}
-  {5m, 1wp}
-  {Simple}{One scene}{-}
-  {Melee 5, Essence 2, Bulwark Stance}
-  The Solar ignores penalties to her Parry from wounds, onslaught and being grappled. Dipping Swallow Defense costs 1m less to activate.
-
-  \charm{Heavenly Guardian Defense}
-  {4m + 1i per success, or 4m, 1wp}
-  {Supplemental}{Instant}{Post-roll}
-  {Melee 5, Essence 2, Bulwark Stance}
-  This charm supplements a Parry against a Decisive attack, after damage has been rolled. Reduce the damage dealt by one level per initiative spent.
-
-  If an attack would deal uncountable reoccurring damage (such as an exploding volcano or a swirling maelstrom of adamant blades), she may instead spend 4m, 1wp to block all damage.
 
   \charm{Glorious Solar Saber}
   {5m, 1wp}
@@ -1524,16 +1519,22 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
 
   She may supplement any attack using this weapon by spending 1m, 1wp. If she does, the blade glows with heat and at the automatically destroys any mortal weapon used to parry it or that it clashes (after the attack is resolved). This effect can also be used to carve her blade through up to two feet of rock or metal for a stunt.
 
-  \charm{Sandstorm-Wind Attack}
-  {5m, 2i}
-  {Supplemental}{Instant}{-}
-  {Melee 4, Essence 2, Iron Raptor Technique}
-  This charm supplements a Decisive Melee attack, allowing the Solar to target opponents at up to Short range, or medium range if she spends an additional 3m. She ignores hardness, and her target cannot benefit from cover. Flimsy cover may be destroyed at the Storyteller's discretion.
+  \charm{One Weapon, Two Blows}
+  {3m}
+  {Reflexive}{Instant}{Advantage}
+  {Melee 2}
+  This charm may be activated immediately after one of the Solar's Melee Withering attacks reduces her opponent from higher initiative than her to lower. She makes another Melee attack against that same opponent.
+
+  \charm{Iron Whirlwind Attack}
+  {5m, 1wp}
+  {Simple}{Instant}{-}
+  {Melee 5, Essence 2, One Weapon, Two Blows}
+  The Solar makes up to (lowest of Strength, Dexterity or Stamina) Decisive Melee attacks, dividing her initiative evenly among them, spread among one or more targets as she chooses. Any non-excellency supplemental charms applied to the first attack are applied to all later ones at no additional cost.
 
   \charm{Heaven Sword Flash}
   {6m, 1wp}
   {Simple}{Instant}{Perilous}
-  {Melee 5, Essence 4, Iron Whirlwind Attack x2}
+  {Melee 5, Essence 4, Iron Whirlwind Attack}
   The Solar rolls a single Decisive Melee attack with raw damage of half her current initiative, and applies it against all opponents within close range. Against battle groups, she uses her full initiative value for damage. If she only hits battle groups, her initiative does not reset.
 \end{Ability}
 
