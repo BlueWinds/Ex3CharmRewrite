@@ -15,13 +15,23 @@ With this rewrite I hope to:
 
 Feedback is welcome. This is, however, an opinionated rewrite - I will not spend much time arguing over my opinions about what is Solar and what I want from the charms chapter.
 
+## Full book or house rules?
+This project can be compiled in two ways: as a standalone housrule supplement, or as a complete sourcebook.
+
+As a standalone supplement - which is the version included here as Charms.pdf - the PDF contains references to Ex3 page numbers for several house rule alterations, and then a full rewrite of the charms chapter. Sorry for the strange PDF bookmarks, I had trouble getting it to conditionally include bookmarks at compilation time.
+
+As a complete sourcebook, it is a complete rulebook, which can be handed to players who have never played Exalted before, or used as a table-top reference. Since this version copies hundreds of pages from the Ex3 corebook, it is not distributed in this repository - you'll have to compile it yourself.
+
 ## Compiling
 You can probably make this work on any operating system using broadly similar steps. On linux:
 
-1. Install latex + xeletex. On a debian-based linux: `$ sudo apt-get install texlive-latex-extra texlive-xeletex`
+1. Install latex + xeletex + pdftk. On a debian-based linux: `$ sudo apt-get install texlive-latex-extra texlive-xeletex pdftk`
 2. Install the fonts under resources/ on your system.
+3. OPTIONAL: If you want a "full book", run `pdftk /path/to/Ex3Final.pdf burst output snippets/%03d.pdf`. This will fill the snippets directory with 687 one-page pdfs.
 3. The charmTrees/*.pdf files can be rebuilt using Inkscape or another svg editing program. Open the corresponding .svg file and export it as a pdf of the same name. Don't rasterize anything.
-4. Building Charms.pdf is simple: `$ xelatex -halt-on-error Charms.tex`
+4. Building Charms.pdf is simple: `xelatex -halt-on-error Charms.tex`
+
+5. OPTIONAL: If you're editing things a lot, it may be helpful to have the pdf automatically recompile. `while inotifywait -e attrib Charms.tex; do xelatex -halt-on-error Charms.tex; done` This may not work for people using systems other than mine, so no promises.
 
 ## Credits
 

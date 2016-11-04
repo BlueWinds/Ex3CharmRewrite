@@ -35,32 +35,6 @@
          d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
          transform="matrix(-1.1,0,0,-1.1,-1.1,0)" />
     </marker>
-    <linearGradient
-       id="linearGradient6620-42-1">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-7" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-5" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-1">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-85" />
-      <stop
-         id="stop6594-9-84"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-0"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
     <marker
        inkscape:stockid="Arrow2Lend"
        orient="auto"
@@ -256,32 +230,6 @@
          stdDeviation="3.5443038"
          id="feGaussianBlur5400-1-4-5-9-4-1-53" />
     </filter>
-    <linearGradient
-       id="linearGradient6620-42-75-1">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-49-7" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-3-7" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-93-9">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-92-9" />
-      <stop
-         id="stop6594-9-5-2"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-05-6"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
     <filter
        inkscape:collect="always"
        id="filter6568-2-89-09"
@@ -463,121 +411,6 @@
          stdDeviation="3.5443038"
          id="feGaussianBlur5400-1-4-5-9-4-1-7" />
     </filter>
-    <linearGradient
-       id="linearGradient6620-42-75-68">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-49-3" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-3-2" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-93-6">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-92-94" />
-      <stop
-         id="stop6594-9-5-3"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-05-0"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6620-42-75-2">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-49-34" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-3-28" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-93-15">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-92-54" />
-      <stop
-         id="stop6594-9-5-99"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-05-22"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-3-53-4">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-6-83-5" />
-      <stop
-         id="stop6594-9-3-12-87"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-8-80-84"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6620-42-75-78">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-49-13" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-3-9" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6620-42-4-30-48">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-2-31-270" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-2-12-6" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6620-42-3-08-95">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-8-84-40" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-8-36-19" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-93-92">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-92-98" />
-      <stop
-         id="stop6594-9-5-25"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-05-82"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
     <filter
        inkscape:collect="always"
        id="filter6568-2-89-71"
@@ -1100,20 +933,6 @@
          stdDeviation="3.5443038"
          id="feGaussianBlur5400-1-4-2-6-0-7-19-6-00" />
     </filter>
-    <marker
-       inkscape:stockid="Arrow2Lend"
-       orient="auto"
-       refY="0"
-       refX="0"
-       id="marker16283-97-1"
-       style="overflow:visible">
-      <path
-         inkscape:connector-curvature="0"
-         id="path16285-930-8"
-         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
-         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-         transform="matrix(-1.1,0,0,-1.1,-1.1,0)" />
-    </marker>
     <radialGradient
        inkscape:collect="always"
        xlink:href="#linearGradient6620-42-75-76"
@@ -2239,69 +2058,6 @@
          stdDeviation="3.5443038"
          id="feGaussianBlur5400-1-4-5-9-4-1-61-7" />
     </filter>
-    <linearGradient
-       id="linearGradient6620-42-75-764-2">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-49-84-9" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-3-0-7" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6620-42-4-30-9-5">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-2-31-5-2" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-2-12-70-26" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6620-42-3-08-71-4">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-8-84-2-9" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-8-36-78-4" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-93-70-5">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-92-12-9" />
-      <stop
-         id="stop6594-9-5-91-3"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-05-24-3"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-3-53-48-2">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-6-83-51-2" />
-      <stop
-         id="stop6594-9-3-12-29-4"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-8-80-78-7"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
     <filter
        inkscape:collect="always"
        id="filter6568-2-89-71-6-5"
@@ -2563,84 +2319,6 @@
          stdDeviation="3.5443038"
          id="feGaussianBlur5400-1-4-5-9-4-1-61-2-8" />
     </filter>
-    <linearGradient
-       id="linearGradient6620-42-75-912-2">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-49-9-7" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-3-41-1" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6620-42-4-30-11-2">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-2-31-07-2" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-2-12-44-4" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6620-42-3-08-28-7">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-8-84-7-8" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-8-36-73-4" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-93-65-5">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-92-4-4" />
-      <stop
-         id="stop6594-9-5-30-1"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-05-00-2"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-3-53-10-3">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-6-83-34-7" />
-      <stop
-         id="stop6594-9-3-12-0-7"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-8-80-56-0"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-9-05-04-7">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-9-9-32-7" />
-      <stop
-         id="stop6594-9-9-564-19-6"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-4-54-00-3"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
     <filter
        inkscape:collect="always"
        id="filter6568-2-89-68-6"
@@ -2940,84 +2618,6 @@
          stdDeviation="3.5443038"
          id="feGaussianBlur5400-1-4-5-9-4-1-16-8" />
     </filter>
-    <linearGradient
-       id="linearGradient6620-42-75-99-52">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-49-45-88" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-3-06-1" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6620-42-4-30-65-6">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-2-31-72-6" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-2-12-60-04" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6620-42-3-08-0-8">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-8-84-5-16" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-8-36-40-6" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-93-71-5">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-92-22-6" />
-      <stop
-         id="stop6594-9-5-8-7"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-05-4-9"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-3-53-83-52">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-6-83-25-8" />
-      <stop
-         id="stop6594-9-3-12-02-44"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-8-80-0-2"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-9-05-70-6">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-9-9-58-3" />
-      <stop
-         id="stop6594-9-9-564-13-8"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-4-54-49-5"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
     <filter
        inkscape:collect="always"
        id="filter6568-2-89-68-80"
@@ -3710,54 +3310,6 @@
          stdDeviation="3.5443038"
          id="feGaussianBlur5400-1-4-5-9-4-1-64-7" />
     </filter>
-    <linearGradient
-       id="linearGradient6620-42-75-764-5-7-5">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-49-84-0-2-8" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-3-0-5-5-0" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6620-42-4-30-9-0-4-1">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-2-31-5-5-4-1" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-2-12-70-4-7-7" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6620-42-3-08-71-9-6-7">
-      <stop
-         style="stop-color:#ffc57d;stop-opacity:1;"
-         offset="0"
-         id="stop6622-0-8-84-2-1-8-1" />
-      <stop
-         style="stop-color:#aa3600;stop-opacity:1;"
-         offset="1"
-         id="stop6624-9-8-36-78-7-5-4" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient6580-3-93-70-2-9-2">
-      <stop
-         style="stop-color:#ffe986;stop-opacity:1;"
-         offset="0"
-         id="stop6582-15-92-12-6-0-2" />
-      <stop
-         id="stop6594-9-5-91-2-8-5"
-         offset="0.82222223"
-         style="stop-color:#dbb300;stop-opacity:1;" />
-      <stop
-         id="stop6590-6-05-24-6-5-9"
-         offset="1"
-         style="stop-color:#a18400;stop-opacity:1;" />
-    </linearGradient>
     <filter
        inkscape:collect="always"
        id="filter6568-2-89-1-4-6"
@@ -3988,9 +3540,9 @@
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1920"
-     inkscape:window-height="1060"
-     inkscape:window-x="-2"
-     inkscape:window-y="-3"
+     inkscape:window-height="1051"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:snap-from-guide="true"
@@ -4006,7 +3558,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>

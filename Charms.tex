@@ -3,7 +3,7 @@
 \usepackage{multicol}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in, heightrounded, includefoot]{geometry}
 \usepackage{sectsty}
-\usepackage[bookmarks=true,bookmarksdepth=subsection]{hyperref}
+\usepackage[bookmarks=true,bookmarksdepth=section]{hyperref}
 \usepackage{graphicx}
 \usepackage{eso-pic}
 \usepackage{changepage}
@@ -14,6 +14,8 @@
 \usepackage{fontspec}
 \usepackage{xunicode}
 \usepackage{xltxtra}
+\usepackage{forloop}
+\usepackage[absolute,overlay]{textpos}
 \usepackage[space]{grffile}
 
 \title{Charms Rewrite}
@@ -21,7 +23,6 @@
 \author{BlueWinds}
 
 \strictpagecheck
-\setcounter{page}{250}
 \setcounter{chapter}{5}
 
 \newfontfamily\chapfont{Envision}
@@ -78,7 +79,7 @@
 
 \newenvironment{sidebar}[1]{%
   \begin{figure*}[tb]%
-  \begin{sidebarPartial}{resources/bg-sidebar.jpg}{\textwidth}%
+  \begin{sidebarPartial}{resources/sidebar.jpg}{\textwidth}%
   \vspace{6pt}
   \subsection*{#1}\vspace{6pt}%
   \centering
@@ -91,6 +92,58 @@
   \end{figure*}
 }
 
+\newcommand{\pg}[1]{
+  \begin{textblock}{8.5}(0,0)
+  \ifthenelse{#1<10}{
+    \includegraphics{snippets/00#1.pdf}
+  }{
+    \ifthenelse{#1<100}{
+      \includegraphics{snippets/0#1.pdf}
+    }{
+      \includegraphics{snippets/#1.pdf}
+    }
+  }
+  \end{textblock}
+  \setcounter{page}{#1}
+  \addtocounter{page}{-1}
+}
+
+\newcounter{pg}
+\newcommand{\pgs}[2]{
+  \IfFileExists{snippets/001.pdf}{
+    \forloop{pg}{#1}{\value{pg}<#2 \OR \value{pg}=#2}{
+      \pg{\arabic{pg}}
+      - % Used to clear the page, ends up invisible
+      \clearpage
+    }
+  }{}
+}
+
+% Page, left, top, width, height, text
+\newlength{\overlayWidth}
+\newcommand{\pgWithOverlay}[6]{
+  \IfFileExists{snippets/001.pdf}{
+    \setlength{\overlayWidth}{#4in}
+    \addtolength{\overlayWidth}{-25pt}
+    \pg{#1}
+    \begin{textblock}{#4}(#2,#3)
+      \includegraphics[width=#4in,height=#5in]{resources/sidebar.jpg}
+    \end{textblock}
+    \begin{textblock}{#4}(#2,#3)
+      \vspace{0pt}\hspace{10pt}
+      \begin{minipage}{\overlayWidth}
+        #6
+      \end{minipage}
+    \end{textblock}
+    -
+    \clearpage
+  }{
+    \begin{subsection}{Page #1}
+      #6
+    \end{subsection}
+  }
+}
+
 \newenvironment{Ability}[1]{%
   \section{#1}%
   \vspace{-0.25in}\includegraphics[width=6.5in]{charmTrees/#1.pdf}%
@@ -98,6 +151,30 @@
 }
 {
   \end{multicols}
+}
+\newenvironment{bgPic}[2]{%
+  \AddToShipoutPicture{%
+    \checkoddpage
+    \ifoddpage
+      \put(0,0){\includegraphics[width=\paperwidth,height=\paperheight]{#1}}
+    \else
+      \put(0,0){\includegraphics[width=\paperwidth,height=\paperheight]{#2}}
+    \fi
+    \put(292,19){\includegraphics[width=0.42in]{resources/page-num.png}}
+    \ifthenelse{\value{page}<10}{
+      \put(305,37){\color{White}\chapfont\thepage}
+    }{
+      \ifthenelse{\value{page}<100}{
+        \put(302,37){\color{White}\chapfont\thepage}
+      }{
+        \put(299,37){\color{White}\chapfont\thepage}
+      }
+    }
+  }
+}
+{
+  \clearpage
+  \ClearShipoutPicture
 }
 
 \pagestyle{fancy}
@@ -107,18 +184,291 @@
 \setlength\textheight{659pt}
 \fancyhf{}
 
-\begin{document}
-  \AddToShipoutPicture{%
-    \checkoddpage
-    \ifoddpage
-      \put(0,0){\includegraphics[width=\paperwidth,height=\paperheight]{resources/bg-right.jpg}}
-    \else
-      \put(0,0){\includegraphics[width=\paperwidth,height=\paperheight]{resources/bg-left.jpg}}
-    \fi
-    \put(292,19){\includegraphics[width=0.42in]{resources/bg-page-num.png}}
-    \put(299,37){\color{White}\chapfont\thepage}
-  }
+\IfFileExists{snippets/001.pdf}{}{
+  \renewcommand{\pdfbookmark}[5]{}
+}
 
+\begin{document}
+\pgs{1}{14}
+\pgs{17}{20}
+\pdfbookmark[0]{Introduction}{Introduction}
+\pgs{21}{24}
+\pdfbookmark[1]{Lexicon}{Lexicon}
+\pgs{25}{34}
+\pdfbookmark[0]{The Exalted}{The Exalted}
+\pgs{35}{50}
+\pdfbookmark[0]{The Age of Sorrows}{The Age of Sorrows}
+\pgs{57}{62}
+\pdfbookmark[1]{The Realm}{The Realm}
+\pgs{63}{80}
+\pdfbookmark[1]{The Threshold}{The Threshold}
+\pgs{81}{110}
+\pdfbookmark[1]{The Wyld}{The Wyld}
+\pgs{111}{113}
+\pdfbookmark[1]{The Underworld}{The Underworld}
+\pgs{114}{120}
+\pdfbookmark[0]{Character Creation}{Character Creation}
+\pgs{121}{122}
+
+\begin{bgPic}{resources/Character-left.jpg}{resources/Character-right.jpg}
+\begin{multicols}{2}
+
+\IfFileExists{snippets/001.pdf}{
+  Occult thanks to his knowledge of the signs and portents that herald the arrival of demons in Creation. If you want, you can select some Favored Abilities from your Caste’s Ability list, but you can’t take the same Ability as both Caste and Favored. Your choice of Caste and Favored Abilities is important to your character’s development — it’s less expensive to improve selected Abilities, and to learn Charms associated with them.
+}{
+  \chapter{Character Creation}
+}
+
+  Select one of your Caste Abilities and one of your Favored Abilities be a Supernal abilities. Your Supernal Abilities is the emblem of your character’s legend, the thing she is the very best at. You have an easier time learning powerful Charms with your Supernal Abilities than any other Ability - Charms in your Supernal Abilities treat your Essence rating 2 higher than your current rating (to a maximum of 5) for all purposes. You can learn Essence 3 charms in these abilities right off the bat during character creation, and use upgrades to them sooner than otherwise. When your character's essence is 4, then a charm in one of your Supernal Abilities that lets you make (Essence + 2) attacks allows you to make 5 (your real Essence 4 + 2, to a maximum of 5).
+
+\IfFileExists{snippets/001.pdf}{
+  \par Once you've selected Caste, Favored and Supernal, divide 28 dots among your Abilities. Abilities start at 0, and you cannot raise them higher than 3 without spending Experience Points. You must assign at least one dot to each Favored ability. As with her Attributes, you should explain any of her Abilities rated at three or more dots. Did your character train under a great master to achieve her five-dot rating in Melee, or is she a self-taught martial genius?
+
+  \par Lastly, choose four Specialties for your character. Specialties describe specific focus within an Ability.
+
+\begin{sidebar}{Specialties}
+  Abilities represent broad knowledge of a given field, but few people go through life without acquiring unique talents and special interests. In Exalted, these areas of expertise are referred to as Specialties. When you make a roll with an Ability that matches an associated Specialty, you can add one die to that roll. Specialties can be somewhat broad, but there must be notable situations where they can’t apply. Melee (Swords) is perfectly acceptable, but Melee (While Armed) or (While Breathing) are not.
+
+  \par Only one Specialty can apply to a single roll, even if your character has more than one that could be useful.
+\end{sidebar}
+
+  \subsection{Step 4: Merits}
+
+    Merits represent a character's assets and quirks, everything from a family business to a stomach that can handle all but the most rancid food and drink. As with Attributes and Abilities, Merits are rated from one to five dots. Remember that although temporary merits come and go during play, those you've purchased (during character creation or with Experience Points) gain a limited amount of plot armor - they're much less likely to fail when you need them most, or wander off of their own accord. For more information on Merits in play, see the Traits chapter.
+
+    \par Assign up to ten dots to your character’s Merits. As with other traits, Merits can shape your character’s background and circumstances, and they can also be consequences of your character’s past. Be sure to tie them into your overall concept. Did your character earn his Ally through a previous act of selflessness? Has being Hideous shaped the way she sees others?
+
+  \subsection{Step 5: Charms}
+    A Solar’s Charms are natural expressions of her heroic legend, powered by the very Essence of Creation. Can she run for miles without tiring? Can she shoot a diving swallow at a hundred yards? Once you’ve got a mental picture of your character’s legend, pick out ten suitable Charms, keeping in mind that each has prerequisites of enlightenment and skill. Don’t be afraid to rearrange your Ability dots if your character doesn't qualify for a Charm that would liven up her concept!
+
+    \par If you took the Martial Arts ability or learn Sorcery (see the Martial Arts and Sorcery chapter for more details), you can also take Martial Arts charms or learn spells, trading in your starting charms on a one-for-one basis.
+
+  \subsection{Step 6: Intimacies and Limit Trigger}
+    Intimacies describe the important parts of your character’s life, from long-held beliefs to feelings toward loved ones or mortal enemies. For more information on Intimacies, see the Traits chapter. Unlike other traits, there’s no limit to how many Intimacies your character can start with, but you must have a minimum of four Intimacies, of which at least one must be Defining, one must be Major, one must be in some way negative (a thing the character opposes or dislikes), and one must be positive (a thing the character supports or likes).
+
+    \par Additionally, all Solar Exalted labor under a Great Curse spoken by the enemies of the gods as the Exalted slew them. As a result, your character has a Limit Trigger, a circumstance in which the lingering curse of the dead ancients may rise to trouble him. Select a Limit Trigger from the choices in the traits chapter, or work with your Storyteller to design your own.
+}{}
+  \subsection{Step 7: Experience Points}
+    You have 50 Experience Points to spend on anything that makes sense for your concept. Spells are considered Caste or Favored if Occult is. You’re allowed to spend these Experience Points at any time during character creation - to help meet the prerequisites of a Charm in step 5, for example.
+
+  \begin{tabular}{ll}
+    Trait & Experience Points\\
+    \hline
+    Attribute & 8xp per dot\\
+    Non-caste/non-favored ability & 4xp per dot\\
+    Caste/Cavored ability & 3xp per dot\\
+    Specialty & 3xp\\
+    Merit & 3xp per dot\\
+    Willpower & 8xp per dot\\
+    Charm/Spell (Not Caste/Favored) & 10xp\\
+    Charm/Spell (Caste/Favored) & 8xp\\
+  \end{tabular}
+
+\IfFileExists{snippets/001.pdf}{
+  \subsection{Step 8: Finishing Touches}
+    Solars start play with Essence one, Willpower five, and seven Health Levels (-0, -1, -1, -2, -2, -4, and Incapacitated). A Solar’s pool of Personal Essence is ([Essence x 5] + 5), while their Peripheral Essence pool is ([Essence x 10] + 20). These traits are explained in further detail in Chapter Four.
+
+    \par Each Exalt was a human being before he was Chosen, and he remains so after Exaltation. Being Chosen doesn’t make anyone perfect - as powerful as they are, Solars have nothing to guide them beyond what they bring from their mortal lives. Think about your character’s past and what he was like before his Exaltation. How did he see the world? How did he treat other people? How did other people treat him? Who were his allies, enemies, friends, and loved ones? What faiths and philosophies did his people follow? What other influences played a role in his life? No one is an island, least of all one of the Exalted.
+
+    \par As with any life-changing event, Exaltation can have dramatic effects on a person’s worldview. How does your character feel about his Exaltation and the fact that many see him as a dangerous Anathema? In what ways has his Second Breath changed him? What sort of future does he see for himself?
+}{}
+\end{multicols}
+\end{bgPic}
+
+\pgs{133}{134}
+\pdfbookmark[0]{Traits}{Traits}
+\pdfbookmark[1]{The Great Curse}{The Great Curse}
+\pgs{135}{138}
+
+% Castes, skipping example characters (not my favorite art)
+\pdfbookmark[1]{Caste}{Caste}
+\pgs{140}{140}
+\pgs{142}{142}
+\pgs{144}{144}
+\pgs{146}{146}
+\pgs{148}{148}
+
+\pdfbookmark[1]{Attributes}{Attributes}
+\pgs{149}{149}
+\pdfbookmark[1]{Abilities}{Abilities}
+\pgs{150}{151}
+\IfFileExists{snippets/001.pdf}{}{
+  \begin{bgPic}{resources/Traits-left.jpg}{resources/Traits-right.jpg}
+  \begin{multicols}{2}
+}
+\pgWithOverlay{152}{8.1}{7.2}{3.3}{2.1}{When a character first buys Craft, she gains an automatic specialty in her area of expertise. Potential areas of expertise include weapon forging, armoring, architecture, tailoring, woodwork, carpentry, cooking, and anything else a player might come up with, covering similarly broad (but not all-encompassing) concepts. Characters cannot craft things for which they don't have a relevant specialty. Additional Craft specialties can be purchased as normal.}
+
+\pgs{153}{154}
+
+\pgWithOverlay{155}{1.75}{8.7}{3.3}{2.7}{\vspace{6pt}Martial Arts cannot be taken as a Caste ability, though it may be Favored (and from there chosen as Supernal) as normal. Like Craft, when a character first buys this Ability, she gains an automatic specialty in the style her dots represent mastery of. Chapter Seven contains a number of example martial arts styles characters might choose.
+
+  \vspace{12pt}
+  Additional styles may be purchased as specialties as normal, if the character trains with an appropriate teacher for the style.}
+
+\pgs{156}{157}
+
+\pdfbookmark[1]{Merits}{Merits}
+
+\IfFileExists{snippets/001.pdf}{
+  \pgWithOverlay{158}{8.1}{12.8}{3.3}{1.25}{{\bf Innate} merits represent unusual facets of a character, physical or mental traits that set them apart from a crowd. They cannot usually be gained or lost during a story without magical intervention.}
+  \pgWithOverlay{159}{1.75}{8.5}{3.3}{3.65}{{\bf Purchased} merits are similar, except that they can be purchased at any time during play for XP.
+
+  \vspace{8pt}{\bf Story} merits represent the way a character relates to the world - possessions or relationships. They are often easy to gain or lose during play.
+}{}
+
+\vspace{8pt}{\it If a merit gained during play is important to you, you should spend XP on it.} Story merits gained through play come and go regularly, but spending XP on a merit grants it a measure of permanence and a limited amount of plot-armor. It signals to the Storyteller that it's an important part of your character.
+
+\vspace{8pt}Merits paid for with XP aren't inviolable, but losing them is always a plot point, often triggering an attempt by the character to regain what was lost. A Storyteller that permanently removes a paid-for merit during play beyond possibility of recovery should grant the player an XP refund.}
+
+\pgs{160}{162}
+\pgWithOverlay{163}{1.75}{1.3}{3.3}{3.3}{
+  \IfFileExists{snippets/001.pdf}{
+    This Merit bestows ownership of a hearthstone - a gem formed of concentrated geomantic Essence. Most hearthstones are deliberately formed through Essence concentration in manses, but a few naturally form in demesnes or at sites where Essence has worked prodigious miracles upon the land. If the manse’s owner places the hearthstone in a specially-designed socket in an attuned artifact, then the character enjoys the benefits of standing within the manse wherever she goes.
+
+    \vspace{12pt}
+  }{\subsection{Hearthstone Merit}}
+
+  Hearthstones do not provide any magical powers of their own - they are useful purely as a power source for artifice or as a link to the manse they belong to. The two-dot version of this merit links to a 2-dot manse, and similarly with the 4-dot version.
+}
+
+\pgWithOverlay{164}{8.1}{13.3}{3.3}{0.9}{The Martial Artist merit from the original core book does not exist. Martial Arts may be purchased like any other ability.}
+\IfFileExists{snippets/001.pdf}{
+  \pgWithOverlay{165}{1.75}{1.4}{3.3}{0.6}{}
+}{}
+
+\pgs{166}{167}
+\pdfbookmark[1]{Flaws}{Flaws}
+\pgs{168}{169}
+\pdfbookmark[1]{Willpower}{Willpower}
+\pgs{170}{170}
+\pdfbookmark[1]{Intimacies}{Intimacies}
+\pgs{171}{171}
+\pdfbookmark[1]{Health}{Health}
+\pgs{172}{174}
+\pdfbookmark[1]{Essence}{Essence}
+\pgs{175}{175}
+
+\pgWithOverlay{176}{1.75}{5.95}{3.3}{1.3}{When your character has spent 10m of peripheral Essence in a scene, her anima is Glowing. Having spent 20m (total) from your peripheral pool raises it to Burning, and 30m to Bonfire/Iconic. Regaining motes has no effect on this - it's a measure of how much you've spent.}
+
+\pgs{177}{177}
+
+  \IfFileExists{snippets/001.pdf}{
+  \begin{bgPic}{resources/Traits-left.jpg}{resources/Traits-right.jpg}
+  \begin{multicols}{2}
+    \begin{itemize}
+      \item The Eclipse has diplomatic immunity when treating with the enemies of Creation. So long as the Eclipse approaches them on legitimate business of some kind, shades, spirits, the demon princes of Hell, and the Fair Folk may not attack the Eclipse or her companions without just cause, and such creatures must observe the local rules of hospitality. Such beings may still attempt to provoke members of the Solar’s embassy into breaking the peace, thus voiding this effect’s protection.
+      \item The Eclipse represents all the subtle movements of Essence under Heaven, the strange and self-referencing powers that stir when night merges with day. Eclipses can learn the Charms of spirits, Fair Folk and similar supernatural beings which have the Eclipse keyword for eight experience points each.
+    \end{itemize}
+  }{}
+
+  \IfFileExists{snippets/001.pdf}{
+    \section{Character Advancement}
+  }{
+    \section*{Character Advancement}
+  }
+  Character growth is expressed with experience points, given out at the end of every session, which players spend to increase characters’ traits, as well as to buy new Charms and spells. These function exactly as they do during character creation - see the Experience Points table in chapter three. Each character gains five experience points at the end of every session. These points may be spent immediately, or saved to be spent later.
+
+  \subsection{Raising Essence}
+  While it’s possible for a character’s Essence rating to increase in a dramatic moment of blazing glory, it’s more common for the growth to take place over the course of days, weeks or even months. Some Solars  retreat into temporary seclusion in order to commune with their inner divinity, spending time atop mountain peaks, desert plateaus or other elevated places to contemplate the face of the Unconquered Sun and their own burgeoning power.
+
+  Characters' Essence ratings increase automatically once they have earned and spent enough experience points on other traits. Essence is the core of a Solar’s power, the beating heart of his enlightened will, and it becomes stronger only when the Solar has grown as an overall hero of Creation, rather than being cultivated directly. The numbers on this table include the starting experience from character creation.
+
+  \begin{tabular}{ll}
+    Essence & Experience Points\\
+    \hline
+    \(\bullet\bullet\) & 100xp\\
+    \(\bullet\bullet\bullet\) & 175xp\\
+    \(\bullet\bullet\bullet\bullet\) & 250xp\\
+    \(\bullet\bullet\bullet\bullet\bullet\) & 350xp\\
+  \end{tabular}
+\end{multicols}
+\end{bgPic}
+
+\pgs{181}{182}
+\pdfbookmark[0]{Systems and Conflict}{Systems and Conflict}
+\pgs{183}{187}
+\pdfbookmark[1]{Stunts}{Stunts}
+\pgs{188}{189}
+\pdfbookmark[1]{Combat}{Combat}
+\pgs{190}{205}
+\pdfbookmark[1]{Battle Groups}{Battle Groups}
+\pgs{206}{213}
+\pdfbookmark[1]{Social Influence}{Social Influence}
+\pgs{214}{224}
+\pdfbookmark[1]{Other Systems}{Other Systems}
+\pgs{225}{239}
+
+\begin{bgPic}{resources/Systems-left.jpg}{resources/Systems-right.jpg}
+\begin{multicols}{2}
+\IfFileExists{snippets/001.pdf}{}{
+  \section*{Craft Rules}
+}
+  \par Basic projects are the simplest tasks a craftsman can undertake, such as making a chair, forging basic tools, shoeing a horse, cooking a meal, or fletching an arrow. They are resolved with a single roll. The character works for an amount of time deemed appropriate by the Storyteller, usually ranging from several minutes to several hours, then makes an (Attribute + Craft) roll against a difficulty set by the Storyteller.
+
+  \par Major projects are significant endeavors within a craftsman's trade, anything larger or more complex than a wheelbarrow. They include forging suits of armor, preparing a banquet fit for a prince's table or a god's festival, or sculpting a statue. They are resolved by extended rolls with no fixed terminus, where each roll represents an expenditure of time and materials.
+
+  \par Essence-wielders may also attempt to create Artifacts and Manses, which do have a terminus set by the crafter's available resources. The difficulty, interval and goal number are determined by artifact rating. These intervals assume about four hours of work each day, but cannot be decreased by spending more time working (though a character would work on multiple projects simultaneously if they had nothing else to do).
+
+  \begin{tabular}{ccccc}
+    Artifact & Diff & Interval & Goal \# \\
+  \hline
+    \(\bullet\bullet\) & 3 & Two Weeks & 25 \\
+    \(\bullet\bullet\bullet\) & 4 & One Month & 30 \\
+    Manse & 4 & One Month & 30\\
+    \(\bullet\bullet\bullet\bullet\) & 5 & Two Months & 40 \\
+    \(\bullet\bullet\bullet\bullet\bullet\) & 5 & One Season & 50 \\
+    Greater Manse & 5 & Two Seasons & 50 \\
+  \end{tabular}
+
+  \par As an alternate rule - which should be discussed between all the players (including the Storyteller) before the game begins - replace the Interval of artifact creation with time spent playing. This may work better for exceptionally fast-paced games with little downtime between adventures.
+
+  \begin{tabular}{ccccc}
+    Artifact & Alternate Story-based Interval \\
+  \hline
+    \(\bullet\bullet\) & Twice per Session \\
+    \(\bullet\bullet\bullet\) & Once per Session \\
+    Manse & Once per Session \\
+    \(\bullet\bullet\bullet\bullet\) & Twice per Story \\
+    \(\bullet\bullet\bullet\bullet\bullet\) & Once per Story \\
+    Greater Manse & Once per Story \\
+  \end{tabular}
+
+  \par To find the terminus for an Artifact-creation roll, add together the factors for their workshop and their materials. If you're missing either, you can't even start.
+
+  Workshop
+  \begin{itemize}
+    \item 1 rolls for a basic workshop, with all the standard tools. A character using Craftsman Needs No Tools has this level of workshop for most projects. However, manses and extremely large Artifacts may require large numbers of labourers as part of the “workshop”.
+    \item 2 rolls for a master's workshop, which contains a high-quality example of every tool a normal craftsman in the field would ever want.
+    \item 3 rolls for a supernaturally excellent workshop. These are rare in Creation, but a few Dynasts and gods and other stranger things have them.
+  \end{itemize}
+
+  Materials
+  \begin{itemize}
+    \item 2 rolls for having a bit of magical material.
+    \item 3 rolls for having some magical material and a few thematically appropriate wondrous ingredients.
+    \item 4 rolls for having plenty of magical materials and at least one genuinely impressive wondrous ingredient.
+  \end{itemize}
+
+  Other
+  \begin{itemize}
+    \item +1 roll for working with a master assistant or a team of competent workers.
+    \item +2 rolls for working with supernaturally excellent help.
+    \item +1 roll for taking four times as much time as is standard.
+    \item +1 roll for having an Ability related to the Artifact at 5, or at 3 with a relevant specialty.
+    \item +1 roll for having a Charm, spell, anima power, or other magical ability that's related to the Artifact.
+  \end{itemize}
+
+  \par If you lose access to something that increases your terminus while working on an Artifact, you may either put the project on hold until you replace it or just accept the reduced terminus. If you use up all of your rolls, all is not lost. Ask the ST what you have to do to earn another roll. Chances are it won't be easy.
+
+\pgWithOverlay{245}{1.75}{1.45}{3.3}{3.3}{Repairing a broken artifact is generally as difficult as creating one a dot lower in rating, except that the interval may be significantly shorter depending on how extensive the damage is. Legendary artifacts, which go beyond the five dot scale, use difficulties, intervals and goal numbers chosen by the Storyteller - not all Legendary Artifacts are created equal, but they're all very difficult.
+
+\vspace{12pt} Craft can also be used to assess crafted items. This is a simple action requiring a (Perception + Craft) roll. With a success the crafter can determine how old an item is, how well it's made, what it's made of, and what condition it's in, and other similar information. A strong success may also allow the crafter to identify the maker if their style is distinctive.}
+
+\end{multicols}
+\end{bgPic}
+\pgs{246}{250}
+
+\begin{bgPic}{resources/Charms-left.jpg}{resources/Charms-right.jpg}
 \chapter{Charms}
 \begin{multicols}{2}
 
@@ -152,15 +502,15 @@ The Exalted are mighty. Some break swords upon their skin or shatter stone with 
 \par Charms come in one of four types, which explain when and how they can be activated.
 
 \begin{itemize}
-\item Permanent: A permanent Charm is just that - a permanent enhancement to the character's prowess, costing nothing to enjoy and providing its benefits passively at all times.
-\item Simple: A simple Charm counts as a combat action in and of itself, and cannot be placed in a flurry. Some take longer, as specified in their text.
-\item Reflexive: Reflexive Charms can be activated either before or after other actions, including between the actions of a flurry or multi-attack charm, but not in the middle of an action. Many of them list specific triggers - a charm may be used only once per triggering event.
-\item Supplemental: Supplemental Charms enhance an action or defense, such as an attack roll, whole craft project, or an attempt to dodge an attack. They are activated during an action - usually while it's being declared, but sometimes latter in the process of resolving it (as specified by the individual charm).
+  \item Permanent: A permanent Charm is just that - a permanent enhancement to the character's prowess, costing nothing to enjoy and providing its benefits passively at all times.
+  \item Simple: A simple Charm counts as a combat action in and of itself, and cannot be placed in a flurry. Some take longer, as specified in their text.
+  \item Reflexive: Reflexive Charms can be activated either before or after other actions, including between the actions of a flurry or multi-attack charm, but not in the middle of an action. Many of them list specific triggers - a charm may be used only once per triggering event.
+  \item Supplemental: Supplemental Charms enhance an action or defense, such as an attack roll, whole craft project, or an attempt to dodge an attack. They are activated during an action - usually while it's being declared, but sometimes latter in the process of resolving it (as specified by the individual charm).
 \end{itemize}
 
 \par Any number of supplemental charms may apply to a single roll or defense, but a solar cannot activate the same Charm on the same action multiple times. Supplemental charms may be used to aid actions or defenses even if the character isn't aware of making them - she can use her charms to enhance an Awareness roll to notice danger, or defend herself with Integrity charms even while asleep, unconscious or drugged, for example.
 
-\begin{sidebar}{Conflict}\
+\begin{sidebar}{Conflict}
   \par When they directly affect another character, players (including the Storyteller) must openly declare and charms they're using and their effects. The majority of charms must be used before a dice roll is made (Post-Roll charms are obviously an exception!), and the active character declares first in the case of an opposed action. Below is a detailed breakdown of who can use what when, but don't be intimidated - very seldom do you need to step through all of these out loud.
 
   \begin{enumerate}
@@ -259,19 +609,19 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Arrow Storm Technique}
   {5m, 1wp}
   {Supplemental}{Instant}{-}
-  {Archery 5, Essence 2, Trance of Unhesitating Speed}
+  {Essence 2, Archery 5, Trance of Unhesitating Speed}
   This charm supplements a Decisive Archery attack. In addition to its initial target, it strikes up to (Essence * 3) targets up to medium range from the initial one using the same attack roll, but dividing her initiative evenly among all attacks. Each one then gains (Perception) raw damage.
 
   \charm{Revolving Bow Discipline}
   {6m, 1wp}
   {Simple}{Instant}{Perilous}
-  {Archery 5, Essence 3, Arrow Storm Technique}
+  {Essence 3, Archery 5, Arrow Storm Technique}
   The Solar makes a withering Archery attack against a single uncrashed target within short or close range. If it hits she may make another, repeating until she either misses or crashes her opponent (or it loses a point of magnitude if it's a Battle Group).
 
   \charm{Heavens Crash Down}
   {6m, 2i, 1wp}
   {Reflexive}{Instant}{-}
-  {Archery 5, Essence 4, Revolving Bow Discipline}
+  {Essence 4, Archery 5, Revolving Bow Discipline}
   This charm may be used when the Solar is in her -4 health levels and targeted by a withering attack from short or close range. She Clashes the attack using Archery, with (Essence) automatic successes. If she wins the clash, Initiative she would gain is instead rolled as dice of decisive damage against her target, ignoring hardness and doubling 10s.
 
   An Essence 5+ repurchase of this Charm allows the Solar to spend Initiative she doesn't have, going into (or deeper into) the negative.
@@ -287,7 +637,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Immaculate Golden Bow}
   {5m, 1wp}
   {Simple}{One Scene}{-}
-  {Archery 4, Essence 2, Phantom Arrow Technique}
+  {Essence 2, Archery 4, Phantom Arrow Technique}
   The Exalt creates a weapon from her anima with stats identical to a powerbow or other artifact Archery weapon. It glows like a torch. Players may add custom Evocations to Immaculate Golden Bow as they would another artifact weapon, working with their Storyteller to create Evocations that fit the character's personality or iconic anima manifestation.
 
   \charm{Sight Without Eyes}
@@ -307,7 +657,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{There Is No Wind}
   {3m}
   {Supplemental}{Instant}{-}
-  {Archery 5, Essence 2, Sight Without Eyes}
+  {Essence 2, Archery 5, Sight Without Eyes}
   This charm supplements an Archery attack, allowing it to be made from up to extreme range. The Solar also ignores penalties from non-visual conditions such as high winds, bad weather, flawed ammunition, and so on (but not cover).
 
   If the attack is withering, her accuracy is calculated as if it were made from short range regardless of the distance she's firing from.
@@ -321,7 +671,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Shadow-Seeking Arrow}
   {3m, 2i}
   {Reflexive}{Instant}{Quickshot}
-  {Archery 5, Essence 3, Fiery Arrow Attack}
+  {Essence 3, Archery 5, Fiery Arrow Attack}
   During combat, if the Lawgiver's Awareness check uncovers an opponent, she may immediately make a withering or decisive Archery attack against that opponent. She may pay to use this Charm against each opponent, if she uncovers more than one with a single Awareness check.
 
 \end{Ability}
@@ -363,7 +713,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Mountain-Crossing Leap Technique}
   {7m, 1wp}
   {Simple}{Until she stops leaping}{-}
-  {Athletics 5, Essence 3, Soaring Crane Leap}
+  {Essence 3, Athletics 5, Soaring Crane Leap}
   The Exalt makes a leap three up to four range bands forward or three straight up. This Charm stays active every turn until the Solar stops leaping across range bands, making it possible for the Exalt to cross a mountain in minutes.
 
   This charm may not be activated with opponents at Close range, but as an exception to the normal Simple charm rules, may be flurried with Disengage.
@@ -371,7 +721,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Leaping Tiger Attack}
   {4m, 1wp}
   {Supplemental}{Instant}{Advantage}
-  {Athletics 5, Essence 2, Thunderbolt Attack Prana}
+  {Essence 2, Athletics 5, Thunderbolt Attack Prana}
   This charm supplements a non-ranged attack, allowing her to immediately move Close from up to medium range. Using it replaces her normal reflexive Move action for the round. If her attack is withering, it doubles damage dice after soak. If decisive, it adds her Essence score to the base damage of the attack.
 
   \charm{Increasing Strength Exercise}
@@ -383,23 +733,23 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Legion Aurochs Method}
   {6m}
   {Supplemental}{Instant}{-}
-  {Athletics 5, Essence 3, Thunder's Might}
-  This charm supplements feats of strength. Add 50% to the Solar's rolled successes (round down).
+  {Essence 3, Athletics 5, Thunder's Might}
+  This charm supplements feats of strength. Add 50\% to the Solar's rolled successes (round down).
 
   \charm{Nine Aeons Thew}
   {1m, 1wp}
   {Supplemental}{Instant}{-}
-  {Athletics 5, Essence 5, Legion Aurochs Method}
+  {Essence 5, Athletics 5, Legion Aurochs Method}
   This charm supplements a feat of strength, reducing its difficulty by (Solar's Essence + 2), and she counts as meeting its Strength prerequisite no matter how high that requirement might be.
 
   \charm{Racing Hare Method}
   {5m, 1wp}
   {Reflexive}{One Hour}{-}
-  {Athletics 4, Essence 2, Lightning Speed}
+  {Essence 2, Athletics 4, Lightning Speed}
   This charm may be used any time outside of combat. The Lawgiver travels overland as fast as a running horse. If she renews this technique at the end of an hour, ignore the Willpower cost.
 
   \permanentCharm{One Extra Step}
-  {Athletics 5, Essence 4, Godspeed Steps}
+  {Essence 4, Athletics 5, Godspeed Steps}
   Once per scene, the Exalt may take a second move action on her turn.
 
 \end{Ability}
@@ -435,43 +785,43 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Genius Palate Summation}
   {2m}
   {Simple}{Instant}{-}
-  {Awareness 4, Essence 2, Keen Sense Technique (Smell, Taste and Touch) or Keen Sense Technique x3}
+  {Essence 2, Awareness 4, Keen Sense Technique (Smell, Taste and Touch) or Keen Sense Technique x3}
   This Charm acts as an automatically successful read intentions action to determine the emotional state of the one who prepared a meal or poured a drink. The Solar need only sample a single bite of a meal or take a single sip of a drink to gain this understanding.
 
   \charm{Foe-Scenting Method}
   {3m}
   {Simple}{Instant}{-}
-  {Awareness 5, Essence 2, Keen Sense Technique (Smell, Taste and Touch) or Keen Sense Technique x3}
+  {Essence 2, Awareness 5, Keen Sense Technique (Smell, Taste and Touch) or Keen Sense Technique x3}
   The Solar makes a scent-based Read Intentions actions using (Perception + Awareness) to determine a target's disposition, out to medium range without the need to directly interact.
 
   \charm{Rumour Of The Earth}
   {5m, 1wp}
   {Simple}{Instant}{Mute}
-  {Awareness 5, Essence 2, Keen Sense Technique (Hearing) or Keen Sense Technique x3}
+  {Essence 2, Awareness 5, Keen Sense Technique (Hearing) or Keen Sense Technique x3}
   The Lawgiver places her head against the ground and listens for five minutes. She can hear any creature larger than a mouse moving within (Essence * 5) miles, and learns their general location, number, and speed and direction of movement. Used in a city or other busy area, the results may not be that useful, but will still indicate any general motion of large numbers of people.
 
   \charm{Unsurpassed Hearing Discipline}
   {5m, 1wp}
   {Simple}{One conversation}{-}
-  {Awareness 5, Essence 3, Keen Sense Technique (Hearing) or Keen Sense Technique x 3}
+  {Essence 3, Awareness 5, Keen Sense Technique (Hearing) or Keen Sense Technique x 3}
   The Solar listens in on conversations that happened in her location up to (Essence x 5) hours prior to her arrival as though it were happening right next to her. She must sit still and listen intently for as much of the conversation as she wishes to hear.
 
   \charm{Dedicated Unerring Ear}
   {3m}
   {Reflexive}{One exchange}{-}
-  {Awareness 5, Essence 4, Unsurpassed Hearing Discipline}
+  {Essence 4, Awareness 5, Unsurpassed Hearing Discipline}
   This charm may be activated any time the Exalt is addressed by someone for whom she holds a Major or Defining Intimacy, no matter how far away he is. So long as she's on the same plane of existence, the Solar can hear the words clearly, as if they were in the same room, so long as they are addressing their speech to her. She can hear everything her compatriot wishes to say to her, until the character has been silent for ten seconds or longer.
 
   With an Essence 5 repurchase, the charm may also be activated whenever any character uses the Solar's name to refer to her, even if they are not addressing her, without the need for a relevant intimacy. If her name is in common use, the Storyteller should still mostly call attention to interesting and relevant references she might overhear, rather than mundane conversations.
 
   \permanentCharm{Curse-Catching Instinct}
-  {Awareness 3, Essence 2}
+  {Essence 2, Awareness 3}
   Whenever another character lays a curse upon the Solar or meddles with her fate, she rolls (Perception + Awareness), difficulty (meddler's Essence). Success lets the Solar know vaguely what happened (someone is meddling with your fate). With 3 threshold successes she learns a summary of what happened (Sidereal Astrology associated with The Sword is being used to make you more likely to fall ill). With 5 threshold successes she learns what happened in detail (Tekkip Nannaja, Chosen of Endings, is using Astrology associated with The Sword to increase the TN of your disease-resistance rolls to 9 until Calibration).
 
   \charm{Vigilant Friend Technique}
   {1m}
   {Simple}{Indefinite}{Stackable}
-  {Awareness 4, Essence 2, Curse-Catching Instinct}
+  {Essence 2, Awareness 4, Curse-Catching Instinct}
   The Solar touches a willing character. As long as she keeps the mote committed, she may roll (Perception + Awareness) to notice danger to the character, as though she were standing next to him. Add +1 difficulty if he's more than 1 mile away from her, +2 if more than 10, +3 if more than 100, +4 if he's anywhere on the same plane of existence or +5 if he's not. She doesn't learn the form of the danger, only that it exists, a general sense of the severity, and his location.
 
   If the character dies, the Solar automatically notices and knows where it happened.
@@ -485,7 +835,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Vigilant Warrior's Counterstroke}
   {5m}
   {Reflexive}{Instant}{Once/Scene}
-  {Awareness 5, Essence 3, Surprise Anticipation Method}
+  {Essence 3, Awareness 5, Surprise Anticipation Method}
   The Solar may use this charm when targeted by a Surprise or Ambush attack. She may draw a weapon, then Clashes the attack. If clashing an Ambush she suffers -2 on her roll.
 
   \permanentCharm{Uncanny Perception Technique}
@@ -495,7 +845,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Eye of the Unconquered Sun}
   {10m, 1wp}
   {Simple}{One round}{-}
-  {Awareness 5, Essence 4, Surprise Anticipation Method, Uncanny Perception Technique}
+  {Essence 4, Awareness 5, Surprise Anticipation Method, Uncanny Perception Technique}
   The Solar's caste mark blazes like a tiny sun, cancelling any Essence-muting magic the Solar may be using and removing her from stealth. She applies a single Perception + Awareness roll with (Essence) bonus dice against every character's Evasion out to long range. Even solid walls are no protection. Any character who didn't dodge is subject to the following effects.
 
   \begin{itemize}
@@ -520,7 +870,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Force-Rending Strike}
   {5m, 1wp}
   {Reflexive}{Instant}{-}
-  {Brawl 4, Essence 2, Iron Battle Focus}
+  {Essence 2, Brawl 4, Iron Battle Focus}
   The Lawgiver may use this charm when she's the target of a non-ranged decisive attack. She clashes it using Brawl.
 
   If the she is wielding an improvised weapon she may reduce the cost of this charm by 4m if she discards her weapon afterwards. It's destroyed, dropped or flung as the Storyteller deems appropriate.
@@ -530,7 +880,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Solar Cross-Counter}
   {3m, 1i, 1wp}
   {Reflexive}{Instant}{Counterattack}
-  {Brawl 5, Essence 2, Iron Battle Focus}
+  {Essence 2, Brawl 5, Iron Battle Focus}
   This charm may be activated after the Solar has taken withering damage from an opponent at close range. She launches an immediate decisive Brawl attack with a base damage of the amount of withering damage she just took. This attack does not reset the Solar to base Initiative.
 
   \charm{Heaven Thunder Hammer}
@@ -546,7 +896,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Heaven Fury Smite}
   {2m}
   {Reflexive}{Instant}{-}
-  {Brawl 5, Essence 5, Heaven Thunder Hammer}
+  {Essence 5, Brawl 5, Heaven Thunder Hammer}
   This charm can be used when the Lawgiver lands a Brawl attack that crashes her target. She immediately launches a decisive attack against the crashed opponent with any viable Ability, and she may draw a weapon to make it.
 
   \charm{Thunderclap Rush Attack}
@@ -555,7 +905,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   {Brawl 3}
   This charm may be activated any time a foe is at short range from the Solar. She immediately moves a single range band and makes a Brawl attack. The target cannot defend against the Solar's attack with a Clash unless he uses a Charm which grants him one.
 
-  At Brawl 5, Essence 3+, the character may add 1wp to the cost of this Charm to automatically strip (Essence) Initiative from her target and gain it herself before the attack is made.
+Essence 3,   At Brawl 5+, the character may add 1wp to the cost of this Charm to automatically strip (Essence) Initiative from her target and gain it herself before the attack is made.
 
   \charm{Falling Hammer Strike}
   {1m}
@@ -566,13 +916,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Hammer on Iron Technique}
   {5m, 1wp}
   {Simple}{Instant}{-}
-  {Brawl 5, Essence 2, Falling Hammer Strike}
+  {Essence 2, Brawl 5, Falling Hammer Strike}
   The Solar makes a series of up to ([half Strength or Stamina, rounded up] - 1) decisive attacks against a single target, dividing her initiative evenly between them. Each attack gains +1 damage for each previously landed attack.
 
   \charm{Inevitable Victory Meditation}
   {3m, 2i}
   {Simple}{One Scene}{-}
-  {Brawl 5, Essence 3, Falling Hammer Strike}
+  {Essence 3, Brawl 5, Falling Hammer Strike}
   The Solar rolls (Wits + Brawl) and stores the result. She can end the charm at any time to use this result in place of a Brawl roll, or to boost Parry or Evasion by 1/2 stored successes. At Essence 4+, the roll gains (Essence) automatic successes.
 
   This may be activated as though it were Reflexive when the Solar beats all of her opponents in a Join Battle roll, or when she knocks an opponent prone.
@@ -586,13 +936,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Dragon Coil Technique}
   {3m}
   {Supplemental}{Until end of clinch}{-}
-  {Brawl 5, Essence 3, Devil-Strangling Attitude}
+  {Essence 3, Brawl 5, Devil-Strangling Attitude}
   This charm supplements a grapple gambit, allowing the Solar to grapple characters of prodigious size. Tyrant lizards, river dragons, siaka and similarly sized beasts are valid targets for the her grasp.
 
   \charm{Shockwave Technique}
   {6m, 1wp}
   {Supplemental}{Instant}{Once/Scene}
-  {Brawl 5, Essence 3, Dragon Coil Technique}
+  {Essence 3, Brawl 5, Dragon Coil Technique}
   This charm supplements a Throw, allowing the Solar to toss her target out to medium range. In addition, she makes a single withering Brawl attack, base damage 7, which applies to every opponent within short range of where her target lands. If the Solar is crashed when she uses this attack, she still damages each foe, but she only gains Initiative from a single target.
 
 \end{Ability}
@@ -614,7 +964,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Soul-Snaring Pitch}
   {5m, 1wp}
   {Simple}{Indefinite}{Mute, Psyche}
-  {Bureaucracy 5, Essence 3, Irresistible Salesman Spirit}
+  {Essence 3, Bureaucracy 5, Irresistible Salesman Spirit}
   The Exalt makes a Persuade action to convince a character that a particular thing is his heart's desire. She rolls (Manipulation + Bureaucracy) with (Essence) automatic successes against the target's Resolve. If successful, a character must spend (Solar's Essence) willpower, or develop a Defining Tie (I must have it) towards an object of the Solar's choice as long as the charm remains active. Resisting Soul-Snaring Pitch makes a character immune to the Charm for one week.
 
   \charm{Enigmatic Bureau Understanding}
@@ -628,7 +978,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Bureau-Reforming Kata}
   {5m, 1wp}
   {Simple}{Instant}{-}
-  {Bureaucracy 5, Essence 2;, Bureau-Rectifying Method, Enigmatic Bureau Understanding}
+  {Essence 2, Bureaucracy 5;, Bureau-Rectifying Method, Enigmatic Bureau Understanding}
   When the Solar is aware of hostile magic such as Indolent Official Charm, astrological curses or similar affecting an organization she has control over or influence within, she spends a day moving individuals to new positions, hiring, firing and reorganizing and in so doing cleanses the magic. The organization is immune to that specific power for one month.
 
   With an Essence 3 repurchase she can activate this charm in minutes rather than a full day, and she learns the identity of anyone whose hostile magic she cancels. The organization is immune to the effect for a full season.
@@ -636,19 +986,19 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Order-Conferring Action}
   {6m, 1wp}
   {Simple}{One Season}{-}
-  {Bureaucracy 5, Essence 5, Taboo-Inflicting Diatribe, Subject-Hailing Ideology}
+  {Essence 5, Bureaucracy 5, Taboo-Inflicting Diatribe, Subject-Hailing Ideology}
   By spending a day advising an organization (including by proxy), the Solar turns it into a bulwark of Creation. The Wyld cannot penetrate further into territories it controls or operates in (though Fair Folk themselves still might), diseases struggle to cross its borders, and Shadowlands encroach upon it more slowly.
 
   \charm{Enlightened Ministerial Halo}
   {4m}
   {Simple}{One Week}{-}
-  {Bureaucracy 4, Essence 2, Enigmatic Bureau Understanding}
+  {Essence 2, Bureaucracy 4, Enigmatic Bureau Understanding}
   The Solar spends a day organizing, researching and otherwise participating in the workings of an organization she does not control. She rolls (Mental Attribute + Bureaucracy), difficulty 4. For the remainder of the week, the organization's leader gains (threshold successes) bonus dice on all Bureaucracy, Investigation, Larceny and War rolls related to running the organization.
 
   \charm{Lawgiver's Smile}
   {4m}
   {Simple}{One Day}{-}
-  {Bureaucracy 4, Essence 3, Enlightened Ministerial Halo}
+  {Essence 3, Bureaucracy 4, Enlightened Ministerial Halo}
   The Solar spends 15 minutes walking among her subordinates or comrades. Other members of the organization she belongs to or controls who are present in the scene gain a Minor Principle related to joy, optimism or some similar positive emotion related to a particular aspect of the organization, which fades when the charm ends. Employees are unnaturally enthusiastic about their jobs, and any battle groups they form the majority of have +2 dice on rout checks.
 
   \charm{Speed the Wheels}
@@ -660,13 +1010,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Subject-Hailing Ideology}
   {5m}
   {Supplemental}{Instant}{-}
-  {Bureaucracy 5, Essence 2, Bureau Rectifying Method}
+  {Essence 2, Bureaucracy 5, Bureau Rectifying Method}
   This charm supplements any social influence roll. For purposes of this roll, the Solar's target treats a single weakened or abandoned intimacy as though it had its former strength. The intimacy must be related to some official duty or role - marriage, bodyguard, employee, etc.
 
   \charm{Indolent Official Charm}
   {5m}
   {Simple}{Indefinite}{-}
-  {Bureaucracy 5, Essence 2, Speed the Wheels}
+  {Essence 2, Bureaucracy 5, Speed the Wheels}
   This charm is the reverse of Speed the Wheels - with a sidelong glance and a word in the right ears, a single bureaucratic task grinds to halt. While this charm doesn't affect material labor (such as building a road or receiving a shipment), the organization, planning, approval, etc. of a single task all takes one increment longer.
 
   This charm may be active multiple times on a single organization for different projects, but doesn't stack for any given request. It may be used in advance of a request, or speculatively - for example, she could stymie "any police investigation into my business". As long as the motes are committed, such an investigation would take much longer to complete.
@@ -674,84 +1024,12 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Taboo-Inflicting Diatribe}
   {6m, 1wp}
   {Simple}{Indefinite}{Stackable, Psyche}
-  {Bureaucracy 5, Essence 4, Foul Air of Argument Technique}
+  {Essence 4, Bureaucracy 5, Foul Air of Argument Technique}
   The Solar repeatedly inveighs against a certain action relating to an organization she controls or has major influence within. Members of her organization gain a Major principle against the action unless they spend 1wp. The behaviors must be specific, and related to the organization - she could not inflict "Stealing is wrong," or but she could give members a Principle of “The company coffers are inviolate” or “Embezzlement from clients is a sin.” This charm may be applied any number of times to a single organization (but only once for a specific intimacy). The intimacy fades if this charm ends.
 
   With an Essence 5 repurchase, at the end of every month in which a person - member or not - interacts with the organization regularly they roll (Willpower). On a failure, they must spend 1wp or gain the intimacy at Minor strength permanently (it doesn't go away when the charm ends, and is in all ways a normal intimacy). As a rule of thumb for the Storyteller, after a season with this charm active half the populace will have the intimacy, and after a few years virtually all of them will. A particularly accepting or hostile population might speed or slow down the spread.
 
 \end{Ability}
-
-\section*{Craft Rules}
-\begin{multicols}{2}
-\begin{sidebar}{Which set of Craft Rules?}
-  This version of the craft system is designed to be small, simple and easy to use. It does not attempt to regulate your play, or insert itself into any part of the game other than actually making things. It does not aim in incentivize certain types of player behavior, only to adjucate what characters are capable of.
-
-  \par \vspace{6pt} If you like the the rules presented in 3e core, all six pages of them, feel free to continue using them, but the charms below are designed with this simpler version in mind.
-\end{sidebar}
-
-\par Basic projects are the simplest tasks a craftsman can undertake, such as making a chair, forging basic tools, shoeing a horse, cooking a meal, or fletching an arrow. They are resolved with a single roll. The character works for an amount of time deemed appropriate by the Storyteller, usually ranging from several minutes to several hours, then makes an (Attribute + Craft) roll against a difficulty set by the Storyteller.
-
-  \par Major projects are significant endeavors within a craftsman's trade, anything larger or more complex than a wheelbarrow. They include forging suits of armor, preparing a banquet fit for a prince's table or a god's festival, or sculpting a statue. They are resolved by extended rolls with no fixed terminus, where each roll represents an expenditure of time and materials.
-
-  \par Essence-wielders may also attempt to create Artifacts and Manses, which do have a terminus set by the crafter's available resources. The difficulty, interval and goal number are determined by artifact rating. These intervals assume about four hours of work each day, but cannot be decreased by spending more time working (though a character would work on multiple projects simultaneously if they had nothing else to do).
-
-  \par Repairing a broken artifact is generally as difficult as creating one a dot lower in rating, except that the interval may be significantly shorter depending on how extensive the damage is. Legendary artifacts, which go beyond the five dot scale, use difficulties, intervals and goal numbers chosen by the Storyteller - not all Legendary Artifacts are created equal, but they're all very difficult.
-
-  \begin{tabular}{ccccc}
-    Artifact & Diff & Interval & Goal \# \\
-  \hline
-    \(\bullet\bullet\) & 3 & Two Weeks & 25 \\
-    \(\bullet\bullet\bullet\) & 4 & One Month & 30 \\
-    Manse & 4 & One Month & 30\\
-    \(\bullet\bullet\bullet\bullet\) & 5 & Two Months & 40 \\
-    \(\bullet\bullet\bullet\bullet\bullet\) & 5 & One Season & 50 \\
-    Greater Manse & 5 & Two Seasons & 50 \\
-  \end{tabular}
-
-  \par As an alternate rule - which should be discussed between all the players (including the Storyteller) before the game begins - replace the Interval of artifact creation with time spent playing. This may work better for exceptionally fast-paced games with little downtime between adventures.
-
-  \begin{tabular}{ccccc}
-    Artifact & Alternate Story-based Interval \\
-  \hline
-    \(\bullet\bullet\) & Twice per Session \\
-    \(\bullet\bullet\bullet\) & Once per Session \\
-    Manse & Once per Session \\
-    \(\bullet\bullet\bullet\bullet\) & Twice per Story \\
-    \(\bullet\bullet\bullet\bullet\bullet\) & Once per Story \\
-    Greater Manse & Once per Story \\
-  \end{tabular}
-
-  \par To find the terminus for an Artifact-creation roll, add together the factors for their workshop and their materials. If you're missing either, you can't even start. Then add bonuses for extra time taken, the help of others, complementary abilities, relevant magic, and anything else that seems appropriate.
-
-  Workshop
-  \begin{itemize}
-    \item 1 rolls for a basic workshop, with all the standard tools. A character using Craftsman Needs No Tools has this level of workshop for most projects. However, manses and extremely large Artifacts may require large numbers of labourers as part of the “workshop”.
-    \item 2 rolls for a master's workshop, which contains a high-quality example of every tool a normal craftsman in the field would ever want.
-    \item 3 rolls for a supernaturally excellent workshop. These are rare in Creation, but a few Dynasts and gods and other stranger things have them.
-  \end{itemize}
-
-  Materials
-  \begin{itemize}
-    \item 2 rolls for having a bit of magical material.
-    \item 3 rolls for having some magical material and a few thematically appropriate wondrous ingredients.
-    \item 4 rolls for having plenty of magical materials and at least one genuinely impressive wondrous ingredient.
-    \item 5 rolls for having an embarrassing surplus of suitable ingredients.
-  \end{itemize}
-
-  Other
-  \begin{itemize}
-    \item +1 roll for working with a master assistant or a team of competent workers.
-    \item +2 rolls for working with supernaturally excellent help.
-    \item +1 roll for taking four times as much time as is standard.
-    \item +2 rolls for taking twenty times as much time as is standard.
-    \item +1 roll for having an Ability related to the Artifact at 5, or at 3 with a relevant specialty.
-    \item +1 roll for having a Charm, spell, anima power, or other magical ability that's related to the Artifact.
-  \end{itemize}
-
-  \par If you lose access to something that increases your terminus while working on an Artifact, you may either put the project on hold until you replace it or just accept the reduced terminus. If you use up all of your rolls, all is not lost. Ask the ST what you have to do to earn another roll. Chances are it won't be easy.
-
-  \par Craft can also be used to assess crafted items. This is a simple action requiring a (Perception + Craft) roll. With a success the crafter can determine how old an item is, how well it's made, what it's made of, and what condition it's in, and other similar information. A strong success may also allow the crafter to identify the maker if their style is distinctive.
-\end{multicols}
 
 \begin{Ability}{Craft}
 
@@ -776,7 +1054,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Living Statue Genesis}
   {5m}
   {Simple}{Indefinite}{Stackable}
-  {Craft 4, Essence 2, a specialty in sculpture or clockwork}
+  {Essence 2, Craft 4, a specialty in sculpture or clockwork}
   The Solar touches a statue or mechanical imitation of an animal that she's created. It springs to life and remains animate for as long as she keeps her motes committed. An animal created this way is in all ways like a normal animal, except that it can understand its creator's speech, it reliably obeys its creator's instructions, and it looks obviously inanimate. Animals imitated this way must be at least as large as a mouse and no larger than a dog.
 
   An Essence 3+ repurchase allows her to spend an additional 2m to animate creatures as large as a horse or tiger. Human statues animated in this way are no more intelligent than any other creation.
@@ -806,19 +1084,19 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Object-Strengthening Touch}
   {4m}
   {Simple}{One scene}{-}
-  {Craft 5, Essence 2}
+  {Essence 2, Craft 5}
   With a touch, the Solar increases the durability of an object up to (Essence * 5) yards in radius. This increases the difficulty to break it by (Essence + 1), and renders it extremely resistant to fire, acid, freezing, and other forms of damage.
 
   \charm{Cloth Of Steel}
   {5m, 1wp}
   {Supplemental}{Instant}{-}
-  {Craft 5, Essence 2, Object-Strengthening Touch, a specialty in tailoring}
+  {Essence 2, Craft 5, Object-Strengthening Touch, a specialty in tailoring}
   This Charm supplements an attempt to make a set of clothes. If the attempt succeeds, the clothes benefit from the effects of Durability-Enhancing Technique and count as light mundane armor. They look almost identical to normal clothes; a difficulty 5 Craft or Awareness roll is needed to notice their supernatural durability. When making unusually heavy clothing, the sort that might incur a mobility penalty, the Solar may instead have them count as medium mundane armor.
 
   \charm{Chaos-Resistance Preparation}
   {5m}
   {Simple}{Instant}{-}
-  {Craft 5, Essence 2, Object-Strengthening Touch}
+  {Essence 2, Craft 5, Object-Strengthening Touch}
   The Lawgiver spends up an hour treating an object no more than (Essence) yards in radius. In the bordermarches of the wyld, the object and its wearer/wielder can go (Solar's Essence) weeks without rolling for exposure. This protection shortens to days in the middlemarches and hours in the deep wyld.
 
   At Essence 3+, the Exalt may pay fifteen motes, one Willpower to use this Charm on the project scale, working for a full day to cover a considerable number of goods and vehicles or arms and armor, or perhaps a small ship.
@@ -828,13 +1106,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{The Art of Permanence}
   {6m, 1wp}
   {Supplemental}{Instant}{-}
-  {Craft 5, Essence 3, Chaos-Resistance Preparation}
+  {Essence 3, Craft 5, Chaos-Resistance Preparation}
   This charm supplements a Basic project or personal-scale non-magical Major project, causing it to endure forever. Candles burn eternally, a horse need never be shod again, a stone hut will endure the turning of the ages. Thy wyld will not twist it. This does not protect the items against intentional or sudden damage (a volcano or earthquake), only age and normal weathering.
 
   \charm{Attention-Demanding Artwork}
   {4m}
   {Supplemental}{Instant}{-}
-  {Craft 5, Essence 3}
+  {Essence 3, Craft 5}
   This Charm supplements an attempt to create a painting or a sculpture. If the attempt succeeds, the Solar may roll (Charisma or Manipulation + Craft). Anyone whose Resolve is less than half of her successes is unable to walk past the artwork without stopping to examine it unless they've already done so. In addition, anyone whose Resolve is less than the Solar's successes is unable to destroy the artwork or allow it to be destroyed. Spending 1wp allows him to ignore the art or an attempt to destroy it, while spending 2wp allows him to deliberately destroy the artwork.
 
   If this Charm is activated alongside its prerequisite, the Solar rolls only once. If multiple pieces of art enhanced with this Charm are present in a scene, a character may resist the effects of all of them with a single expenditure of willpower.
@@ -842,7 +1120,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Inspiration-Renewing Vision}
   {8m, 2wp}
   {Supplemental}{Instant}{-}
-  {Craft 5, Essence 5}
+  {Essence 5, Craft 5}
   This charm supplements a roll on a Major craft project. The roll does not count against the project's terminus. This charm may only be used once per project.
 \end{Ability}
 
@@ -862,25 +1140,25 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Drifting Shadow Focus}
   {3m, 1wp}
   {Supplemental}{One Turn}{-}
-  {Dodge 4, Essence 2, Reflex Sidestep Technique}
+  {Essence 2, Dodge 4, Reflex Sidestep Technique}
   This charm supplements a dodge. If the attack (or any other against the Solar before her next turn) misses, she redirects it against any foe other than the attacker within close range.
 
   \charm{Fleet Dreaming Image}
   {5m}
   {Supplemental}{Instant}{-}
-  {Dodge 5, Essence 2}
+  {Essence 2, Dodge 5}
   This charm supplements a disengage action, allowing the Solar to perform it from short range. If successful, she moves to medium range, and as normal for disengaging, moves away the first time her opponent follows her.
 
   \charm{Sunlight Bleeding Away}
   {4m, 1wp}
   {Supplemental}{One round}{Post-roll}
-  {Dodge 5, Essence 3, Fleet Dreaming Image}
+  {Essence 3, Dodge 5, Fleet Dreaming Image}
   This charm supplements a successful Disengage action. The Solar may retreat from her enemy the second time he approaches her as well as the first.
 
   \charm{Seven Shadow Evasion}
   {4m, 1wp}
   {Supplemental}{Instant}{Once/Scene}
-  {Dodge 5, Essence 2}
+  {Essence 2, Dodge 5}
   This charm supplements a dodge, even if the attack is undodgable. The attack misses. It may also be used to defend against uncountable, reoccurring damage, such as a rockslide or being thrown into Oblivion.
 
   Seven Shadow Evasion can be reset by successfully dodging three decisive attacks.
@@ -888,7 +1166,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Walk Between Raindrops}
   {5m}
   {Reflexive}{Indefinite}{-}
-  {Dodge 5, Essence 4, Seven Shadow Evasion}
+  {Essence 4, Dodge 5, Seven Shadow Evasion}
   This charm may be activated at any time. The Solar to dodge the undodgeable, and to resist environmental hazards or effects with (Dexterity + Dodge) instead of (Stamina + Resistance) no matter how implausible doing so might seem. If a hazard would normally be unavoidable, like rain making the Solar wet, difficulty 5 is appropriate.
 
   \charm{Shadow Over Water}
@@ -900,17 +1178,17 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Rumor of Form}
   {6m}
   {Supplemental}{Instant}{Post-roll}
-  {Dodge 5, Essence 2, Shadow Over Water}
+  {Essence 2, Dodge 5, Shadow Over Water}
   This charm supplements a successful dodge. The Solar immediately rolls Stealth to reestablish surprise.
 
   \charm{Flow Like Blood}
   {5m, 1wp}
   {Reflexive}{One scene}{Perilous}
-  {Dodge 4, Essence 2, Shadow Over Water}
+  {Essence 2, Dodge 4, Shadow Over Water}
   When attacked by enemies the Solar has Advantage against, she ignores all penalties to her Evasion. At the end of each each round during which she remained within close range of an enemy without getting hit, she gains 1i.
 
   \permanentCharm{Unbowed Willow Meditation}
-  {Dodge 5, Essence 5, Flow Like Blood}
+  {Essence 5, Dodge 5, Flow Like Blood}
   Whenever the Solar dodges a non-gambit decisive attack from a dangerous opponent without using any charms, after the attack completes she steals all of his Initiative, setting him to 0i and crashing him.
 \end{Ability}
 
@@ -928,13 +1206,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Spirit-Maintaining Maneuver}
   {5m per 1wp}
   {Supplemental}{Instant}{Post-roll}
-  {Integrity 3, Essence 2, Enduring Mental Toughness}
+  {Essence 2, Integrity 3, Enduring Mental Toughness}
   This charm supplements a defense against any Psyche effect or spirit warping attack. For every 5m spent, the effect costs 1wp less to resist.
 
   \charm{Transcendent Hero's Meditation}
   {7m, 1wp}
   {Simple}{Instant}{-}
-  {Integrity 5, Essence 3, Spirit-Maintaining Maneuver}
+  {Essence 3, Integrity 5, Spirit-Maintaining Maneuver}
   The Solar spends five minutes meditating, and ends all Psyche affects with a hold over her.
 
   This charm may only be activated after a Psyche effect makes her act against one of her Intimacies, and she may activate it in spite of any Psyche effects that would prevent her from doing so (including Psyche effects that would prevent her from noticing she's violated the Intimacy).
@@ -944,7 +1222,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   Once the Solar has resisted a Persuade action, she gains +2 to her Resolve if the issue is raised again by anyone other than her Lunar mate.
 
   \permanentCharm{Righteous Lion Defense}
-  {Integrity 5, Essence 2, Stubborn Boar Defense}
+  {Essence 2, Integrity 5, Stubborn Boar Defense}
   When purchasing this charm, the Solar selects one of her Defining Principles. The selected intimacy must be relatively specific - "I will never kneel to Zhao Li", or "Great Forks must be conquered," but not "I will never kneel" or "Creation must be conquered."
 
   As long as she has the intimacy, she may treat any influence that would cause her to act against it as an unacceptable order, and any attempt to weaken it takes a -3 penalty.
@@ -960,19 +1238,19 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Accord of the Unbreakable Spirit}
   {6m, 1wp}
   {Simple}{Indefinite}{-}
-  {Integrity 5, Essence 2, Integrity-Protecting Prana}
+  {Essence 2, Integrity 5, Integrity-Protecting Prana}
   The Solar leads a group in meditation, prayer, chant or song for at least an hour. As long as at least a third the group is meditating/praying/chanting at all times (and she keeps the motes committed), everyone in that group gains 3 bonus successes to resist disease, environmental exposure and wyld mutation/addiction (this is enough to render them immune to all but the harshest environments and furthest reaches of the wyld).
 
   \charm{Mind-Cleansing Prana}
   {5m}
   {Simple}{One scene}{Mute, Once/Day}
-  {Integrity 4, Essence 2}
+  {Essence 2, Integrity 4}
   The Solar spends at least ten minutes in meditation. During the next scene she participates in, she gains one automatic success on Awareness, Investigation, Survival, or any other rolls requiring concentration or clarity of perception or thought (including Read Intentions). The first time she succeeds on such a roll during that scene, she gains 1wp. In addition, she ignores the up to -2 in penalties against her when attempting to see through or resist Psyche effects and illusions.
 
   \charm{Inviolable Essence-Merging}
   {7m}
   {Reflexive}{Indefinite}{-}
-  {Integrity 5, Essence 4, Mind-Cleansing Prana}
+  {Essence 4, Integrity 5, Mind-Cleansing Prana}
   The Exalt becomes categorically immune to harm. While this charm is active, she cannot take any action other than speaking, meditating and activating other Integrity charms. She may not use any non-integrity charms.
 
   This charm may not be used in in a scene where she has attacked or otherwise harmed another character.
@@ -980,13 +1258,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Soul-Nourishing Technique}
   {4m, 1wp}
   {Simple}{Instant}{-}
-  {Integrity 5, Essence 2}
+  {Essence 2, Integrity 5}
   The Solar spends at least an hour giving a sermon or telling a story explaining one of her Defining Principles and why she holds it. Anyone who listens is refreshed as though they'd eaten a solid meal and drank enough water.
 
   \charm{Eminent Paragon Approach}
   {1m}
   {Supplemental}{Instant}{Once/Story}
-  {Integrity 5, Essence 3, Soul-Nourishing Technique}
+  {Essence 3, Integrity 5, Soul-Nourishing Technique}
   This charm supplements any action to uphold, defend or advance one of the Solar's Defining Principles. If the action is successful, all who witness it automatically succeed (and are aware they've succeeded) on a Read Intentions action against the Solar to learn the embodied Principle. They understand that she truely holds the principle in question, and is not just pretending.
 \end{Ability}
 
@@ -999,7 +1277,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Irresistible Questioning Technique}
   {5m, 1wp}
   {Supplemental}{Instant}{Psyche, Once/Story per Target}
-  {Investigation 5, Essence 2, Inquisitor's Unfailing Notice}
+  {Essence 2, Investigation 5, Inquisitor's Unfailing Notice}
   This Charm supplements a Persuade action in the form of a question, outside of combat. If she succeeds, the target must answer truthfully, and to the fullest extent of his knowledge. For each threshold success, the Solar may ask a further question elaborating on the same theme (including repeating a question the target has resisted). The target may resist any question by spending 1wp (the same question may not be asked again during the use of this charm), or end the questioning immediately by leaving the scene (if able).
 
   \permanentCharm{Watchman's Infallible Eye}
@@ -1015,7 +1293,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Ten Magistrate Eyes}
   {3m}
   {Supplemental}{Instant}{-}
-  {Investigation 5, Essence 3, Watchman's Infallible Eye}
+  {Essence 3, Investigation 5, Watchman's Infallible Eye}
   This charm supplements a Case Scene action. The Solar doesn't need to interact with the area she's examining - no need to walk around, search through drawers, reach under the bed, etc.
 
   \charm{Evidence-Discerning Method}
@@ -1027,31 +1305,31 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Watchful Justiciar's Eye}
   {1m, 1wp}
   {Reflexive}{Instant}{-}
-  {Investigation 3, Essence 2, Evidence-Discerning Method}
+  {Essence 2, Investigation 3, Evidence-Discerning Method}
   The Solar may activate this charm whenever she sees a character she's previously Profiled acts outside the bounds of the profile she's established. She may immediately make a new Profile action without the need for further interaction.
 
   \charm{Destroyed Evidence Prana}
   {6m}
   {Supplemental}{Varies}{-}
-  {Investigation 5, Essence 3, Evidence-Discerning Method}
+  {Essence 3, Investigation 5, Evidence-Discerning Method}
   This charm supplements a Case Scene action. The Solar suffers no penalties to the action due to damage to or destruction of the scene - she might understand the occupants of a building destroyed by a tornado, or read the ashes of a burned note, for example.
 
   \charm{Unknown Wisdom Epiphany}
   {10m, 1wp}
   {Simple}{Instant}{-}
-  {Investigation 4, Essence 2}
+  {Essence 2, Investigation 4}
   The Solar goes over a location and chooses an event that happened there within the last (Essence) days. She then retraces the steps and mimics the actions of one of the participants. As she does so she has flashbacks, both visual and emotional, from the perspective of the person she's emulating, spread over the course of the event.
 
   \charm{Enlightened Touch Insight}
   {5m}
   {Simple}{Instant}{-}
-  {Investigation 5, Essence 3, Unknown Wisdom Epiphany}
+  {Essence 3, Investigation 5, Unknown Wisdom Epiphany}
   The Lawgiver touches an item and rolls (Wits + Investigation) against a difficulty equal to the number of days since the object was placed. If successful, she feels the exact emotion of the one who left the item at the moment they dropped or placed it.
 
   \charm{Empathic Recall Discipline}
   {1m, 1wp}
   {Reflexive}{Instant}{-}
-  {Investigation 5, Essence 4, Enlightened Touch Insight}
+  {Essence 4, Investigation 5, Enlightened Touch Insight}
   This charm may be activated when the Solar succeeds on a Case Scene action. She may immediately make a Read Intentions action against the perpetrator (even if they are long gone). If successful, she learns the intentions behind their actions.
 
 \end{Ability}
@@ -1100,7 +1378,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Proof-Eating Palm}
   {1m}
   {Simple}{Indefinite}{Stackable}
-  {Larceny 4, Essence 2, Lightning-Hand Sleight}
+  {Essence 2, Larceny 4, Lightning-Hand Sleight}
   The solar performs some slight-of-hand with an object small enough to fit in her palm. Instead of merely being hidden, the object goes Elsewhere. When she ends the charm, it reappears in her hand. She may have no more than five instances of this charm active at a time.
 
   \charm{Lock-Opening Touch}
@@ -1112,19 +1390,19 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Door-Evading Technique}
   {10m, 1wp}
   {Simple}{Instant}{-}
-  {Larceny 4, Essence 3, Lock-Opening Touch}
+  {Essence 3, Larceny 4, Lock-Opening Touch}
   The Solar passes through a door, window, grate or other portal without opening it.
 
   \charm{Stealing From Plain Sight Spirit}
   {6m}
   {Supplemental}{Instant}{Mute}
-  {Larceny 4, Essence 2}
+  {Essence 2, Larceny 4}
   This charm supplements a pickpocketing attempt, allowing it to be used on normally invalid targets that the Solar could move without a feat of strength. The attempt takes a penalty ranging from -1 (mildly improbably - a table in the middle of the room) to -5 (blatantly unfeasible - the chair someone is sitting in, worn pants). Anyone who fails their Awareness roll to notice the theft cannot notice the absence for (Solar's Essence) minutes or until circumstances call attention to the theft.
 
   \charm{Magpie's Invisible Talon}
   {1wp}
   {Supplemental}{Instant}{-}
-  {Larceny 5, Essence 3, Stealing From Plain Sight}
+  {Essence 3, Larceny 5, Stealing From Plain Sight}
   This charm supplements a pickpocket attempt, allowing the Solar to steal small items from up to (Essence) yards away, even if a solid barrier blocks her reach.
 
   \charm{Flawlessly Impenetrable Disguise}
@@ -1136,13 +1414,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Perfect Mirror}
   {5m, 1wp}
   {Supplemental}{Until the Exalt sleeps}{Mute}
-  {Larceny 5, Essence 2, Flawlessly Impenetrable Disguise}
+  {Essence 2, Larceny 5, Flawlessly Impenetrable Disguise}
   This charm supplements a Disguise action. The Solar ignores the penalty for disguising herself as a specific person. In addition, the disguise may mimic the Dim level of any exalt's anima as appropriate for the role adopted, or similar minor magical effects. Any character who attempts to pierce the disguise and fails suffers a -2 penalty on subsequent attempts.
 
   \charm{Split Deception Method}
   {5m}
   {Reflexive}{Indefinite}{Stackable}
-  {Larceny 5, Essence 3, Perfect Mirror}
+  {Essence 3, Larceny 5, Perfect Mirror}
   The Solar may activate this charm when she finishes a Disguise action. She immediately makes another Disguise action. When later seen by other characters, the Solar chooses which disguise each witness or group of witnesses sees. If she's unaware of them, they see the final one donned. She may have this charm active no more than (Essence) times at once.
 
 \end{Ability}
@@ -1158,7 +1436,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Flashing Quill Atemi}
   {1m}
   {Simple}{One minute}{-}
-  {Linguistics 5, Essence 3, Whirling Brush Method}
+  {Essence 3, Linguistics 5, Whirling Brush Method}
   The Solar edits an existing document - changing words on the page, adding or removing text, adjusting tone. This destroys any existing social influence or magic encoded in the text, though she may add her own as though she were writing the document herself. She rolls (Manipulation + Linguistics) - any reader must meet that difficulty with a (Perception + Linguistics) roll to notice the document has been altered.
 
   \charm{Subtle Speech Method}
@@ -1170,7 +1448,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Moving the Unseen Hand}
   {4m}
   {Supplemental}{Instant}{Mute}
-  {Linguistics 5, Essence 2, Subtle Speech Method}
+  {Essence 2, Linguistics 5, Subtle Speech Method}
   This charm supplements writing an unsigned message. The Exalt rolls (Manipulation + Linguistics), and chooses an effect:
 
   \begin{itemize}
@@ -1190,19 +1468,19 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Excellent Emissary's Tongue}
   {6m}
   {Reflexive}{Indefinite}{-}
-  {Linguistics 5, Essence 2, Mingled Tongue Technique}
+  {Essence 2, Linguistics 5, Mingled Tongue Technique}
   The Solar may use this charm when she hears an unfamiliar language being spoken. She learns the language, both written and spoken, though she retains a -3 penalty to social influence in the new language until the charm has been active for a week. If she uses the language (and the charm remains active) for more than a season, she learns the language naturally, and the knowledge does not fade with the end of the charm.
 
   \charm{Discerning Savant's Eye}
   {1m, 1wp}
   {Supplemental}{One scene}{-}
-  {Linguistics 5, Essence 2, Whirling Brush Method}
+  {Essence 2, Linguistics 5, Whirling Brush Method}
   This charm supplements an attempt to read or copy a damaged text, allowing the Exalt to ignore the damage as long as some fragment remains.
 
   \charm{Perfect Recollection Discipline}
   {1m}
   {Supplemental}{Instant}{-}
-  {Linguistics 5, Essence 3, Discerning Savant's Eye}
+  {Essence 3, Linguistics 5, Discerning Savant's Eye}
   This charm supplements reading a book or other document of any length. The Solar retains the text perfectly, and can flip through it mentally as though it were in her hands. If she retains the 1m commitment for a season, the the information becomes innate and does not fade if she ends the charm.
 
   With a repurchase, she can read the material to be memorized as quickly as she can unroll a scroll or turn pages (approximately two per second) with full comprehension.
@@ -1216,13 +1494,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Voice-Caging Calligraphy}
   {2m, 1wp}
   {Supplemental}{Instant}{Mute, Psyche}
-  {Linguistics 5, Essence 2, Letter-Within-A-Letter Technique}
+  {Essence 2, Linguistics 5, Letter-Within-A-Letter Technique}
   This charm supplements writing a letter or other brief work. The reader may not share the contents of the letter with anyone else - he forgets what he was going to say, writes nothing, or otherwise fails to act upon his intention to do so unless he spends 5wp to end the effect. If one of his Defining intimacies is threatened, the cost drops to to 2wp.
 
   \charm{Twisted Words Technique}
   {1m, 1wp}
   {Supplemental}{Instant}{Psyche}
-  {Linguistics 5, Essence 3, Flowing Elegant Hand, Letter Within-A-Letter Technique, Subtle Speech Method}
+  {Essence 3, Linguistics 5, Flowing Elegant Hand, Letter Within-A-Letter Technique, Subtle Speech Method}
   This charm supplements social influence of any ability. Though the target applies Intimacies as normal for the apparent effect, the influence has an actual effect opposite of that - if it seems like it should strengthen an intimacy, it weakens it instead. For example, the Solar might make a passionate speech on the evils of harlotry which forms an Intimacy of support in her listeners.
 
   This influence can always be resisted by spending 1wp, regardless of intimacies.
@@ -1230,7 +1508,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Unbreakable Fascination Method}
   {6m, 1wp}
   {Simple}{Indefinite}{Psyche}
-  {Linguistics 5, Essence 4, Twisted Words Technique}
+  {Essence 4, Linguistics 5, Twisted Words Technique}
   The Solar speaks, and rolls (Manipulation + Linguistics) with (Essence) automatic successes, applying it against the Resolve of everyone listening. Anyone who's Resolve is met is held enraptured until she ceases speaking, even those who do not understand her language. The charm ends if the listeners come under direct physical danger.
 
   This charm may instead be used to supplement a written work - if it is, as long as the Solar leaves the motes committed, anyone who reads even a single line is required to spend at least (Solar's Essence) minutes reading more of the text.
@@ -1248,7 +1526,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Force-Draining Whisper}
   {10m, 1wp}
   {Supplemental}{Instant}{Post-roll, Once/Scene}
-  {Lore 5, Essence 3, Essence-Draining Touch}
+  {Essence 3, Lore 5, Essence-Draining Touch}
   This charm supplements defense against a decisive attack after it has hit. The Exalt rolls (Wits + Lore) with (Essence) automatic successes, and reduces the of the attack by that many dice. In addition, she gains that much initiative.
 
   Force-Draining Whisper can be reset if she or any of her allies reaches their last health level.
@@ -1258,13 +1536,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Will-Shattering Illusion}
   {10m}
   {Simple}{Instant}{Mute, Once/Scene}
-  {Lore 5, Essence 4, Force Draining Whisper}
+  {Essence 4, Lore 5, Force Draining Whisper}
   The Solar rolls (Wits + Lore) with (Essence) bonus dice against a target within Long range, and he contests with ([Intelligence or Wits] + Lore). If she's successful, he loses 2wp, and (if in combat) she steals 4i. If he has equal or greater Essence, she also gains 1wp.
 
   \charm{Power-Restoring Invocation}
   {2i}
   {Simple}{Instant}{Once/Scene}
-  {Lore 5, Essence 3, Essence-Draining Touch}
+  {Essence 3, Lore 5, Essence-Draining Touch}
   The Solar rolls (Perception + Lore), granting that many motes of essence divided as she chooses among herself and any allies within Extreme range.
 
   At Essence 5, she may use this charm even in crash, spending herself into negative initiative.
@@ -1280,19 +1558,19 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Hidden Wisdom Bestowal}
   {10m, 1wp}
   {Supplemental}{One scene}{Mute}
-  {Lore 5, Essence 2, Flowing Mind Prana}
+  {Essence 2, Lore 5, Flowing Mind Prana}
   This charm supplements any action to teach someone, disguising the Solar's lessons as harmless regardless of their true content. Only the target understands the true meaning of her lessons. She might teach demonolgy while discussing the Immaculate texts during a casual stroll, or teach brawling during a dance lesson.
 
   \charm{Power-Awarding Prana}
   {10m}
   {Simple}{Indefinite}{Mute, Stackable}
-  {Lore 5, Essence 3, Flowing Mind Prana}
+  {Essence 3, Lore 5, Flowing Mind Prana}
   The Solar touches another Lawgiver, and grants him knowledge of one of her charms he meets the minimums and prerequisites for. As long as she maintains this charm, he may use it as though he had learned it himself.
 
   \charm{Power-Awarding Prana}
   {10m}
   {Simple}{Indefinite}{Mute, Stackable}
-  {Lore 5, Essence 3, Essence Font Technique, Flowing Mind Prana x 3}
+  {Essence 3, Lore 5, Essence Font Technique, Flowing Mind Prana x 3}
   The Solar touches another Lawgiver, and grants him knowledge of one of her charms he meets the minimums and prerequisites for. As long as she maintains this charm, he may use it as though he had learned it himself.
 
   \charm{Wyld-Dispelling Prana}
@@ -1310,7 +1588,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Order-Affirming Blow}
   {15m, 1wp}
   {Simple}{Instant}{-}
-  {Lore 5, Essence 3, Chaos-Repelling Pattern}
+  {Essence 3, Lore 5, Chaos-Repelling Pattern}
   The Solar touches a target, and shatters any mind, body or soul-twisting effects of the wyld upon him, returning him to his natural state. This does not affect sorcery or other, more arcane manipulations. If used on an unwilling target in combat, this requires a difficulty 5 gambit with Brawl, Martial Arts or Melee.
 
   If used upon a Fair Folk, they instead transform, assuming a fixed form for (Solar's Essence) scenes. The form they're forced into depends upon their nature, but always exposes them as blatantly inhuman without harming them.
@@ -1318,7 +1596,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Wyld-Shaping Technique}
   {15m, 1wp}
   {Simple}{Instant}{-}
-  {Lore 5, Essence 3, Order Affirming Blow, Truth-Rendering Gaze}
+  {Essence 3, Lore 5, Order Affirming Blow, Truth-Rendering Gaze}
   The Solar stands at the edge of the world - at least the border between the Middlemarches and the Deep Wyld, or possibly even further into chaos - and begins to shape chaos into form in a dramatic action that lasts fifteen minutes (which may be flurried if combat begins, as it likely will). She may activate Chaos-Repelling Prana without paying its cost, but any other similar effects within three range bands end immediately. While shaping the wyld, she will almost certainly be attacked. Roll one die:
 
   \begin{itemize}
@@ -1345,7 +1623,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   When she stops activating Wyld-Shaping Technique, the newly created area settles into stability - Wyld-Shaping Technique may no longer be used there, and if she's adjacent to Creation, the middlemarches behind her will slowly stabilize over the coming weeks and months. If left uninhabited, the land may dissolve back into chaos over time, like any other part of Creation.
 
   \permanentCharm{Wyld Cauldron Mastery}
-  {Lore 5, Essence 4, Wyld-Shaping Technique}
+  {Essence 4, Lore 5, Wyld-Shaping Technique}
   Reduce the difficulty of Wyld-Shaping Technique's Lore rolls by 2. In addition, on subsequent activations (after creating the initial land), she gains two additional options:
 
   \begin{itemize}
@@ -1370,19 +1648,19 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Contagion-Curing Touch}
   {1m}
   {Supplemental}{Instant}{-}
-  {Medicine 4, Essence 2, Ailment-Rectifying Method}
+  {Essence 2, Medicine 4, Ailment-Rectifying Method}
   This charm supplements any Medicine roll to treat disease, allowing her to do so even if lacking the proper medicines or herbs. In addition, if the patient recovers, he gains (Solar's Essence) automatic successes on all rolls to resist disease for a season.
 
   \charm{Body-Purifying Admonitions}
   {4m, 1wp}
   {Reflexive}{Instant}{-}
-  {Medicine 5, Essence 2, Ailment Rectifying Method}
+  {Essence 2, Medicine 5, Ailment Rectifying Method}
   This charm may be activated at any time. The Solar touches a target suffering from poison. She rolls (Wits + Medicine), removing successes from the poison's remaining duration as it boils out from its point of entry.
 
   \charm{Living Lands Approach}
   {15m}
   {Simple}{Instant}{-}
-  {Medicine 5, Essence 4, Body Purifying Admonitions, Contagion-Curing Touch}
+  {Essence 4, Medicine 5, Body Purifying Admonitions, Contagion-Curing Touch}
   The Lawgiver spends a day leading a group in planting, clearing, weeding and generally treating an area of Shadowland no larger than (Essence * 10) acres. If living humans frequent it and attend to the land's needs over the course of the next month, it gradually returns to being a normal part of Creation.
 
   \charm{Wound-Cleansing Meditation}
@@ -1402,13 +1680,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Instant Treatment Methodology}
   {5m, 1wp or 5i, 1wp}
   {Supplemental}{Instant}{-}
-  {Medicine 4, Essence 2, Wound-Mending Care Technique}
+  {Essence 2, Medicine 4, Wound-Mending Care Technique}
   This charm supplements any Medicine charm that requires an hour of treatment, reducing it to seconds (a single combat action). An appropriate stunt may remove the need for tools as well.
 
   \charm{Wholeness-Restoring Meditation}
   {7m, 1wp}
   {Simple}{Until treatment ends}{-}
-  {Medicine 5, Essence 3, Wound Mending Care Technique}
+  {Essence 3, Medicine 5, Wound Mending Care Technique}
   This Lawgiver begins treating a patient with some sort of permanent debilitation. The Storyteller should decide if this is Minor, Major or Defining. She begins an extended (Intelligence + Medicine) roll, difficulty 5 and terminus 5. The interval and goal depends on the severity.
 
   \begin{itemize}
@@ -1422,7 +1700,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Science of Mutation}
   {8m, 1wp}
   {Simple}{Until treatment ends}{-}
-  {Medicine 5, Essence 5, Wholeness-Restoring Meditation, Instant Treatment Methodology}
+  {Essence 5, Medicine 5, Wholeness-Restoring Meditation, Instant Treatment Methodology}
   The Solar takes her patient to the wyld, and spends at least a day applying powerful herbs, operating, or otherwise working on her patient as appropriate to her methods. She selects an Innate merit, and begins an extended (Perception or Intelligence + Medicine) roll, interval one day in the bordermarches or one one hour on the middlemarches. The difficulty is equal to (sum of the dots of all his existing innate merits). The Storyteller should estimate the dots of innate merits possessed by an NPC without a full character sheet. The goal is 5 * dots of new merit, and there is no terminus.
 
   If she succeeds, her patient gains the mutation. If he tracks experience, he must pay for it as though it were a purchased Merit. If she botches or abandons the project before completion (or her patient escapes), he instead gains one or more mutations of the Storyteller's choice (often starting with Hideous) related to the attempted change.
@@ -1432,19 +1710,19 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Touch of Blissful Release}
   {5m}
   {Simple}{One Scene}{-}
-  {Medicine 3, Essence 2}
+  {Essence 2, Medicine 3}
   The Solar touches a target (herself or another), and rolls (Intelligence + Medicine). He ignores up to (Successes) wound or other crippling penalties, down to a minimum of -1 penalty.
 
   \charm{Wound-Accepting Technique}
   {3m per health level, 1wp}
   {Simple}{Instant}{Once/Scene per Patient}
-  {Medicine 4, Essence 2, Touch of Blissful Release}
+  {Essence 2, Medicine 4, Touch of Blissful Release}
   The Lawgiver touches another, and heals him up to (Essence) Bashing or Lethal levels of damage. She takes a like amount of damage of the same type.
 
   \charm{Life-Exchanging Prana}
   {1lhl per 3m, 1wp}
   {Reflexive}{One Round}{-}
-  {Medicine 5, Essence 3, Wound-Accepting Technique}
+  {Essence 3, Medicine 5, Wound-Accepting Technique}
   This charm may be activated at any time. The Solar gains 3m for every 1lhl she pays, trading her vital energies for Essence. Until her next turn, she ignores all wound and fatigue penalties. She may not reduce herself below Incapacitated with this charm, and doesn't fall unconscious until her next turn if she goes that far.
 
 \end{Ability}
@@ -1466,7 +1744,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Sandstorm-Wind Attack}
   {5m, 2i}
   {Supplemental}{Instant}{-}
-  {Melee 4, Essence 2, Call the Blade}
+  {Essence 2, Melee 4, Call the Blade}
   This charm supplements a Decisive Melee attack, allowing the Solar to target opponents at up to Short range, or medium range if she spends an additional 3m. She ignores hardness, and her target cannot benefit from cover. Flimsy cover may be destroyed at the Storyteller's discretion.
 
   \charm{Dipping Swallow Defense}
@@ -1486,13 +1764,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Fivefold Bulwark Stance}
   {5m, 1wp}
   {Simple}{One scene}{-}
-  {Melee 5, Essence 2, Dipping Swallow Defense}
+  {Essence 2, Melee 5, Dipping Swallow Defense}
   The Solar ignores penalties to her Parry from wounds, onslaught and being grappled. Dipping Swallow Defense costs 1m less to activate.
 
   \charm{Heavenly Guardian Defense}
   {4m + 1i per success, or 4m, 1wp}
   {Supplemental}{Instant}{Post-roll}
-  {Melee 5, Essence 2, Fivefold Bulward Stance}
+  {Essence 2, Melee 5, Fivefold Bulward Stance}
   This charm supplements a Parry against a Decisive attack, after damage has been rolled. Reduce the damage dealt by one level per initiative spent.
 
   If an attack would deal uncountable reoccurring damage (such as an exploding volcano or a swirling maelstrom of adamant blades), she may instead spend 4m, 1wp to block all damage.
@@ -1514,7 +1792,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Glorious Solar Saber}
   {5m, 1wp}
   {Simple}{One scene}{-}
-  {Melee 3, Essence 2, Summoning the Loyal Steel}
+  {Essence 2, Melee 3, Summoning the Loyal Steel}
   The Exalt forms her essence into a weapon with the same statistics as a Daiklave or another artifact Melee weapon chosen when the charm is learned. It glows like a torch, and she may purchase evocations for this weapon, working with the Storyteller to design those appropriate to her character and iconic anima manifestation.
 
   She may supplement any attack using this weapon by spending 1m, 1wp. If she does, the blade glows with heat and at the automatically destroys any mortal weapon used to parry it or that it clashes (after the attack is resolved). This effect can also be used to carve her blade through up to two feet of rock or metal for a stunt.
@@ -1528,13 +1806,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Iron Whirlwind Attack}
   {5m, 1wp}
   {Simple}{Instant}{-}
-  {Melee 5, Essence 2, One Weapon, Two Blows}
+  {Essence 2, Melee 5, One Weapon, Two Blows}
   The Solar makes up to (lowest of Strength, Dexterity or Stamina) Decisive Melee attacks, dividing her initiative evenly among them, spread among one or more targets as she chooses. Any non-excellency supplemental charms applied to the first attack are applied to all later ones at no additional cost.
 
   \charm{Heaven Sword Flash}
   {6m, 1wp}
   {Simple}{Instant}{Perilous}
-  {Melee 5, Essence 4, Iron Whirlwind Attack}
+  {Essence 4, Melee 5, Iron Whirlwind Attack}
   The Solar rolls a single Decisive Melee attack with raw damage of half her current initiative, and applies it against all opponents within close range. Against battle groups, she uses her full initiative value for damage. If she only hits battle groups, her initiative does not reset.
 \end{Ability}
 
@@ -1563,7 +1841,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{All-Encompassing Sorcerer's Sight}
   {4m}
   {Reflexive}{One Round}{-}
-  {Occult 5, Essence 2, Spirit-Detecting Glance}
+  {Essence 2, Occult 5, Spirit-Detecting Glance}
   This charm may be activated at any time. The Solar can briefly see the patterns of essence that make up Creation. She can see immaterial spirits, the borders of shadowlands, wyld energy, the entrances to spirit sanctums and similar. If a character is using shaping actions or evocations, she may make an (Intelligence + Occult) roll at a difficulty of the effect's Essence minimum to determine the exact effect. She may make similar rolls for ongoing magical effects in the area and determining a spirit's Essence rating.
 
   The Solar gains (Essence) automatic successes on any Awareness roll to see through magical disguises, shapeshifting, or similar magic. Unless otherwise noted, the difficulty is 5.
@@ -1573,13 +1851,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Gloaming Eye Understanding}
   {3m}
   {Simple}{Indefinite}{Stackable}
-  {Occult 5, Essence 3}
+  {Essence 3, Occult 5}
   The Solar spends a day learning an Eclipse-keyworded spirit charm from a teacher who already knows it. She must meet the charm's trait requirements, but doesn't need to know any prerequisites. As long as she maintains this charm's commitment, she may use that charm as if she knew it.
 
   \charm{Spirit-Repelling Diagram}
   {6m}
   {Simple}{One scene}{-}
-  {Occult 3, Essence 2}
+  {Essence 2, Occult 3}
   The Exalt forms a barrier of visible essence around herself, extending out to short range. It remains fixed, and the charm ends if she steps outside the area. Spirits with Essence equal to or lower than hers must either materialize (using their own powers) or leave the circle and be unable to attack characters within. Against spirits with higher Essence, she may roll (Wits + Occult) with (Essence) bonus dice against their Resolve to force the same choice on them. Against demons and other cursed spirits, she instead gains (Essence) bonus successes.
 
   With a repurchase, this can also force out possessing spirits - if forced to materialize or leave the area, they must also vacate a possessed body, and cannot return to their victim's body for a season.
@@ -1587,7 +1865,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Spirit-Caging Mandala}
   {10m, 1wp}
   {Simple}{Varies}{-}
-  {Occult 4, Essence 2, Spirit-Repelling Diagram}
+  {Essence 2, Occult 4, Spirit-Repelling Diagram}
   The Solar attempts to bind a spirit within medium range. She rolls (Wits + Occult) against a difficulty of (Spirit's Essence). If successful, the spirit may not voluntarily move for (threshold successes + 1) rounds, at which point the difficulty increases by one and she may roll again, repeating until she fails a roll. Spirits so trapped become material without cost to themselves until released, and may not attack unless they're attacked first. The charm ends immediately if the Solar moves further from the spirit than medium range.
 
   With an Essence 3+ repurchase, the Solar may also trap formless or immaterial denizens of the wyld.
@@ -1595,7 +1873,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Spirit-Shredding Exorcism}
   {5m, 1 wp}
   {Reflexive}{Instant}{-}
-  {Occult 5, Essence 4, Spirit-Caging Mandala}
+  {Essence 4, Occult 5, Spirit-Caging Mandala}
   This charm may be activated whenever the Lawgiver succeeds at a (Wits + Occult) roll for the prerequisite charm. She rolls (Intelligence + Occult) against the spirit's Resolve, which may not be enhanced by intimacies. If successful, her victim's permanent Essence is reduced by 1 until the end of the scene (which may remove access to powers he no longer meets the prerequisites for), and she resets the difficulty of the roll to cage the spirit.
 
   Subsequent activations of this charm in a scene on the same spirit waive the wp cost. If a spirit is reduced to essence 0, the Solar may choose to either permanently destroy it or keep it trapped without further rolls, and the duration of Spirit-Caging Mandala becomes "one scene."
@@ -1611,13 +1889,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{All Souls Benediction}
   {12m, 1wp}
   {Simple}{One Scene}{-}
-  {Occult 5, Essence 3, Spirit-Manifesting Word}
+  {Essence 3, Occult 5, Spirit-Manifesting Word}
   All spirits within Extreme range may roll (Wits + Dodge) against a difficulty (Solar's temporary willpower). Those who fail (or choose not to roll) materialize, and may not dematerialize while the charm lasts without the Lawgiver's permission. Ghosts may choose to go immediately into lethe rather than materialize.
 
   \charm{Ephemeral Induction Technique}
   {20m, 1wp}
   {Simple}{Instant}{-}
-  {Occult 5, Essence 5, All Souls Benediction}
+  {Essence 5, Occult 5, All Souls Benediction}
   The Solar creates a new spirit or fair folk, either from whole cloth or by mingling the essence of spirits recently destroyed in the area with essence from the surrounding area. This spirit is the her Familiar, and begins with an Essence score equal to the Solar's. While it will rapidly grow into whatever role it's given, it begins with only the most basic of spirit or fair folk charms.
 
   Each time the season changes, she may release her current familiar created with this charm. Until she does so, she cannot use this charm again.
@@ -1631,13 +1909,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   She gains the ability to learn and cast Terrestrial Circle spells. She learns a shaping ritual immediately. The first spell she learns becomes her control spell.
 
   \permanentCharm{Celestial Circle Sorcery}
-  {Occult 4, Essence 3, Terrestrial Circle Sorcery, any two Terrestrial Circle spells}
+  {Essence 3, Occult 4, Terrestrial Circle Sorcery, any two Terrestrial Circle spells}
   This charm may only be learned when the Solar meets the requirements for a second shaping ritual - reaffirming her pact with her patron, studying in the Violet Bier of Sorrows, or some other appropriate initiation. It may not be learned early by having Occult as a Supernal Ability.
 
   She gains the ability to learn and cast Celestial Circle spells. She learns another shaping ritual. The first Celestial Circle spell she learns becomes a second control spell.
 
   \permanentCharm{Solar Circle Sorcery}
-  {Occult 5, Essence 5, Celestial Circle Sorcery, any four Terrestrial Circle spells, any two Celestial Circle spells}
+  {Essence 5, Occult 5, Celestial Circle Sorcery, any four Terrestrial Circle spells, any two Celestial Circle spells}
   Like the previous circle, the Solar must meet the requirements for another shaping ritual, and may not be taken early by having Occult as a Supernal Ability.
 
   The Solar gains the ability to learn and cast Solar Circle spells. She learns a shaping ritual, and the first Solar Circle spell she learns becomes a third control spell.
@@ -1663,7 +1941,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Phantom-Conjuring Performance}
   {2m}
   {Supplemental}{One Performance}{-}
-  {Performance 4, Essence 2, Respect-Commanding Attitude}
+  {Essence 2, Performance 4, Respect-Commanding Attitude}
   This charm supplements any Performance. The Exalt conjures phantom images around her within short range, following along with her performance and aiding it. Apparitions might be other characters seeming to curl out of the smoke of a fire, hints of scenery seen in sunbeams, or rain hitting roof sounding like war-drums to match her tale.
 
   \charm{Celestial Bliss Trick}
@@ -1681,7 +1959,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Battle Anthem (of the Solar Exalted)}
   {1m}
   {Simple}{One round}{-}
-  {Performance 5, Essence 2, Mood-Inducing Music}
+  {Essence 2, Performance 5, Mood-Inducing Music}
   The Lawgiver sings or plays an instrument in battle. Each ally within long range gains 1i, and until her next action, their successful withering attacks grant +1i. Allied battle groups gain (Solar's Essence) bonus dice on their attacks and rout checks.
 
   At Essence 3+, each ally affected also gains 1m, and doubles any Intimacy-derived bonuses to Resolve. Allied battle groups gain (Solar's Essence) automatic successes when rallying for numbers.
@@ -1695,19 +1973,19 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Infectious Zealotry Approach}
   {3m, 1wp}
   {Reflexive}{One Scene}{-}
-  {Performance 5, Essence 2}
+  {Essence 2, Performance 5}
   With a meaningful glance or supportive nod, the Solar selects an intimacy she thinks her target has, and rolls ([Charisma or Manipulation] + Performance) against his Resolve, unmodified by Intimacies. If successful, and he actually has that intimacy, he treats it as one level more intense until the end of the scene. If she supports a Defining intimacy in this way, her target becomes obsessed, and neglects all other cares in favor of fulfilling his obsession.
 
   \charm{Memory-Reweaving Discipline}
   {10m, 1wp}
   {Simple}{Instant}{Psyche, Group}
-  {Performance 5, Essence 3, Infectious Zealotry Approach}
+  {Essence 3, Performance 5, Infectious Zealotry Approach}
   The Solar spends a minute or two spinning a tale, and rolls (Manipulation + Performance), subtracting successes rather than dice for any situational penalties (including bizarre, unbelievable or far-reaching claims). Each character or groups' Resolve she overcomes gains a Minor Intimacy of belief that her story is true. If she exceeds their Resolve by three or more, they instead gain a Major intimacy of belief.
 
   \charm{Master Thespian Style}
   {2m}
   {Simple}{One scene}{-}
-  {Performance 4, Essence 2}
+  {Essence 2, Performance 4}
   The Exalt spends five minutes assuming a role. Against Read Intentions actions, her Guile increases by 1, and she calculates it with Performance rather than Socialize. Characters who fail at a Read Intentions action believe they've succeeded, picking up on her character's intimacies or motivations, rather than her true feelings. She may activate this charm reflexively (no preparation needed) with a suitably dramatic entrance.
 
   A character may only hold one such intimacy from the Solar at a time - until it's eroded entirely, any of her attempts to reuse this charm on him fail. If the intimacy erodes, he still has the false memory, but for whatever reason no longer believes it to be true.
@@ -1717,13 +1995,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Heart-Compelling Method}
   {5m}
   {Supplemental}{Instant}{Group}
-  {Performance 4, Essence 2}
+  {Essence 2, Performance 4}
   This charm supplements a Performance-based Inspire action by singing or with an instrument. If it succeeds, its targets must act on the roused emotion immediately - they cannot resolve to do so at a later date, or decide on a course of action that cannot be implemented within the next day.
 
   \charm{Demon Wracking Shout}
   {8m, 1wp}
   {Simple}{Instant}{Once/Scene}
-  {Performance 5, Essence 3}
+  {Essence 3, Performance 5}
   The Solar shouts, a sound physically painful to demons and other dark spirits. She makes a single undodgeable (Charisma + Performance) Decisive attack with (Essence) automatic successes, applying it to all such creatures within Long range, including immaterial ones.
 
   \end{Ability}
@@ -1739,17 +2017,17 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Majestic Radiant Presence}
   {6m}
   {Simple}{One scene}{-}
-  {Presence 4, Essence 2, Illustrious Solar Mien}
+  {Essence 2, Presence 4, Illustrious Solar Mien}
   The first time each character wishes to threaten, speak against or attack the Lawgiver, he must spend 1wp.
 
   \permanentCharm{Excellent Friend Approach}
-  {Presence 3, Essence 2}
+  {Essence 2, Presence 3}
   When attempting a Persuade action against people who have a positive Tie to her, the Solar and her target treat that Intimacy as one step more powerful. If the Tie is already defining, increase the bonus or penalty from the Tie by one.
 
   \charm{Authority-Radiating Stance}
   {5m, 1wp}
   {Reflexive}{One scene}{-}
-  {Presence 5, Essence 3, Excellent Friend Approach}
+  {Essence 3, Presence 5, Excellent Friend Approach}
   Minor characters who don't already know who the Solar is automatically assume she's someone of authority in their organization - a superior officer from a different unit of the army, an inspector from the Guild or something else appropriate. They will treat her with respect and defer to her unless someone with legitimate authority is present. She may treat this effect as a Minor intimacy of respectful obsequiousness for the purposes of social influence (Excellent Friend Approach will usually apply to this intimacy).
 
   \permanentCharm{Tiger's Dread Symmetry}
@@ -1761,13 +2039,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Enemy-Castigating Solar Judgment}
   {3m, 1wp}
   {Supplemental}{Instant}{-}
-  {Presence 5, Essence 2, Tiger's Dread Symmetry}
+  {Essence 2, Presence 5, Tiger's Dread Symmetry}
   This charm supplements any decisive attack or social influence attempt against a creature of darkness or a character the Solar has a negative Defining Tie towards. That character's Defense or Resolve takes a -1 penalty. Influence enhanced this way costs an additional 1wp to resist, and attacks enhanced this way inflict aggravated damage. The Solar's other magic treats him as a creature of darkness for this attack/influence.
 
   \charm{Terrifying Apparition of Glory}
   {7m, 1wp}
   {Reflexive}{Instant}{Group, Once/Scene, Iconic}
-  {Presence 5, Essence 3, Tiger's Dread Symmetry}
+  {Essence 3, Presence 5, Tiger's Dread Symmetry}
   This charm may be activated at any time. Out of combat, the Solar makes a single Threaten action and applies it to all characters out to Long range.
 
   In combat, any battle groups within Long range must make an immediate Rout check (this counts as a devastating area of effect assault), and on failure they lose a point of Size and restores all points of Magnitude rather than dissolving.
@@ -1775,7 +2053,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Countenance of Vast Wrath}
   {6m}
   {Reflexive}{One scene}{Iconic}
-  {Presence 5, Essence 4, Terrifying Apparition of Glory, Enemy-Castigating Solar Judgment}
+  {Essence 4, Presence 5, Terrifying Apparition of Glory, Enemy-Castigating Solar Judgment}
   This charm may be activated at any time. The Solar gains (Essence) bonus dice on all Threaten actions against a single target, and may affect even mindless creatures and those incapable of fear. In combat, opponents within long range lose 1i each round in which they do not attack her.
 
   \charm{Underling-Promoting Touch}
@@ -1789,19 +2067,19 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Worshipful Lackey Acquisition}
   {12m}
   {Simple}{(Essence) days}{Psyche}
-  {Presence 5, Essence 3, Underling-Promoting Touch}
+  {Essence 3, Presence 5, Underling-Promoting Touch}
   The Solar spends several minutes talking with another character - or any number of minor characters - who have any Tie towards her, positive or negative. Her target(s) must roll (Wits + Integrity) against a difficulty of (Solar's strongest social attribute). If they fail, they must spend 2wp or gain a Defining intimacy placing them as the Solar's underlings. They may still hate her, but they can't help but cloy and defer to her. This intimacy disappears when the charm ends.
 
   \charm{Mind-Wiping Gaze}
   {1m, 1wp}
   {Reflexive}{One Scene}{Once/Scene per Target}
-  {Presence 5, Essence 2, Terrifying Apparition of Glory}
+  {Essence 2, Presence 5, Terrifying Apparition of Glory}
   This charm may be activated at any time. The Solar chooses a specific type of social influence, such as "reveal my nature," "suggest an invasion," and locks eyes with her target. She rolls ([Charisma or Appearance] + Presence) against her target's Resolve (counting as a Threaten action for purposes of charms). If successful, he forgets about his desire to perform the named action until the charm ends. If reminded of the desire, he may spend 1wp to end the effect - otherwise, it slips from his mind again immediately.
 
   \charm{Hypnotic Tongue Technique}
   {10m, 1wp}
   {Simple}{Indefinite}{Psyche, Mute, Once/Story per Target}
-  {Presence 5, Essence 3, Mind-Wiping Gaze, Listener Swaying Argument}
+  {Essence 3, Presence 5, Mind-Wiping Gaze, Listener Swaying Argument}
   After interacting socially with her target for at least a minute, with small talk, business, or any other subject, the Solar rolls ([Charisma or Manipulation] + Presence) against her target's Resolve, which may not be modified by Intimacies. If successful, he goes catatonic for a second, allowing the Solar to implant (threshold successes + 1) short, clear sentences worth of instructions to be carried out at the same time, either immediately or at some future time. He may immediately spend 2wp to resist, forgetting the whole incident - if he does not, then at the specified time he takes the actions as long as none of them are obviously suicidal. He does not remember why he took those actions.
 
 \end{Ability}
@@ -1841,13 +2119,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Hauberk-Summoning Gesture}
   {3m}
   {Reflexive}{Indefinite}{-}
-  {Resistance 2, Essence 2, Whirlwind Armor-Donning Prana}
+  {Essence 2, Resistance 2, Whirlwind Armor-Donning Prana}
   The Solar banishes a suit of armor she's wearing, and optionally a shield, Elsewhere. When she ends the charm, it returns around her as though she's just put it on.
 
   \charm{Glorious Solar Plate}
   {10m, 1wp}
   {Simple}{Indefinite}{-}
-  {Resistance 3, Essence 3, Hauberk-Summoning Gesture}
+  {Essence 3, Resistance 3, Hauberk-Summoning Gesture}
   The Solar creates a suit of armor out of her anima with the stats of heavy artifact armor but no mobility penalty. She may purchase evocations for this armor, working with the Storyteller to design those appropriate to her character.
 
   \charm{Spirit Strengthens the Skin}
@@ -1859,13 +2137,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Diamond-Body Prana}
   {5m}
   {Simple}{One scene}{-}
-  {Resistance 4, Essence 2, Spirit Strengthens the Skin}
+  {Essence 2, Resistance 4, Spirit Strengthens the Skin}
   This charm is incompatible with armor. The Solar gains (Stamina) hardness and (Stamina + Resistance) soak.
 
   \charm{Adamant Skin Technique}
   {8m}
   {Supplemental}{Instant}{-}
-  {Resistance 5, Essence 2, Spirit Strengthens the Skin}
+  {Essence 2, Resistance 5, Spirit Strengthens the Skin}
   This charm supplements the Solar's defense against a Decisive attack. Reduce the raw damage of the attack by (Solar's soak), but she may not apply her hardness against it.
 
   It can also be used to completely block uncountable reoccurring damage, such as from an explosion or collapsing building.
@@ -1873,13 +2151,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Aegis of Invincible Might}
   {3m}
   {Reflexive}{One Scene}{Perilous}
-  {Resistance 5, Essence 5, Adamant Skin Technique}
+  {Essence 5, Resistance 5, Adamant Skin Technique}
   This charm may be activated when the Solar uses Adamant Skin Technique. She gains a hardness of 20, +(Stamina + Resistance) soak, and removes (Stamina) successes from all damage rolls against her. This charm ends if she crashes, or at the end of any turn in which the Solar has not spent at least 8m on offensive charms.
 
   \charm{Battle Fury Focus}
   {5m}
   {Simple}{One scene}{-}
-  {Resistance 3, Essence 2}
+  {Essence 2, Resistance 3}
   This Solar gains +1 die on all pools related to combat, and her wound penalties are reduced by one. Intimacies compelling her to fight - positive or negative - are treated as one level more intense (to a maximum of Defining), but she's unable to make social influence attempts more complex than simple threats or demands for surrender. This charm ends if she is not engaged in violence or attempting to become so engaged.
 
   She may activate this charm Reflexively whenever her wound penalty increases.
@@ -1887,7 +2165,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Bloodthirsty Sword Dancer Spirit}
   {8m, 1wp}
   {Simple}{One scene}{-}
-  {Resistance 5, Essence 3, Battle Fury Focus}
+  {Essence 3, Resistance 5, Battle Fury Focus}
   The Solar gains +2 dice on all combat related pools, ignores all wound penalties, and her mote drip increases by 1. She must continue to fight until all enemies are defeated or fleeing. She will ignore or remove as obstacles anyone who attempts to stop her (often non-lethally, in the case of friends).
 
   This charm may only be activated when Battle Fury Focus is already active. She may activate it reflexively whenever her wound penalty increases, but not from the same wound that activated its prerequisite.
@@ -1907,7 +2185,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Sometimes Horses Fly Approach}
   {2m}
   {Reflexive}{One round}{-}
-  {Ride 5, Essence 3, Master Horseman's Techniques}
+  {Essence 3, Ride 5, Master Horseman's Techniques}
   This charm may be activated any time the Solar is mounted. Until her next turn, as long as it's moving towards a solid surface her mount can run on water, clouds or even thin air.
 
   \charm{Harmonious Tacking Technique}
@@ -1919,7 +2197,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Whirlwind Horse-Armoring Prana}
   {3m}
   {Simple}{Indefinite}{-}
-  {Ride 3, Essence 3, Harmonious Tacking Technique}
+  {Essence 3, Ride 3, Harmonious Tacking Technique}
   The Lawgiver activates this charm while on a loyal tacked, barded or armed mount, banishing all of its gear Elsewhere.
 
   She may end this charm any time. If she's riding a similar creature, the gear returns to Creation, settling into place as if freshly fitted. If not, it arrives in a pile at her feet.
@@ -1933,19 +2211,19 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Phantom Rider's Approach}
   {7m}
   {Reflexive}{Instant}{-}
-  {Ride 4, Essence 2, Flashing Thunderbolt Steed}
+  {Essence 2, Ride 4, Flashing Thunderbolt Steed}
   The Solar may activate this charm after a successful Disengage action while mounted. She moves an additional range band away from her enemy.
 
   \charm{Rapid Cavalry Approach}
   {7m}
   {Simple}{Instant}{Perilous}
-  {Ride 3, Essence 2, Flashing Thunderbolt Steed}
+  {Essence 2, Ride 3, Flashing Thunderbolt Steed}
   This charm may only be used when the Solar is mounted and at least at Long range from all her enemies. She moves one range band towards an enemy and makes an immediate Rush action against him.
 
   \charm{Coursing Firebolt Flash}
   {4m, 1wp}
   {Supplemental}{One Scene}{-}
-  {Ride 5, Essence 4, Rapid Cavalry Approach}
+  {Essence 4, Ride 5, Rapid Cavalry Approach}
   This charm supplements a Rush, Disengage or Withdraw action, or a single interval in a race while mounted. Until she ends the charm, her mount's footsteps leaves behind a trail of flames, which burn for an hour without diminishing or spreading, regardless of any rain or the scenery (or lack thereof) they seem to be fed by. The flames do the same damage as a bonfire.
 
   \charm{Seasoned Beast-Rider's Approach}
@@ -1965,13 +2243,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Woe and Storm Evasion}
   {4m}
   {Supplemental}{Instant}{Post-roll}
-  {Ride 4, Essence 2, Mount Preservation Technique}
+  {Essence 2, Ride 4, Mount Preservation Technique}
   This charm may be activated after damage is rolled against the Solar's mount that would crash or kill it. Reduce the damage dealt so that the mount survives with 1i if the attack is withering or 1hl left if decisive. It may not be used if the mount was already at 1i (withering) or 1hl (decisive).
 
   \charm{Phantom Steed}
   {10m, 1wp}
   {Reflexive}{One day}{-}
-  {Ride 5, Essence 3}
+  {Essence 3, Ride 5}
   This charm may be activated at any time. The Solar conjures an obviously magical exceptional war horse that never tires, hungers, thirsts or sleeps. It is fearless, and its loyalty to the Solar is unshakable.
 
 \end{Ability}
@@ -1987,13 +2265,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Weather-Anticipating Intuition}
   {5m}
   {Simple}{Instant}{-}
-  {Sail 4, Essence 2, Salty Dog Method}
+  {Essence 2, Sail 4, Salty Dog Method}
   By touching a body of water, the Solar gains precise knowledge of natural weather patterns for the next (Essence * 12) hours along her course. Magic may still change the result, but without it, she foresees even freak squalls, unexpected fogs, or dying winds perfectly.
 
   \charm{Tide-Carried Omens}
   {7m}
   {Simple}{Indefinite}{-}
-  {Sail 5, Essence 3, Weather-Anticipating Intuition}
+  {Essence 3, Sail 5, Weather-Anticipating Intuition}
   While aboard a ship, the Solar becomes impossible to catch completely off guard. She has a vague sense of foreboding (Essence) minutes before any peril comes to her or her ship, strong enough to wake her if she's sleeping.
 
   \charm{Ship-Claiming Stance}
@@ -2005,7 +2283,7 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Hull-Preserving Technique}
   {5m, 1wp}
   {Supplemental}{One round or roll}{Post-Roll}
-  {Sail 5, Essence 2, Ship-Claiming Stance}
+  {Essence 2, Sail 5, Ship-Claiming Stance}
   This charm supplements a failed Sail roll (either against an obstacle or in a Maneuver roll against a Broadside or Ram) that would result in Hull damage to the Solar's vessel. Until her next turn, or the next interval on an extended roll, the ship can't take hull damage.
 
   the speed and maneuverability of her claimed ship also increase by 1.
@@ -2013,13 +2291,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Ship-Sustaining Spirit}
   {4m}
   {Reflexive}{Indefinite}{Stackable}
-  {Sail 5, Essence 3, Hull-Preserving Technique}
+  {Essence 3, Sail 5, Hull-Preserving Technique}
   This charm may be activated whenever the Solar's ship would sink, keeping it barely afloat. Any further damage sinks it - but may be staved off again by another activation of this charm. The ship begins to sink immediately when this charm ends.
 
   \charm{Black Fathoms Blessed}
   {10m, 1wp}
   {Simple}{One scene}{Pilot}
-  {Sail 5, Essence 4, Ship Claiming Stance}
+  {Essence 4, Sail 5, Ship Claiming Stance}
   Aquatic spirits, raksha or other intelligent aquatic creatures automatically understand the Lawgiver's speech, even if they don't know her language. She may drink salt water as though it were fresh, and doubles the amount of time she can hold her breath.
 
   As long as the Solar is on her ship, she gains two automatic successes on all personal-scale movement-related rolls (Disengage, Rush or similar) and attacks.
@@ -2027,13 +2305,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Rail-Storming Fervor}
   {2m}
   {Reflexive}{Instant}{Pilot}
-  {Sail 4, Essence 2}
+  {Essence 2, Sail 4}
   This charm may be activated after Joining Battle due to a successful Boarding Action (or any of the variants). The Solar and her crew all gain 2i.
 
   \charm{Invincible Admiral Method}
   {10m, 1wp}
   {Simple}{One scene}{-}
-  {Sail 5, Essence 3, Rail-Storming Fervor}
+  {Essence 3, Sail 5, Rail-Storming Fervor}
   The Solar signals to her fleet with mirrors, flags or other signalling devices. She rolls ([Charisma or Intelligence] + Sail); all allied ships that can see her orders gain (successes / 2, round up) bonus dice on their maneuver rolls this round.
 
   Each naval combat round for the rest of the scene, she may take an action to make a new roll, granting the bonus as above. If she doesn't (usually because she's a captain and chooses to roll a maneuver for her own ship, or is busy being boarded), the charm doesn't end, but no one benefits from her leadership that round.
@@ -2047,13 +2325,13 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Chaos-Cutting Galley}
   {10m, 1wp}
   {Reflexive}{One day}{-}
-  {Sail 3, Essence 3, Wave-Riding Discipline}
+  {Essence 3, Sail 3, Wave-Riding Discipline}
   This charm may be activated at any time. The ship and its crew - so long as they remain aboard - are immune to soul-twisting environmental effects, such as wyld addiction, mutation, or the tainted essence of a damaged manse.
 
   \charm{Burning Anima Sails}
   {6m, 1wp}
   {Reflexive}{One scene}{Iconic}
-  {Sail 5, Essence 4, Wave-Riding Discipline}
+  {Essence 4, Sail 5, Wave-Riding Discipline}
   This charm may only be activated any time aboard a ship. The Solar's anima crawls up the sails of her ship, or where they would be if they've been torn or burned away, in a brilliant display visible for at least 20 miles. Her ship suffers no penalty for missing or damaged sails, and is supernaturally terrifying to demons, undead and other creatures of darkness - they suffer a -3 penalty on all naval manuever rolls against her and a -1 penalty on all actions while aboard her ship.
 
 \end{Ability}
@@ -2072,140 +2350,96 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
 
   Any characters with a negative Intimacy for foreigners or outsiders treats it as one level weaker when dealing with her. Any characters with positive intimacies towards the culture she's attuned herself to act as though they have a Minor Tie of respect as long as the charm lasts if they don't already have a stronger positive Intimacy towards her.
 
-  \charm{Umbral Eyes Focus}
-  {2m}
-  {Supplemental}{Indefinite}{Post-Roll, Stackable}
-  {Socialize 5, Motive-Discerning Technique}
-  This charm supplements an Instill action after it's succeeded at creating or strengthening an intimacy. If the intimacy weakens or is lost, the solar becomes aware of this fact, regardless of distance, and the charm ends.
-
-  \permanentCharm{Intent-Tracing Stare}
-  {Socialize 4, Motive-Discerning Technique, Night Passes Over}
-  The Solar becomes aware whenever she or someone she's interacting with is the target of a Read Intentions action. If she's aware of the person scrutinizing her (or succeeds on a Perception + Awareness roll to notice him), she also immediately knows who he is, even in the midst of a crowd.
-
   \charm{Indecent Proposal Method}
   {4m}
   {Supplemental}{Instant}{-}
-  {Socialize 5, Essence 2, Mastery of Small Manners}
-  This charm supplements any Social Influence attempt. Her words seem laughable, harmless or a necessary evil, and no one may take offense at her suggestion, no matter how inappropriate, unless they spend 1wp.
+  {Essence 2, Socialize 5, Mastery of Small Manners}
+  This charm supplements any Social Influence attempt. The Solar's words seem laughable, harmless or a necessary evil, and no one may take offense at her suggestion, no matter how inappropriate, unless they spend 1wp.
+
+  \charm{Venomous Rumors Technique}
+  {10m, 1wp}
+  {Simple}{Instant}{Group, Once/Story per Target}
+  {Essence 4, Socialize 5, Indecent Proposal Method}
+  The Solar speaks to a group against one if its members she holds at least a Minor negative Tie towards, accusing him of betrayal, dereliction or perversion. She makes a single ([Charisma or Manipulation] + Socialize) Instill roll and applies it against everyone present.
+
+  The relationships between the target of her accusations and everyone present are cursed - her target takes a -2 penalty on all attempts to influence them socially. This curse fades after (Solar's Essence) days without contact between the accused character and the rest of the group.
+
+  \permanentCharm{Intent-Tracing Stare}
+  {Socialize 2}
+  The Solar becomes aware whenever she or someone she's interacting with is the target of a Read Intentions action. If she's aware of the person scrutinizing her (or succeeds on a Perception + Awareness roll to notice him), she also immediately knows who he is, even in the midst of a crowd.
 
   \charm{Discretionary Gesture}
   {3m}
   {Supplemental}{Instant}{-}
-  {Socialize 5, Essence 2, Intent-Tracing Stare, Umbral Eyes Focus}
+  {Essence 2, Socialize 4, Intent-Tracing Stare}
   This charm supplements an ally with medium range's use of Guile. If the Solar wishes to be subtle (a gesture, stepping on his foot, a hiss), raise his Guile by one. If she's blatant (slapping him, interrupting his conversation or similar), raise his Guile by three.
+
+  \charm{Wise Counsel}
+  {6m, 1wp}
+  {Simple}{Indefinite}{-}
+  {Essence 3, Socialize 5, Discretionary Gesture}
+  The Solar spends a minute advising another character. He learns the Solar Socialize Excellency, and if he cannot already use essence, gains a personal mote pool of 6m. The first time he uses this excellency, any positive Intimacy he has for the lawgiver increases in intensity, or he gains a Minor one if it doesn't already exist.
 
   \charm{Easily-Discarded Presence Method}
   {4m}
   {Supplemental}{Instant}{Post-roll}
-  {Socialize 5, Essence 2, Night Passes Over}
+  {Socialize 4, Essence 1}
   This charm supplements a successful defense against a Read Intentions action to discern the Solar's motives. The target believes he succeeded, and sees cluelessness, incompetence, pursuit of vice, straight-forward good intentions or some similarly harmless motive.
 
   \charm{Penumbra Self Meditation}
   {3m}
   {Simple}{Indefinite}{Stackable}
-  {Socialize 4, Essence 2, Night Passes Over}
+  {Essence 2, Socialize 4, Easily-Discarded Presence Method}
   The Solar meditates for an hour, hiding an intimacy. It cannot be discovered or revealed by any means. If the Solar acts on the intimacy or chooses to use it to resist a social influence attempt, this charm ends immediately (though other activations of this charm hiding other intimacies are unaffected).
-
-  \charm{Wise Counsel}
-  {6m, 1wp}
-  {Simple}{Indefinite}{-}
-  {Socialize 5, Essence 3, Discretionary Gesture}
-  The Solar spends a minute advising another character. He learns the Solar Socialize Excellency, and if he cannot already use essence, gains a personal mote pool of 6m. The first time he uses this excellency, any positive Intimacy he has for the lawgiver increases in intensity, or he gains a Minor one if it doesn't already exist.
 
   \charm{Heart-Eclipsing Shroud}
   {10m, 1wp}
   {Simple}{Indefinite}{Mute}
-  {Socialize 5, Essence 3, Inverted Ego Mask}
+  {Essence 3, Socialize 5, Penumbra Self Meditation}
   The Solar spends an hour in quiet seclusion, building up a mental image of a new person. She chooses a new set of Intimacies matching her persona and gains those, replacing her real ones as long as the charm lasts. She *acts* (and gains Limit) according to her "real" intimacies, but uses her persona's intimacies for the all other purposes, such as social influence or magic which keys off her intimacies.
 
   Ending this charm costs 1wp. If her persona gained or strengthened any intimacies, those changes are reflected appropriately among her set (if her persona strengthened a Major intimacy that she doesn't share, she might gain a Minor version of the same intimacy, for example), resulting in confusion as her identities start to overlap.
 
-  \charm{Venomous Rumors Technique}
-  {10m, 1wp}
-  {Simple}{Instant}{Group, Once/Story per Target}
-  {Socialize 5, Essence 4, Knowing the Soul's Price}
-  The Solar speaks to a group against one if its members she holds at least a Minor negative Tie towards, accusing him of betrayal, dereliction or perversion. She makes a single ([Charisma or Manipulation] + Socialize) Instill roll and applies it against everyone present.
+  \charm{At Your Service}
+  {5m}
+  {Reflexive}{Instant}{Mute}
+  {Essence 5, Socialize 5, Heart-Eclipsing Shroud}
+  The Solar may activate this charm after a successful Read Intentions action. She activates Hearth-Eclipsing Shroud reflexively (paying the normal cost), basing her persona solely on satisfying the needs of the person whose intentions she read.
 
-  The relationships between the target of her accusations and everyone present are cursed - her target takes a -2 penalty on all attempts to influence them socially. This curse fades after (Solar's Essence) days without contact between the accused character and the rest of the group.
+  If she knows Flashing Ruse Prana, she may pay an additional 5m to make an immediate Disguise attempt. Her target will not notice her changing appearance, only that the person in front of him matches what he was looking for even more closely than he thought.
+
+  \charm{Umbral Eyes Focus}
+  {2m}
+  {Supplemental}{Indefinite}{Post-Roll, Stackable}
+  {Socialize 3}
+  This charm supplements an Instill action after it's succeeded at creating or strengthening an intimacy. If the intimacy weakens or is lost, the solar becomes aware of this fact, regardless of distance, and the charm ends.
 
   \charm{Elusive Dream Defense}
   {1m, 1wp}
   {Reflexive}{One Scene}{Once/Story}
-  {Socialize 5, Essence 4, Even-Touched Prophet}
+  {Essence 3, Socialize 5}
   This charm may be activated at any time. The Solar's Intimacies neither reduce nor increase reduce her Resolve.
 
-  \charm{At Your Service}
-  {5m}
-  {Reflexive}{Instant}{Mute}
-  {Socialize 5, Essence 5, Heart-Eclipsing Shroud}
-  The Solar may activate this charm after a successful Read Intentions action. She activates Hearth-Eclipsing Shroud reflexively (paying the normal cost), basing her persona solely on satisfying the needs of the person whose intentions she read.
-
-  If she knows Flashing Ruse Prana, she may pay an additional 5m to make an immediate Disguise attempt. Her target will not notice her changing appearance, only that the person in front of him matches what he was looking for even more closely than he thought.
 \end{Ability}
 
 \begin{Ability}{Stealth}
+
   \charm{Invisible Statue Spirit}
   {5m}
   {Reflexive}{Until the Solar moves}{Mute}
-  {Stealth 3, Perfect Shadow Stillness}
+  {Stealth 2}
   This charm may be activated at any time, rendering the Solar invisible. It lasts as long as the Solar remains completely still.
-
-  \charm{Easily-Overlooked Presence Method}
-  {3m}
-  {Simple}{One scene}{-}
-  {Socialize 5, Essence 2, Night Passes Over}
-  As long as the Solar doesn't take overt or sudden action (dashing, drawing a weapon, yelling, etc), characters may not make Awareness rolls to notice the Solar unless they are on special alert, intend to stop everyone (such as guards at a checkpoint), or have Major or Defining intimacy that her presence threatens.
-
-  \charm{Blinding Battle Feint}
-  {3m}
-  {Supplemental}{Instant}{-}
-  {Stealth 3}
-  This charm supplements a Join Battle roll at the start of a conflict. The Solar rolls it with Stealth instead of Awareness, and she starts the battle concealed from any opponents with lower initiative.
-
-  \charm{Guardian Fog Approach}
-  {3m}
-  {Reflexive}{Instant}{Mute}
-  {Stealth 3, Blinding Battle Feint}
-  The Solar may activate this charm if she's touching an an ally when she hides. She makes a second Stealth check - her friend may use that result instead of his own if he hides at the same time or during the same combat round.
-
-  With an Essence 3+ repurchase she may apply her second Stealth check to (Essence x 2) allies within close range of her, and doesn't need to touch them.
 
   \charm{Blurred Form Style}
   {5m, 1wp}
   {Reflexive}{One Scene}{Mute}
-  {Stealth 4, Essence 2, Invisible Statue Spirit}
+  {Essence 2, Stealth 4, Invisible Statue Spirit}
   This charm may be activated at any time. As long as she moves slowly, the Solar may make Stealth attempts even if there's no cover. The effect pauses if she moves quickly - an attack or combat movement renders her visible again until her next turn. If she's struck by an attack, the charm ends.
-
-  \charm{Hidden Snake Recoil}
-  {1wp or 2i}
-  {Reflexive}{Instant}{-}
-  {Stealth 5, Essence 2, Stalking Wolf Attitude}
-  This charm may be activated whenever the Exalt incapacitates an opponent. She makes an immediate concealment roll with (Essence) automatic successes.
-
-  \charm{Dark Sentinel's Way}
-  {1m}
-  {Supplemental}{Instant}{Mute}
-  {Stealth 4, Essence 2, Guardian Fog Approach}
-  This charm supplements a Defend Other action while the Solar is concealed within Close range of her ward. Parrying attacks does not break her concealment - she flickers in to block attacks, then disappears again back to her hiding spot.
-
-  \charm{Smoke and Shadow Cover}
-  {3m}
-  {Supplemental}{Instant}{Mute}
-  {Stealth 5, Essence 2, Dark Sentinel's Way}
-  This charm supplements a Take Cover action, allowing the Exalt to use Stealth rather than Dodge, and take cover in shadows, fog, undergrowth or other concealing but not naturally protective circumstances.
-
-  \charm{Sound and Scent Banishing Attitude}
-  {5m}
-  {Reflexive}{One scene}{Mute, Stackable}
-  {Stealth 5, Essence 3, Blurred Form Style, Mental Invisibility Technique}
-  This charm may be activated at any time. The Exalt chooses hearing, smell (and taste) or touch. She becomes, accordingly, completely silent, scentless, or impossible to recognize by touch - even a blood hound can't smell her, or someone bumping into her in a dark room wouldn't notice.
-
-  This charm may be active twice, banishing her presence from two senses, but not all three.
 
   \charm{Shadow-Crossing Leap Technique}
   {4m}
   {Supplemental}{Instant}{Mute}
-  {Stealth 5, Essence 3, Smoke and Shadow Cover}
+  {Essence 3, Stealth 5, Blurred From Style}
   This charm supplements a move action from one place of concealment to another, removing any penalties for motion or lack of cover in the intervening space.
 
   At Essence 4+, she may spend 1wp to move between places with no clear path, as long as she can see her destination - through a closed window or portcullis, for example.
@@ -2213,36 +2447,128 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   \charm{Flashing Nocturne Prana}
   {10m, 1wp}
   {Reflexive}{Indefinite}{Perilous, Mute}
-  {Stealth 5, Essence 4, Shadow-Crossing Leap Technique}
+  {Essence 4, Stealth 5, Shadow-Crossing Leap Technique}
   This charm may be activated whenever the Solar is concealed. When she releases the commitment (a reflexive action), if she's within three range bands of the place she activated the charm she blinks back to it without crossing the intervening distance. This counts as an attempt to establish concealment.
+
+  \charm{Blinding Battle Feint}
+  {3m}
+  {Supplemental}{Instant}{-}
+  {Stealth 3}
+  This charm supplements a Join Battle roll at the start of a conflict. The Solar rolls it with Stealth instead of Awareness, and she starts the battle concealed from any opponents with lower initiative.
+
+  \charm{Hidden Snake Recoil}
+  {1wp or 2i}
+  {Reflexive}{Instant}{-}
+  {Essence 2, Stealth 5, Blinding Battle Feint}
+  This charm may be activated whenever the Exalt incapacitates an opponent. She makes an immediate concealment roll with (Essence) automatic successes.
+
+  \charm{Empty Presence Meditation}
+  {3m}
+  {Simple}{One scene}{-}
+  {Stealth 3, Essence 1, Night Passes Over}
+  As long as the Solar doesn't take overt or sudden action (dashing, drawing a weapon, yelling, etc), characters may not make Awareness rolls to notice the Solar unless they are on special alert, intend to stop everyone (such as guards at a checkpoint), or have Major or Defining intimacy that her presence threatens.
+
+  \charm{Smoke and Shadow Cover}
+  {3m}
+  {Supplemental}{Instant}{Mute}
+  {Essence 2, Stealth 5, Empty Presence Meditation}
+  This charm supplements a Take Cover action, allowing the Exalt to use Stealth rather than Dodge, and take cover in shadows, fog, undergrowth or other concealing but not naturally protective circumstances.
+
+  \charm{Sound and Scent Banishing Attitude}
+  {5m}
+  {Reflexive}{One scene}{Mute, Stackable}
+  {Essence 3, Stealth 5, Smoke and Shadow Cover}
+  This charm may be activated at any time. The Exalt chooses hearing, smell (and taste) or touch. She becomes, accordingly, completely silent, scentless, or impossible to recognize by touch - even a blood hound can't smell her, or someone bumping into her in a dark room wouldn't notice.
+
+  This charm may be active twice, banishing her presence from two senses, but not all three.
+
+  \charm{Guardian Fog Approach}
+  {3m}
+  {Reflexive}{Instant}{Mute}
+  {Stealth 3}
+  The Solar may activate this charm if she's touching an an ally when she hides. She makes a second Stealth check - her friend may use that result instead of his own if he hides at the same time or during the same combat round.
+
+  At Essence 3+ she may apply her second Stealth check to (Essence x 2) allies within close range of her, and doesn't need to touch any of them.
+
+  \charm{Dark Sentinel's Way}
+  {1m}
+  {Supplemental}{Instant}{Mute}
+  {Essence 2, Stealth 4, Guardian Fog Approach}
+  This charm supplements a Defend Other action while the Solar is concealed within Close range of her ward. Parrying attacks does not break her concealment - she flickers in to block attacks, then disappears again back to her hiding spot.
 
   \charm{Vanishing from the World Meditation}
   {5m, 1wp}
   {Supplemental}{Indefinite}{Mute}
-  {Stealth 5, Essence 5, Extending the Night's Veil, Smoke and Shadow Cover}
+  {Essence 5, Stealth 5, Dark Sentinel's Way}
   This charm supplements a Go To Ground action. Up to (Essence x 2) allies in the area may use her rolled successes rather than their own while attempting to Go To Ground at the same time as her.
 
   Everyone who successfully escapes by using her rolls ends up in the same hiding place, which is somehow large enough to accommodate them all, regardless of how impossible it seems. All attempts to locate them fail until they leave hiding or the Solar ends the charm - searchers miss them no matter how careful, scrying fails to locate them, the Loom of Fate reports that they no longer exist.
+
 \end{Ability}
 
 \begin{Ability}{Survival}
-\begin{sidebar}{Multiple Familiars}
-  While the Familiar background can be taken as many times as is reasonable, there are some considerations for players (especially the Storyteller) to keep in mind, especially when said familiars are designed for battle. A character's bond with her familiar is very personal and important. It's easier to maintain ties like that with one or a very few people than a large group. Also, don't forget to use battle groups to represent gatherings of similar combatants - such as a character's menagerie of pets.
 
-  \par\vspace{6pt} If the Solar has more than one familiar, any Permanent charms she purchases enhance all of them. Simple, Reflexive or Supplemental charms that enhance her familiar can be used to enhance any of them (she chooses which one when activating them). Limited use effects, like Spirit-Tied Pet's once per day mote regeneration, may still only be used once per day, rather than once per day per familiar.
-\end{sidebar}
+  \begin{sidebar}{Multiple Familiars}
+    While the Familiar background can be taken as many times as is reasonable, there are some considerations for players (especially the Storyteller) to keep in mind, especially when said familiars are designed for battle. A character's bond with her familiar is very personal and important. It's easier to maintain ties like that with one or a very few people than a large group. Also, don't forget to use battle groups to represent gatherings of similar combatants - such as a character's menagerie of pets.
+
+    \par\vspace{6pt} If the Solar has more than one familiar, any Permanent charms she purchases enhance all of them. Simple, Reflexive or Supplemental charms that enhance her familiar can be used to enhance any of them (she chooses which one when activating them). Limited use effects, like Spirit-Tied Pet's once per day mote regeneration, may still only be used once per day, rather than once per day per familiar.
+  \end{sidebar}
 
   \charm{Friendship with Animals Approach}
   {3m}
   {Simple}{One scene}{-}
-  {Survival 2}
+  {Survival 1}
   Herbivores and small omnivores are no longer afraid of the Exalt, and will become docile enough in her presence that she can pet or handle them. Predators will allow her to pass unharmed through their territory without alarm. This charm doesn't work on sapient creatures or animals maddened by hunger or pain, nor on animals trained to attack.
 
   \permanentCharm{Spirit-Tied Pet}
-  {Survival 3, Friendship with Animals Approach}
-  The Solar's familiar gains the a Defining Tie of loyalty to her. Any social influence which would weaken or go against this Intimacy is an unacceptable order. Once/Day, she may touch it to draw 5m or 1wp from their bond to restore herself.
+  {Survival 2}
+  The Solar's familiar gains the a Defining Tie of loyalty to her. Any social influence which would weaken or go against this Intimacy is an unacceptable order.
 
   She may spend a moment's concentration to settle herself in her familiar's mind, regardless of distance. Until she returns to her own body (a reflexive action) she shares its senses, rendering her incapable of taking any other action. She may also communicate simple desires across this link (such as "bring me those keys," "explore the enemy camp" or "kill that person").
+
+  \charm{Bestial Traits Technique}
+  {10m, 1wp}
+  {Simple}{Instant}{Once/Familiar per Attribute}
+  {Essence 2, Survival 4, Spirit Tied Pet}
+  The Solar spends a week training her familiar. Increase its Strength, Dexterity, Stamina or Perception by 1, to a maximum of ten.
+
+  With a repurchase, she may instead train its Athletics, Brawl, Integrity, Larceny, Martial Arts, Performance, Resistance, Stealth or Survival by one dot. Each Ability may be raised to a maximum of the Exalt's rating. A familiar who's had this charm used on them five times increases its rating by one dot, and if it's used ten or more times, by two dots.
+
+  \permanentCharm{Life of the Aurochs}
+  {Essence 2, Survival 5, Bestial Traits Technique}
+  The Solar's familiar grows 10\% larger. It gains an 1x -1 and 2x -2 health levels.
+
+  This charm may be purchased (and stacks) up to (Essence - 1) times.
+
+  \charm{Red-Toothed Execution Order}
+  {5m}
+  {Supplemental}{Instant}{Once/Scene}
+  {Essence 3, Survival 5, Spirit-Tied Pet}
+  This charm supplements a Decisive attack by the Solar's familiar. Threshold successes on the attack roll are added to the raw damage.
+
+  \charm{Deadly Predator Method}
+  {15m, 1wp}
+  {Reflexive}{Until Familiar Crashes}{Once/Scene}
+  {Essence 5, Survival 5, Life of the Aurochs, Red-Toothed Execution Order}
+  This charm may be activated at any time. The Solar's familiar gains a number of benefits:
+
+  \begin{itemize}
+    \item It grows 25\% larger if the Solar wishes.
+    \item It gains (Solar's Essence) automatic successes on all Athletics rolls, and reduces the strength minimum for Feats of Strength by the same amount.
+    \item It gains (Solar's Essence) bonus dice on all withering and decisive attacks, and on Withering damage rolls. Its base Initiative increases by 3.
+    \item It gains 5 soak.
+    \item It rolls Join Battle immediately, replacing its current Initiative with the rolled successes if they're higher (use this to determine how long the charm lasts outside of battle).
+  \end{itemize}
+
+  At the end of each round, the familiar loses 1i.
+
+  \charm{Spirit-Hunting Hound}
+  {3m}
+  {Reflexive}{Indefinite}{-}
+  {Essence 2, Survival 5, Spirit-Tied Pet}
+  This charm may be activated at any time. The Solar's familiar can see, smell and hear immaterial spirits as if they were material.
+
+  She Solar may spend 2m to allow her familiar to harm immaterial foes for one round. If the familiar establishes control of a clinch, the spirit becomes material until the clinch ends.
 
   \charm{Hardship-Surviving Mendicant Spirit}
   {5m}
@@ -2252,154 +2578,108 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
 
   With an Essence 3+ repurchase, this charm becomes more powerful - she can withstand the heat and toxic fumes in the caldera of an active volcano, breathe underwater, and explore even the hostile environments of the Elemental Poles without danger. Reduce the damage from all environmental sources of damage by her Resistance or Survival rating, which ever's higher.
 
-  \charm{Trackless Region Navigation}
-  {5m, 1wp}
-  {Reflexive}{Indefinite}{-}
-  {Survival 4, Essence 2, Hardship-Surviving Mendicant Spirit}
-  This charm may be activated at any time. The Exalt can find her way safely through even the harshest terrain, leading a group of up to (Essence) Size (if they were a battle group). Enemies can still instigate trouble such as such as rock slides, wildfires, or sudden floods, but her group won't encounter them sheerly by accident. They can cover at least ten miles per day through the harshest of environments, or twenty miles per day through normal wilderness. She automatically succeeds at any Survival rolls to find oases, natural shelter, a river or similar similarly important topographical features.
-
   \charm{Beast-Mastering Behavior}
   {10m, 1wp}
   {Supplemental}{One extended roll}{-}
-  {Survival 4, Essence 2, Spirit-Tied Pet}
+  {Essence 2, Survival 4}
   This charm supplements an extended roll to train an animal, whether for simple obedience or tricks, or for unlocking its innate abilities. Reduce the time required for each roll by one interval (months -> weeks, weeks -> days). The Solar does not need a specialty relevant to the particular animal she's training (falconry, lion taming, etc).
 
   At Essence 3+, using this charm also allows her to train any familiar (not just her own) with magical abilities (see p. 563).
 
-  \charm{Bestial Traits Technique}
-  {10m, 1wp}
-  {Simple}{Instant}{Once/Familiar per Attribute}
-  {Survival 4, Essence 2, Beast-Mastering Behavior}
-  The Solar spends a week training her familiar. Increase its Strength, Dexterity, Stamina or Perception by 1, to a maximum of ten.
-
-  With a repurchase, she may instead train its Athletics, Brawl, Integrity, Larceny, Martial Arts, Performance, Resistance, Stealth or Survival by one dot. Each Ability may be raised to a maximum of the Exalt's rating. A familiar who's had this charm used on them five times increases its rating by one dot, and if it's used ten or more times, by two dots.
-
-  \permanentCharm{Life of the Aurochs}
-  {Survival 5, Essence 2, Bestial Traits Technique}
-  The Solar's familiar grows 10% larger. It gains an 1x -1 and 2x -2 health levels.
-
-  This charm may be purchased (and stacks) up to (Essence) times.
-
-  \charm{Spirit-Hunting Hound}
-  {2m}
-  {Reflexive}{One Scene}{-}
-  {Survival 5, Essence 2, Familiar-Honing Instruction}
-  This charm may be activated at any time. The Solar's familiar can see, smell and hear immaterial spirits as if they were material.
-
-  She Solar may spend 2m to allow her familiar to harm immaterial foes for one round. If the familiar establishes control of a clinch, the spirit becomes material until the clinch ends.
+  \charm{Trackless Region Navigation}
+  {5m, 1wp}
+  {Reflexive}{Indefinite}{-}
+  {Survival 3, Essence 1}
+  This charm may be activated at any time. The Exalt can find her way safely through even the harshest terrain, leading a group of up to (Essence) Size (if they were a battle group). Enemies can still instigate trouble such as such as rock slides, wildfires, or sudden floods, but her group won't encounter them sheerly by accident. They can cover at least ten miles per day through the harshest of environments, or twenty miles per day through normal wilderness. She automatically succeeds at any Survival rolls to find oases, natural shelter, a river or similar similarly important topographical features.
 
   \charm{Traceless Passage}
   {5m}
   {Supplemental}{Instant}{-}
-  {Survival 5, Essence 3, Unshakeable Bloodhound Technique}
+  {Essence 2, Survival 4, Trackless Region Navigation}
   This charm supplements an attempt to avoid trackers, removing any penalty from the size of the group the Solar's trying to hide. Unintelligent trackers, such as dogs or other predators, cannot follow her at all.
 
   \charm{Eye-Deceiving Camouflage}
   {6m}
   {Simple}{Indefinite}{-}
-  {Survival 5, Essence 3, Traceless Passage}
-  The Solar spends five minutes camouflaging anything (including herself) less than (Essence + 1) yards wide. She rolls (Intelligence + Survival). As long as her subject doesn't move, anyone else must succeed on a (Perception + Awareness) roll at this difficulty to notice it - not even blundering right through the middle of her group or cache of goods will reveal it unless they succeed on the roll.
+  {Essence 3, Survival 5, Traceless Passage}
+  The Solar spends five minutes camouflaging anything (including herself) less than (Essence + 1) yards wide. She rolls (Intelligence + Survival). As long as her subject doesn't move, anyone else must succeed on a (Perception + Awareness) roll at this difficulty to notice it, with a -2 penalty - otherwise, not even blundering right through the middle of her group or cache of goods will reveal it.
 
-  \charm{Red-Toothed Execution Order}
-  {5m}
-  {Supplemental}{Instant}{Once/Scene}
-  {Survival 5, Essence 3, Deadly Onslaught Coordination}
-  This charm supplements a Decisive attack by the Solar's familiar. Threshold successes on the attack roll are added to the raw damage.
-
-  \charm{Deadly Predator Method}
-  {15m, 1wp}
-  {Reflexive}{Until Familiar Crashes}{Once/Scene}
-  {Survival 5, Essence 5, Crimson Talon Vigor, Saga Beast Virtue}
-  This charm may be activated at any time. The Solar's familiar gains a number of benefits:
-
-  \begin{itemize}
-    \item It grows 25% larger if the Solar wishes.
-    \item It gains (Solar's Essence) automatic successes on all Athletics rolls, and reduces the strength minimum for Feats of Strength by the same amount.
-    \item It gains (Solar's Essence) bonus dice on all withering and decisive attacks, and on Withering damage rolls. Its base Initiative increases by 3.
-    \item It gains 5 soak.
-    \item It rolls Join Battle immediately, replacing its current Initiative with the rolled successes if they're higher (use this to determine how long the charm lasts outside of battle).
-  \end{itemize}
-
-  At the end of each round, the familiar loses 1i.
-\end{Ability}
+  \end{Ability}
 
 \begin{Ability}{Thrown}
+
+  \charm{Triple Distance Attack Technique}
+  {1m}
+  {Supplemental}{Instant}{-}
+  {Thrown 2}
+  This charm supplements a Thrown attack, increasing the weapon's maximum range by two bands.
+
   \charm{Joint-Wounding Attack}
   {3m}
   {Supplemental}{Instant}{Stackable}
-  {Thrown 3, Precision of the Striking Raptor}
+  {Thrown 3}
   This charm supplements a Decisive Thrown attack. If it does at least three levels of damage, her target receives a -3 penalty on all his rolls (but not static values) until the end of the scene. It has no effect on battle groups.
 
   \charm{Angle-Tracing Edge}
   {3m}
   {Supplemental}{Instant}{-}
-  {Thrown 4, Precision of the Striking Raptor}
+  {Thrown 4}
   This charm supplements a Thrown attack. Her target receives no bonuses from cover. It also allows her to attack a target in full cover by taking a -3 penalty, unless the Storyteller deems it completely impossible for her weapon to reach him.
-
-  \charm{Triple Distance Attack Technique}
-  {1m}
-  {Supplemental}{Instant}{-}
-  {Thrown 3}
-  This charm supplements a Thrown attack, increasing the weapon's maximum range by two bands.
-
-  \charm{Swarm-Culling Instinct}
-  {2m}
-  {Reflexive}{Instant}{-}
-  {Thrown 4, Essence 2, Steel Storm Descending}
-  The Solar may activate this charm when she rolls highest on Join Battle. She makes an immediate Withering Thrown attack.
-
-  \charm{Mist on Water Attack}
-  {4m}
-  {Supplemental}{(Essence) turns}{Mute}
-  {Thrown 4, Essence 2, Joint-Wounding Attack}
-  This charm supplements a Decisive Thrown attack against a single target. If it hits, her target cannot make a sound nor cause any sounds to be made - his screams are silent and striking a gong makes no noise. If killed, he dies in a seemingly natural pose, slumped in his chair, resting against a wall or similar.
-
-  \charm{Observer-Deceiving Attack}
-  {3m}
-  {Supplemental}{Instant}{Mute}
-  {Thrown 4, Essence 2, Joint-Wounding Attack}
-  This charm supplements a Thrown attack when the Solar is concealed from her foe, making the attack seem to come from a completely different direction. Characters must succeed on a ([Wits or Perception] + Awareness) roll, difficulty (Solar's Essence + 1) to find her true location - if they fail, she maintains stealth against them.
 
   \charm{Fallen Weapon Deflection}
   {2m, 2i}
   {Reflexive}{Instant}{-}
-  {Thrown 5, Essence 2, Flying Steel Ruse x2}
+  {Essence 2, Thrown 3}
   The Solar may activate this charm whenever an opponent is disarmed within the base range of her Thrown weapon. She knocks the weapon one range band in any direction.
-
-  \charm{Shower of Deadly Blades}
-  {6m, 1wp}
-  {Simple}{Instant}{-}
-  {Thrown 5, Essence 2, Cascade of Cutting Terror}
-  The Lawgiver makes a Withering Thrown attack. If it deals damage, all enemies within Short range of that target lose (Solar's Essence) Initiative. Battle groups instead take that many levels of magnitude damage. Unless using an artifact weapon that returns to her hand after each attack, she must make two immediate ammunition checks.
-
-  \charm{Sharp Hand Feint}
-  {1m, 1wp}
-  {Supplemental}{Instant}{Quickshot}
-  {Thrown 5, Essence 3, Observer-Deceiving Attack}
-  This charm supplements a Thrown Distract gambit, making it unblockable and undodgeable.
 
   \charm{Shadow Wind Slash}
   {1m, 1wp}
   {Reflexive}{Instant}{Perilous}
-  {Thrown 5, Essence 3, Sharp Hand Feint}
+  {Essence 3, Thrown 5, Fallen Weapon Deflection}
   The Solar Decisively Clashes an attack against her with Thrown. If successful, she may choose to Disarm her opponent (as though she'd succeeded on the gambit) rather than deal damage.
 
   At Essence 5+, she may pay an additional 3m when activating this charm to both Disarm and deal damage.
 
+  \charm{Observer-Deceiving Attack}
+  {3m}
+  {Supplemental}{Instant}{Mute}
+  {Essence 2, Thrown 4}
+  This charm supplements a Thrown attack when the Solar is concealed from her foe, making the attack seem to come from a completely different direction. Characters must succeed on a ([Wits or Perception] + Awareness) roll, difficulty (Solar's Essence + 1) to find her true location - if they fail, she maintains stealth against them.
+
+  \charm{Mist on Water Attack}
+  {4m}
+  {Supplemental}{(Essence) turns}{Mute}
+  {Essence 2, Thrown 4, Observer-Deceiving Attack}
+  This charm supplements a Decisive Thrown attack against a single target. If it hits, her target cannot make a sound nor cause any sounds to be made - his screams are silent and striking a gong makes no noise. If killed, he dies in a seemingly natural pose, slumped in his chair, resting against a wall or similar.
+
   \charm{Fiery Solar Chakram}
   {8m, 1wp}
   {Simple}{Instant}{Quickshot}
-  {Thrown 5, Essence 3, Cascade of Cutting Terror}
+  {Essence 3, Thrown 5}
   The Solar makes a Decisive Thrown attack with pure essence, adding threshold successes to the raw damage. Against ghosts, demons or other creatures of darkness, the damage roll gains (Essence) additional automatic successes.
+
+  \charm{Swarm-Culling Instinct}
+  {2m}
+  {Reflexive}{Instant}{-}
+  {Essence 2, Thrown 4}
+  The Solar may activate this charm when she rolls highest on Join Battle. She makes an immediate Withering Thrown attack.
+
+  \charm{Shower of Deadly Blades}
+  {6m, 1wp}
+  {Simple}{Instant}{-}
+  {Essence 2, Thrown 5, Swarm-Culling Instinct}
+  The Lawgiver makes a Withering Thrown attack. If it deals damage, all enemies within Short range of that target lose (Solar's Essence) Initiative. Battle groups instead take that many levels of magnitude damage. Unless using an artifact weapon that returns to her hand after each attack, she must make two immediate ammunition checks.
 
   \charm{Cutting Circle of Destruction}
   {5m, 1wp}
   {Simple}{Instant}{Perilous}
-  {Thrown 5, Essence 4, Shower of Deadly Blades}
+  {Essence 4, Thrown 5, Shower of Deadly Blades}
   The Solar chooses a primary target, and up to (Dexterity) secondary targets. She makes a Withering Thrown attack against each secondary target, one at a time, continuing until an attack misses or all secondary attacks have hit. She then makes a Decisive attack (usually Thrown, but any ability if she has an appropriate weapon drawn) against her primary target.
+
 \end{Ability}
 
 \begin{Ability}{War}
+
   \charm{War God Descendent}
   {3m}
   {Supplemental}{Instant}{-}
@@ -2410,18 +2690,12 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
   {5m}
   {Simple}{Instant}{-}
   {War 3, War God Descendant}
-  The Solar spends at least a week training her troops with privation and hardship. They are immune to the Demoralize strategem, and their morale barely suffers from hunger, bad weather or physical exhaustion. Their leader ignores penalties due to these factors on Strategic Maneuver rolls.
-
-  \charm{Rout-Stemming Gesture}
-  {3m}
-  {Reflexive}{Instant}{-}
-  {War 3, War God Descendant}
-  This charm may be activated at any time. The Solar makes an immediate Rally action.
+  The Solar spends at least a week training her troops with privation and hardship. They are immune to the Demoralize stratagem, and their morale barely suffers from hunger, bad weather or physical exhaustion. Their leader ignores penalties due to these factors on Strategic Maneuver rolls.
 
   \charm{Tiger Warrior Training Technique}
   {10m, 1wp}
   {Simple}{Instant}{-}
-  {War 4, Essence 2, League of Iron Preparation}
+  {Essence 2, War 4, League of Iron Preparation}
   The Solar spends a week training an Undisciplined unit or a month training an Average one. Increase their drill by one rank, and raise any of their traits to match those of either combat ready troops (p. 496) or elite troops (p. 497) to match their new drill. Any characters in the group that track experience (such as player characters) must spend XP as normal for any stats they wish to increase in this way.
 
   With an Essence 3+ repurchase, the Lawgiver may also spend a month training Elite troops, granting one of the following bonuses. A single battle group may only benefit from one of these at a time.
@@ -2431,44 +2705,60 @@ The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) t
     \item Perfect morale
   \end{itemize}
 
+  \charm{Rout-Stemming Gesture}
+  {3m}
+  {Reflexive}{Instant}{-}
+  {War 2, War God Descendant}
+  This charm may be activated at any time. The Solar makes an immediate Rally action.
+
   \charm{Magnanimity of the Unstoppable Icon}
   {3m, 1wp}
   {Reflexive}{Instant}{-}
-  {War 4, Essence 2, Rout-Stemming Gesture}
+  {Essence 2, War 4, Rout-Stemming Gesture}
   The Solar may activate this charm after an enemy general rallies a battle group for numbers. She makes a rallying call of her own, and a battle group under her leadership regains points of Magnitude equal to the enemy battle group's Size as enemy soldiers desert to join her.
-
-  \charm{General of the All-Seeing Sun}
-  {4m}
-  {Supplemental}{Instant}{-}
-  {War 4, Essence 2, Holistic Battle Understanding}
-  This charm supplements a Strategic Maneuver roll, allowing the Solar to select up to (Essence or 2, whichever's greater) strategems at the same time. If she wins the roll, she may spend her threshold successes on as many of her chosen strategems as they can support.
-
-  \charm{Supremacy of the Divine Army}
-  {10m, 1wp}
-  {Reflexive}{Instant}{Once/Scene}
-  {War 5, Essence 3, Magnanimity of the Unstoppable Icon}
-  This charm may be activated at any time. The Solar makes an immediate Rally for Numbers action with (Essence) automatic successes. If her rolled successes would restore more points of magnitude than the battle group has, it gains that many additional temporary magnitude points, as animals, local spirits, or even the trees themselves answer her call. These extra points of magnitude (and extra troops) fade away at the end of the scene.
-
-  \charm{God-General's Command}
-  {5m, 1wp}
-  {Supplemental}{Instant}{Once/Scene}
-  {War 5, Essence 4, Supremacy Of The Divine Army}
-  This Charm supplements a Command action, allowing the Solar to apply it to up to (Essence + 1) battle groups and eliminating any communication difficulties that would result from distance or the noise of the battlefield. The command given must be more or less the same for each unit, although there is some flexibility - when ordering units to attack, it's not necessary that they all attack the same target. If different modifiers would apply to different units, as in the case where Drill varies, use the lowest applicable dice pool.
 
   \charm{Hell-Conquering Legion Spirit}
   {6m, 1wp}
   {Supplemental}{Instant}{-}
-  {War 5, Essence 4, Magnanimity of the Unstoppable Icon}
+  {Essence 4, War 5, Magnanimity of the Unstoppable Icon}
   This charm supplements the defense of a battle group under the Solar's command against unnatural mental influence, mind, body or soul twisting effects, curses or supernatural environmental hazards. The Solar's troops gain five bonus dice on the roll to resist, or increase their applicable static value by three, rendering them mostly immune to effects such as short-term wyld exposure, dust storms in the infinite desert of Malfeas, and the unnerving effects of entering the underworld.
+
+  \charm{General of the All-Seeing Sun}
+  {4m}
+  {Supplemental}{Instant}{-}
+  {Essence 2, War 4, Holistic Battle Understanding}
+  This charm supplements a Strategic Maneuver roll, allowing the Solar to select up to (Essence or 2, whichever's greater) stratagems at the same time. If she wins the roll, she may spend her threshold successes on as many of her chosen stratagems as they can support.
+
+  \charm{Supremacy of the Divine Army}
+  {10m, 1wp}
+  {Reflexive}{Instant}{Once/Scene}
+  {Essence 3, War 5, General of the All-Seeing Sun}
+  This charm may be activated at any time. The Solar makes an immediate Rally for Numbers action with (Essence) automatic successes. If her rolled successes would restore more points of magnitude than the battle group has, it gains that many additional temporary magnitude points, as animals, local spirits, or even the trees themselves answer her call. These extra points of magnitude (and extra troops) fade away at the end of the scene.
 
   \charm{Golden Army of the Sun-King}
   {10m 1wp}
   {Simple}{Instant}{Iconic}
-  {War 5, Essence 5, Tiger Warrior Training Technique, Supremacy of the Divine Army}
-  The Solar's anima temporarily transforms into a translucent replica of any battle group she's trained with Tiger Warrior training technique. She makes a Command roll to order this battle group, which immediately performs a single action before fading away. This charm cannot be used to copy an army currently present in the scene.
-\end{Ability}
+  {Essence 5, War 5, Supremacy of the Divine Army}
+  The Solar's anima temporarily transforms into a translucent replica of any battle group she's previously commanded. She makes a Command roll to order this battle group, which immediately performs a single action before fading away. This charm cannot be used to copy an army currently present in the scene.
 
+  \charm{Glorious General's Charge}
+  {4m, 1wp}
+  {Reflexive}{Instant}{-}
+  {Essence 2, War 3}
+  The Solar may activate this charm after she hits with a Decisive attack (but no more than once per round). She Issues an Order (p. 210) to an allied battle group within medium range.
+
+  \charm{God-General's Command}
+  {5m, 1wp}
+  {Supplemental}{Instant}{-}
+  {Essence 3, War 5, Supremacy Of The Divine Army}
+  This Charm supplements a Command action, allowing the Solar to apply it to up to (Essence + 1) battle groups and eliminating any communication difficulties that would result from distance or the noise of the battlefield. The command given must be more or less the same for each unit, although there is some flexibility - when ordering units to attack, it's not necessary that they all attack the same target. If different modifiers would apply to different units, as in the case where Drill varies, use the lowest applicable dice pool.
+
+\end{Ability}
+\end{bgPic}
+
+\begin{bgPic}{resources/MA-left.jpg}{resources/MA-right.jpg}
 \chapter{Martial Arts}
+
 \begin{multicols}{2}
 Creation's martial arts are the stuff of legend, powerful fighting styles that emulate the ferocity of mighty beasts or follow paths of esoteric wisdom. Martial artists come in many forms throughout the world. The vast majority are mortal men and women who've attained extraordinary martial prowess through intense study, discipline, and training. In the hands of the Exalted, the martial arts rise to even greater peaks of power, allowing supernatural martial artists to harmonize themselves fully with the Essence of a style to master its full potential.
 
@@ -2487,6 +2777,7 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
 \end{multicols}
 
 \begin{Ability}{Snake Style}
+
   Snake style is swift and agile, moving with the speed of a striking serpent to fell stronger or better-armed foes before they even have a chance to act. Its strikes emphasize precision over brute strength, and a master of the style can pierce through armor, paralyze an enemy with a pressure-point strike, or even deliver poisonous Essence through her fingertips. It flourishes in dojos of the South and the East, where students learn to emulate the motion and tactics of the native serpents, but as one of the ancient animal styles whose lineage dates back to the First Age, its practitioners can be found throughout all of Creation.
 
   \subsection*{Weapons and Armor}
@@ -2495,7 +2786,7 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
   \charm{Snake Form}
   {8m}
   {Simple}{One Scene}{Form}
-  {Snake 4, Essence 1, Serpentine Evasion, Striking Cobra Technique}
+  {Snake 4, Essence 1}
   The martial artist adds (Dexterity) to her soak. Enemies suffer a -1 penalty on attack rolls against the martial artist, or -3 if she has Advantage over them. She may activate this charm reflexively whenever she makes a withering attack that grants her Advantage over an opponent (where she didn't previously have it).
 
   With an Essence 2+ repurchase, she may spend an additional 1wp when activating this charm to gain an additional +(Essence) soak, and increase the raw damage of all Withering attacks she makes by +2.
@@ -2505,15 +2796,23 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
   \charm{Armor-Penetrating Fang Strike}
   {5m, 1wp}
   {Supplemental}{Instant}{-}
-  {Snake 5, Essence 2, Snake Form}
+  {Essence 2, Snake 5, Snake Form}
   This charm supplements any Snake attack, allowing the martial artist to ignore the enemy's soak or hardness.
 
   \textbf{Terrestrial}: This charm gains the Once/Scene keyword, and can be reset by dealing 3+ levels of damage with a decisive Snake attack and raising her initiative back up to 12+.
 
+  \charm{Snake Strikes the Heel}
+  {2m, 1wp}
+  {Reflexive}{Instant}{-}
+  {Essence 2, Snake 4, Snake Form}
+  This charm may be activated any time Solar is targeted by an attack from Close range (or further, if she knows and uses Uncoiling Serpent Prana). She clashes the attack with a Snake attack of her own. If she clashes with a withering attack, she does not gain any initiative even if she succeeds; if she clashes with a decisive attack, she must attempt a gambit rather than dealing damage.
+
+  \textbf{Terrestrial}: This charm gains the Attack-Action keyword.
+
   \charm{Crippling Pressure-Point Strike}
   {3m, 3+i}
   {Supplemental}{Instant}{-}
-  {Snake 4, Essence 2, Snake Form}
+  {Essence 2, Snake 4, Snake Form}
   This charm supplements a decisive Snake attack with one of the following benefits:
 
   \begin{itemize}
@@ -2524,18 +2823,10 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
 
   \textbf{Terrestrial}: The marital artist cannot use Withering Venom Paralysis.
 
-  \charm{Snake Strikes the Heel}
-  {2m, 1wp}
-  {Reflexive}{Instant}{-}
-  {Snake 4, Essence 2, Snake Form}
-  This charm may be activated any time Solar is targeted by an attack from Close range (or further, if she knows and uses Uncoiling Serpent Prana). She clashes the attack with a Snake attack of her own. If she clashes with a withering attack, she does not gain any initiative even if she succeeds; if she clashes with a decisive attack, she must attempt a gambit rather than dealing damage.
-
-  \textbf{Terrestrial}: This charm gains the Attack-Action keyword.
-
   \charm{Uncoiling Serpent Prana}
   {7m, 3i}
   {Supplemental}{Instant}{Advantage}
-  {Snake 4, Essence 3, Snake Strikes the Heel, Armor-Penetrating Fang Strike}
+  {Essence 3, Snake 4, Snake Strikes the Heel, Armor-Penetrating Fang Strike}
   This charm supplements any Snake attack while the martial artist is in Snake Form, allowing her to strike at up to Medium range using a serpentine ribbon of essence. If the attack deals 5+ Initiative damage or any decisive damage, she may drag her enemy into Close range.
 
   \textbf{Terrestrial}: The martial artist may only make this attack at Short range rather than medium.
@@ -2545,13 +2836,14 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
   \charm{Countless Coils Evasion}
   {7m, 1wp}
   {Supplemental}{Instant}{Perilous, Post-Roll}
-  {Snake 5, Essence 3, Snake Strikes the Heel, Crippling Pressure-Point Strike}
+  {Essence 3, Snake 5, Snake Strikes the Heel, Crippling Pressure-Point Strike}
   This charm supplements the martial artist's defense against a decisive attack, after it rolls damage. She rolls (Essence + Initiative), and each success negates one level of damage from the attack. She resets to base initiative, and if she negated all the damage, gains 2i.
 
   \textbf{Terrestrial}: The martial artist must decide to use this charm before damage is rolled (but still rolls and applies the effects after damage).
-\end{Ability}
 
+\end{Ability}
 \begin{Ability}{Tiger Style}
+
   \par Tiger style emulates the ferocious strength and swift, pouncing strikes of the predatory cats. A Tiger stylist treat combat as a dance between predator and prey, pursuing her foe with unmatched speed and unrelenting patience. Once she closes in on her victim, she brings him down like a tiger fells its prey - knocking him to the ground, crippling his limbs, and moving in for the killing strike. Many who follow the path of Tiger style become arrogant, impatient, or cruel, as their trust in their killing power becomes absolute. Others learn different lessons, adapting the patient bearing of a cat stalking its prey through the jungle.
 
   \subsection*{Weapons and Armor}
@@ -2560,7 +2852,7 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
   \charm{Tiger Form}
   {10m}
   {Simple}{One scene}{Form}
-  {Tiger 4, Essence 1, Crimson Leaping Cat Technique, Striking Fury Claws}
+  {Tiger 4, Essence 1}
   The martial artist doubles up to (Strength) threshold successes for purposes of calculating the raw damage of withering attacks, and takes no penalty for fighting while prone. She adds (Essence) dice to Rush actions and rolls to contest Disengage attempts. She gains the initiative her enemies spend attempting to disengage from her.
 
   She may activate this charm reflexively whenever she lands any decisive attack that deals 3+ levels of damage.
@@ -2570,7 +2862,7 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
   \charm{Stalking Cat Movement}
   {5m}
   {Reflexive}{One Scene}{-}
-  {Tiger 4, Essence 2, Tiger Form}
+  {Essence 2, Tiger 4, Tiger Form}
   Enemies at short or medium range must use Disengage actions to move away from the martial artist as though she were at close range to them. They take -1 penalty on their defense against surprise attacks she makes.
 
   \textbf{Mastery}: The martial artist may Rush enemies while in stealth.
@@ -2578,7 +2870,7 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
   \charm{Raging Tiger Pounce}
   {4m}
   {Supplemental}{Instant}{-}
-  {Tiger 4, Essence 2, Tiger Form}
+  {Essence 2, Tiger 4, Tiger Form}
   This charm supplements any Tiger attack. If it deals at least one level of damage, the martial artist's enemy is knocked prone. As long as he remains within Close range of her, she steals 2i whenever he attempts to Rise from Prone.
 
   \textbf{Mastery}: This charm can also supplement an attack against a prone enemy, rendering it undodgeable and adding +1 raw damage.
@@ -2586,7 +2878,7 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
   \charm{Celestial Tiger Hide}
   {5m}
   {Reflexive}{One scene}{Once/Scene}
-  {Tiger 5, Essence 2}
+  {Essence 2, Tiger 5, Stalking Cat Movement}
   This charm may be activated at any time. The martial artist adds (Strength) to her natural soak and gains (Essence) hardness. She increases both values by +2 against attacks made from long or extreme range.
 
   When struck by a decisive attack, she may spend 1wp and end this charm to reduce its raw damage by her Hardness.
@@ -2596,7 +2888,7 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
   \charm{Spine-Shattering Bite}
   {5m, 1wp}
   {Supplemental}{Instant}{Post-roll}
-  {Tiger 5, Essence 3, Raging Tiger Pounce}
+  {Essence 3, Tiger 5, Raging Tiger Pounce}
   This charm supplements a decisive Tiger attack after the martial artist rolls at least three levels of damage. She reduces the damage by two levels and cripples him instead. He may not take movement actions until he shakes off the paralysis, a miscellaneous action costing 2i and requiring a (Stamina + Resistance) roll, difficulty (Martial Artist's Strength).
 
   \textbf{Terrestrial}: This charm gains the Once/Scene Keyword
@@ -2604,15 +2896,16 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
   \charm{Angry Predator Frenzy}
   {5m, 1wp}
   {Reflexive}{One Scene}{-}
-  {Tiger 5, Essence 3, Celestial Tiger Hide, Prey-Maiming Frenzy, Spine-Shattering Bite, Leap from Cloaking Shadows}
+  {Essence 3, Tiger 5, Celestial Tiger Hide, Spine-Shattering Bite}
   This charm may be activated at any time while the martial artist is in Tiger Form, and it ends if she leaves the form. On decisive attacks she adds up to (Strength) threshold successes to the raw damage, and can Rush once per round as a reflexive action, in addition to her normal movement, but cannot Disengage or Withdraw. She gains a Defining Tie of savage hatred against her foes while this charm lasts
 
   \textbf{Terrestrial}: The martial artist adds only (lower of Strength or Essence) to the damage of decisive attacks.
 
   \textbf{Mastery}: The martial artist's base initiative increases by (Strength / 2, rounded up).
-\end{Ability}
 
+\end{Ability}
 \begin{Ability}{Dreaming Pearl Courtesan}
+
   \par Dreaming Pearl Courtesan is a subtle style - graceful, elusive, and lethal. A student learns to maneuver herself into the perfect position to strike, gaining the confidence and trust of her victims as she navigates the veils of defenses they put up between themselves and the world. Once the Dreaming Pearl Courtesan has reached her victim at his most vulnerable - whether that is in the tangle of his boudoir's sheets, a friendly conversation in a tearoom, or a secret meeting at court—she reveals her true nature as a killer, fighting with a deadly grace and the elusiveness of a dream.
 
   \subsection*{Weapons and Armor}
@@ -2625,6 +2918,10 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
     \item Shield: The Shield tag applies to accessories and garments that seem well-suited to fending off attacks with their broad surface, such as paper fans, hand mirrors, or the long sleeves of a robe. These weapons usually also have the Bashing tag.
   \end{itemize}
 
+  \begin{sidebar}{...What?}
+    Invoking the Chimera's Coils, the last charm in this style, is rather strange. Monstrous transformations, divine auras, the potential threat of unwanted enlightenment - this type of thing is the high-water mark for how strange martial arts can get. Other styles might feature powerful capstones that reach similar levels of esoteric effects and bizarre powers, but those are exceptions rather than the norm. Storyellers who find it too weird of an ending to an otherwise sensible Martial Art may wish to allow players (or their NPCs) to purchase the alternate version of the charm instead.
+  \end{sidebar}
+
   \charm{Pearlescent Filigree Defense}
   {1m}
   {Reflexive}{One scene}{-}
@@ -2636,21 +2933,15 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
   \charm{Dreaming Pearl Courtesan Form}
   {8m}
   {Simple}{One Scene}{Form}
-  {Dreaming Pearl 4, Essence 2, Demure Carp Feint, Elegant Weapon Repertoire, Pearlescent Filigree Defense}
+  {Essence 2, Dreaming Pearl 4, Pearlescent Filigree Defense}
   The martial artist may make Dreaming Pearl attacks out to Short range, slashing a fan to create a razor wind, a stash growing long enough to wrap ankles, throwing spikes of energy from her fingertips or similar. Any weapon enhanced by Elegant Weapon Repertoire gains the traits of a light artifact weapon, and any clothing enhanced by Pearlescent Filigree Defense gains the traits of light artifact armor.
 
   Whenever the martial artist successfully disengages with 5+ successes, she may activate this charm reflexively.
 
-  \charm{Fragrant Petal Fascination Kata}
-  {4m}
-  {Supplemental}{Instant}{Group, Once/Scene}
-  {Dreaming Pearl 4, Essence 2, Dreaming Pearl Courtesan Form}
-  This charm supplements an Inspire action to fill enemies with love, lust, mercy, distraction or similar, granting it (Essence) automatic successes. In combat, she steals 1i from each enemy whose resolve is overcome, whether or not he spends willpower to resist.
-
   \charm{Seven Storms Escape Prana}
   {4m, 2i}
   {Supplemental}{Instant}{-}
-  {Dreaming Pearl 4, Essence 2, Fragrant Petal Fascination Kata}
+  {Essence 2, Dreaming Pearl 4, Dreaming Pearl Courtesan Form}
   This charm supplements a Disengage attempt, a roll made to defend against a Rush or a control roll made to defend against a grapple. The martial artist's opponent suffers a -(martial artist's Appearance) penalty. If he wins the roll and her successes exceed his Resolve, he must pay 1wp or lose the opposed roll anyway.
 
   \textbf{Mastery}: The duration of this charm is "one round", affecting all opposed actions it could be applied to.
@@ -2658,7 +2949,7 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
   \charm{Vindictive Concubine's Pillow Book}
   {4m}
   {Supplemental}{Instant}{Post-Roll}
-  {Dreaming Pearl 5, Essence 3, Flurry of August Leaves}
+  {Essence 3, Dreaming Pearl 5, Seven Storms Escape Prana}
   This charm supplements a Decisive Dreaming Pearl attack after it's hit, increasing the damage by two per per condition met.
 
   \begin{itemize}
@@ -2672,14 +2963,16 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
 
   \textbf{Mastery}: Being in Dreaming Pearl Courtesan Form counts as an additional criteria.
 
-  \begin{sidebar}{...What?}
-    Invoking the Chimera's Coils, the last charm in this ability, is rather strange. Monstrous transformations, divine auras, the potential threat of unwanted enlightenment - this type of thing is the high-water mark for how strange martial arts can get. Other styles might feature powerful capstones that reach similar levels of esoteric effects and bizarre powers, but those are exceptions rather than the norm. Storyellers who find it too weird of an ending to an otherwise sensible Martial Art may wish to allow players (or their NPCs) to purchase the alternate version of the charm instead.
-  \end{sidebar}
+  \charm{Fragrant Petal Fascination Kata}
+  {4m}
+  {Supplemental}{Instant}{Group, Once/Scene}
+  {Essence 2, Dreaming Pearl 4, Dreaming Pearl Courtesan Form}
+  This charm supplements an Inspire action to fill enemies with love, lust, mercy, distraction or similar, granting it (Essence) automatic successes. In combat, she steals 1i from each enemy whose resolve is overcome, whether or not he spends willpower to resist.
 
   \charm{Invoking the Chimera's Coils}
   {8m, 1wp}
   {Reflexive}{One Scene}{-}
-  {Dreaming Pearl 5, Essence 3, Seven Storms Escape Prana, Vindictive Concubine's Pillow Book}
+  {Essence 3, Dreaming Pearl 5, Fragrant Petal Fascination Kata}
   The martial artist may activate this charm at the start of her turn when she is in Dreaming Pearl Courtesan Form and either she has Initiative 15+ or no undamaged -2 health levels. Her neck lengthens as she grows to five times her normal height, while her head becomes that of a delicate, gold-beaked foal with four sets of spiraling horns. Her arms and legs vanish, replaced with opalescent fins like those of a carp hold her new form aloft in the air. Countless eyes run down either side of her narrow snout and continue down her back, ranging from the size of small pearls to that of goose eggs, blazing like sapphires in the noonday sun.
 
   She flies effortlessly, and her natural soak increases by (Essence). She may not make attacks with abilities other than Dreaming Pearl (including attacks created by Reflexive charms). Other Dreaming Pearl Courtesan charms are enhanced:
@@ -2700,7 +2993,7 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
   \charm{Invoking the Chimera's Coils (Alternate Version)}
   {8m, 1wp}
   {Simple}{One Scene}{Perilous}
-  {Dreaming Pearl 5, Essence 3, Seven Storms Escape Prana, Vindictive Concubine's Pillow Book}
+  {Essence 3, Dreaming Pearl 5, Seven Storms Escape Prana, Vindictive Concubine's Pillow Book}
   The martial artist may activate this charm while at 10+ Initiative and in Dreaming Pearl Courtesan Form, and ends if she leaves the form. She becomes dreamlike and luminous, seeming to fade in and out of reality like a half-remembered dream. Her other Dreaming Pearl charms are enhanced:
 
   \begin{itemize}
@@ -2716,4 +3009,106 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
 
 \end{Ability}
 
+\pdfbookmark[0]{Sorcery}{Sorcery}
+\IfFileExists{snippets/001.pdf}{
+
+  % This isn't a "chapter", because those page-break and are unumerated, and this is combined with MA in the core book.
+  \begin{center}\chapfont\color{MidnightBlue}\Huge\thispagestyle{fancy}Sorcery\end{center}
+
+  \begin{multicols}{2}
+  Across Creation, sorcerers are known and feared as figures of great and dangerous power, said to be capable of slaying a man with a gesture or calling up storms with a glance. The magic of sorcery is fundamentally different from Solar Charms. A Solar Charm is an expression of the Solar's own Essence through supreme mastery of skill. Sorcery is the art of shaping the Essence of the world itself, willing
+  it into accordance with the sorcerer’s whims. To work sorcery is to command essential forces, consort with strange spirits, and call up impossible wonders.
+
+  \section{Spells and Sorcerous Workings}
+  The powers of sorcery are divided into spells and sorcerous workings. A spell is a discrete power with a defined cost and effects. Sorcerous workings, on the other hand, are
+  \end{multicols}
+}{}
+\end{bgPic}
+
+\pgs{466}{471}
+\pdfbookmark[1]{Terrestrial Spells}{Terrestrial Spells}
+\pgs{472}{476}
+\pdfbookmark[1]{Celestial Spells}{Celestial Spells}
+\pgs{477}{480}
+\pdfbookmark[1]{Solar Spells}{Solar Spells}
+\pgs{481}{483}
+\pdfbookmark[1]{Sorcerous Workings}{Sorcerous Workings}
+\pgs{484}{490}
+\pdfbookmark[1]{Thaumaturgy}{Thaumaturgy}
+\pgs{491}{494}
+\pdfbookmark[0]{Antagonists}{Antagonists}
+\pgs{495}{496}
+\pdfbookmark[1]{Mortals}{Mortals}
+\pgs{497}{499}
+\pdfbookmark[1]{Strange Folk and Monsters}{Strange Folk and Monsters}
+\pgs{500}{502}
+\pdfbookmark[1]{The Dead}{The Dead}
+\pgs{503}{508}
+\pdfbookmark[1]{Spirits}{Spirits}
+\pgs{509}{517}
+\pdfbookmark[1]{Elementals}{Elementals}
+\pgs{518}{523}
+\pdfbookmark[1]{Demons}{Demons}
+\pgs{524}{534}
+\pdfbookmark[1]{Creatures of the Wyld}{Creatures of the Wyld}
+\pgs{535}{539}
+\pdfbookmark[1]{The Exalted}{Exalted Antagonists}
+\pgs{540}{550}
+\pdfbookmark[1]{Animals}{Animals}
+\pgWithOverlay{551}{8.1}{7.75}{3.3}{4.5}{\subsection{Animals}
+  \vspace{6pt}The animal life of Creation ranges from scurrying rats to rare megafauna and gargantuan saurian beasts. They are pets, beasts of burden, trained combatants, and roaming terrors.
+
+  \vspace{6pt}Some animal traits list latent abilities. While an animal might be physically capable of performing these, it has no instinctive drive to do so, and thus requires training to use them. Training an animal to unlock its latent abilities requires a minimum of Survival 3 and a specialty in animal husbandry. The trainer makes an extended roll with an interval of one month and a goal of 10, with a difficulty determined by the animal’s attitude - docile and tamed beasts would be difficulty 1, a wild wolf would be difficulty 2, while a tyrant lizard would be difficulty 5. Training a familiars provides a number of bonus dice equal to the trainer’s Intimacy to the animal. The trainer must spend the entire month interacting with the beast, teaching it words, signals, commands, and running it through exercises daily. Any significant amount of time the trainer spends away from the beast during this time
+}
+
+\pgs{556}{578}
+\pdfbookmark[0]{The Grand Panoply}{The Grand Panoply}
+\pgs{579}{580}
+\pdfbookmark[1]{Mortal Weapons}{Mortal Weapons}
+\pgs{581}{591}
+\pdfbookmark[1]{Mortal Armor}{Mortal Armor}
+\pgs{592}{593}
+\pdfbookmark[1]{Artifact Weapons}{Artifact Weapons}
+\pgs{594}{599}
+\pdfbookmark[1]{Artifact Armor}{Artifact Armor}
+\pgs{600}{601}
+\pdfbookmark[1]{Other Artifacts}{Other Artifacts}
+\pgs{602}{603}
+
+\begin{bgPic}{resources/Panoply-left.jpg}{resources/Panoply-right.jpg}
+\pgWithOverlay{604}{8.1}{11.6}{3.3}{2.1}{\vspace{-6pt}\subsection{Evocations}\vspace{6pt}
+  Legends tell of Exalts who have formed a strong enough bond with their weapon or armor that they could draw magical power through this link. This is, however, nothing more than another way of expressing their normal charms.
+
+  \vspace{6pt}"Evocations," as the term is used in Exalted 3e, do not properly exist. They are an unnecessary complication in the already complicated system and lore of Exalted.
+}
+
+
+\IfFileExists{snippets/001.pdf}{
+  \section{The Magical Materials}
+  \begin{multicols}{2}
+  The five magical materials are the most mystically potent substances known to the craftsmen and savants of Creation, and they almost universally form the basis for artifact creation. The dominant magical material used in an artifact has an enormous impact not only on its character, but on who most strongly covets the item - all Exalted have powerful affinities for a particular magical material, and limited aptitude in establishing a bond with artifacts not of that substance. This has no mechanical impact, but Solars will often feel uncomfortable atuning to Soulsteel artifacts, and Dragon Blooded nervous and overawed by a connection to orichalcum. Some powerful artifacts incorporate multiple magical materials into different parts of its substance.
+
+  \subsection{Jade}
+  Jade is the most common of the magical materials, found in quarries and deposits all across Creation. It resonates with the Dragon-Blooded, and is used not only to forge their artifacts, but as the true currency of the Realm. Jade is the most diverse magical material, appearing in five varieties - while all Dragon-Blooded are equally adept with any variety of jade, most prefer to adorn themselves with jade matching their inborn Aspect. All varieties of jade are adept at manifesting and channeling their associated element, but beyond that commonality, the Evocations of jade differ significantly. These secondary qualities, combined with its availability, make jade the most common magical material used in composite artifacts.
+
+  \subsection{Moonsilver}
+  Moonsilver is a silvery metal, harder than steel in its unworked state, with a liquid, quicksilver sheen when viewed in dim light. It resonates with the Lunar Exalted, and in the past, Luna’s Chosen felt that for any non-Lunar to carry moonsilver arms and armor burdened them with proving themselves worthy of the substance - it was common for Lunars to challenge the bearers of moonsilver to contests and competitions. In the modern day, the Lunars are prone to simply stealing or seizing any moonsilver artifacts they become aware of, making such wonders dangerous to own.
+
+  \subsection{Orichalcum}
+  Orichalcum is a super-hard, bright, golden metal to which the Solar Exalted feel a natural affinity. The Solars much valued orichalcum, for it resonated with their own Charms far more strongly than any other substance. Orichalcum can sometimes be found in naturally-occurring veins, often on mountains, plateaus, and other elevated locales. In the First Age, a process was known that could refine gold into orichalcum by using lava and mystical mirrors to concentrate the light of the sun, but those refineries were destroyed or abandoned during the Usurpation and the centuries of collapse that followed.
+
+  \subsection{Starmetal}
+  Starmetal, once refined and worked, is the least ostentatious of the magical materials - it looks like top-quality steel, with an unusually reflective and polished surface. When light strikes starmetal just so, it gleams in the prismatic colors of the Five Maidens. Starmetal is the rarest magical material, refined from the ore found in fallen stars. The Sidereal Exalted find starmetal alone resonates with their Essence, and use their astrology and sorcery to predict and chart the course of falling stars, then venture out into Creation to recover the meteoric ore. Due to its extreme rarity, most starmetal artifacts sport delicate and minimalist designs, and when starmetal appears in composite artifacts, it is usually in the form of wire filigree or etched designs rather than amalgamated alloy.
+
+
+  \subsection{Soulsteel}
+  Soulsteel is a gruesome magical material, appearing at first glance like black steel. When light strikes it, however, tortured faces can sometimes be glimpsed deep in the metal, and under extended scrutiny, they can be seen (and in the heat of battle, occasionally heard) to writhe and scream. Alone among the magical materials, soulsteel cannot be found in naturally-occurring deposits in Creation, but is instead made in the soul-forges of the Deathlords, pounded together from rare Underworld ores and the souls of those who have angered the lords of the realm of tears and dust. The Abyssal Exalted find that soulsteel resonates with their nature, and are rarely seen in Creation without it. Soulsteel artifacts dating back to the First Age are exceedingly rare, but not unknown.
+
+  \end{multicols}
+}{}
+\end{bgPic}
+
+\pgs{631}{634}
+\pdfbookmark[0]{Character Sheet}{Character Sheet}
+\pgs{636}{637}
 \end{document}
