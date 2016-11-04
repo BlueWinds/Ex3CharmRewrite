@@ -1,8 +1,8 @@
 The 3e core Charms chapter has 116000 words, 784 charms.
 
-You may wish to use this version instead. It weighs in at 47000 words, 557 charms. Consider it a complete replacement for chapter six and part of seven.
-
-This project is ongoing! Feel free to hop into the [forum thread|http://forum.theonyxpath.com/forum/main-category/exalted/804702-how-i-wish-charms-were-written] or the issue tracker here. Did I cut your favorite charm? Is the wording unclear? Have an awesome new idea for a charm?
+There are two versions of this rewrite:
+- "master", which you're looking at now. It is rather close to Ex3 core, though cleaned up withmore precise language and removing some problematic charms. It weighs in at 47000 words, 557 charms.
+- ["no-dicetricks"](https://github.com/BlueWinds/Ex3CharmRewrite/tree/no-dicetricks). It weighs in at 31000 words, 319 charms. It is quite different from Ex3 core - it cuts each ability down to 11-13 charms, almost all of which provide *new capabilities* rather than *enhancing dice rolls.* It also contains several other house rules you may wish to use.
 
 With this rewrite I hope to:
 
@@ -11,7 +11,7 @@ With this rewrite I hope to:
 - Remove stunting from charm texts. Some people will disagree with this approach, but I've aimed for dry, clear, simple language which tells you what happens, rather than what it looks like. Different characters will use the same charms in different ways.
 - Remove unthematic charms. Solars do not mess with fate, they do not inhabit clone bodies, they do not cause natural disasters by research.
 - Shorten the chapter. The charm descriptions are generally 1/2 to 1/5th the original length.
-- Being a queer woman myself, I have experience with some of the issues around gendered language, but in this case I've preferred brevity and clarity over gender-neutrality. The Solar is still always referred to as she/her, everyone around her as he/him/they. (if you want to refer to me, she/her is good, thanks )
+- Being a queer woman myself, I have experience with some of the issues around gendered language, but in this case I've preferred brevity and clarity over gender-neutrality. The Solar is still always referred to as she/her, everyone around her as he/him/they.
 
 Feedback is welcome. This is, however, an opinionated rewrite - I will not spend much time arguing over my opinions about what is Solar and what I want from the charms chapter.
 
