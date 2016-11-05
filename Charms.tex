@@ -237,10 +237,11 @@
     Merits represent a character's assets and quirks, everything from a family business to a stomach that can handle all but the most rancid food and drink. As with Attributes and Abilities, Merits are rated from one to five dots. Remember that although temporary merits come and go during play, those you've purchased (during character creation or with Experience Points) gain a limited amount of plot armor - they're much less likely to fail when you need them most, or wander off of their own accord. For more information on Merits in play, see the Traits chapter.
 
     \par Assign up to ten dots to your character’s Merits. As with other traits, Merits can shape your character’s background and circumstances, and they can also be consequences of your character’s past. Be sure to tie them into your overall concept. Did your character earn his Ally through a previous act of selflessness? Has being Hideous shaped the way she sees others?
-
+}{}
   \subsection{Step 5: Charms}
-    A Solar’s Charms are natural expressions of her heroic legend, powered by the very Essence of Creation. Can she run for miles without tiring? Can she shoot a diving swallow at a hundred yards? Once you’ve got a mental picture of your character’s legend, pick out ten suitable Charms, keeping in mind that each has prerequisites of enlightenment and skill. Don’t be afraid to rearrange your Ability dots if your character doesn't qualify for a Charm that would liven up her concept!
+    A Solar’s Charms are natural expressions of her heroic legend, powered by the very Essence of Creation. Can she run for miles without tiring? Can she shoot a diving swallow at a hundred yards? Once you’ve got a mental picture of your character’s legend, pick out {\bf ten} suitable Charms, keeping in mind that each has prerequisites of enlightenment and skill. Don't forget to purchase the Solar Excellency in abilites you want your character to excel at - it's an incredibly powerful charm.
 
+\IfFileExists{snippets/001.pdf}{
     \par If you took the Martial Arts ability or learn Sorcery (see the Martial Arts and Sorcery chapter for more details), you can also take Martial Arts charms or learn spells, trading in your starting charms on a one-for-one basis.
 
   \subsection{Step 6: Intimacies and Limit Trigger}
@@ -255,13 +256,13 @@
     Trait & Experience Points\\
     \hline
     Attribute & 8xp per dot\\
-    Non-caste/non-favored ability & 4xp per dot\\
-    Caste/Cavored ability & 3xp per dot\\
+    Caste or Favored ability & 3xp per dot\\
+    Non-caste and non-favored ability & 4xp per dot\\
     Specialty & 3xp\\
     Merit & 3xp per dot\\
     Willpower & 8xp per dot\\
-    Charm/Spell (Not Caste/Favored) & 10xp\\
-    Charm/Spell (Caste/Favored) & 8xp\\
+    Charm or Spell (Caste/Favored) & 8xp\\
+    Charm or Spell (Not Caste/Favored) & 10xp\\
   \end{tabular}
 
 \IfFileExists{snippets/001.pdf}{
@@ -557,8 +558,6 @@ The Exalted are mighty. Some break swords upon their skin or shatter stone with 
 \section*{Limitations and Terminology}
 \begin{multicols}{2}
 \par A Solar may not add more than (Attribute + Ability) dice to a single roll, and each automatic success counts as two dice. If a combination of charms would add more dice/successes than that, discard the extras.
-\par Some charms grant the character a "full excellency." This is shorthand for "add (Attribute + Ability) dice to the roll".
-
 \par  When charms refer to increasing of decreasing a duration in increments, use the following chart: \\
     Decades --- Years --- Months --- Weeks --- Days --- Hours --- Minutes --- Seconds
 
@@ -587,7 +586,7 @@ If a charm asks the solar to divide her initiative up evenly into some number of
 \begin{multicols}{2}
 \par The Chosen enjoy a fundamental power called the Excellencies. When a Solar uses an Excellency, she channels pure Essence into her endeavors - the fundamental power of the sun quickens and strengthens her blows, sharpens her sight, or steadies her hands.
 
-\par Solars automatically gain an Excellency for each Caste and Favored Ability in which they possess at least one dot, as well as any Ability for which they have learned at least one Charm.
+\par Solars may purchase the Excellency for any ability they have a dot in, as they would any other charm with its prerequisite.
 
 \charm{Excellent Solar (Ability)}
 {1m per die, or 2m per +1 to static value}
@@ -595,7 +594,7 @@ If a charm asks the solar to divide her initiative up evenly into some number of
 {Instant}
 {-}
 {(Ability) 1}
-The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) to a static value derived from (Ability). Remember “Using Charms and Charm Limitations” above.
+The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) to a static value derived from (Ability). Remember the “Using Charms and Charm Limitations” section above.
 \end{multicols}
 
 \begin{Ability}{Archery}
@@ -952,8 +951,8 @@ Essence 3,   At Brawl 5+, the character may add 1wp to the cost of this Charm to
   \charm{All-Seeing Master Procurer}
   {5m}
   {Reflexive}{One scene}{-}
-  {Bureaucracy 4, Consumer-Evaluating Glance}
-  For the rest of the scene all of the Solar's customers or potential customers gain a Minor Tie of "this merchant is reliable and knowledgeable."
+  {Bureaucracy 4}
+  This charm may be activated at any time. For the rest of the scene all of the Solar's customers or potential customers gain a Minor Tie of "this merchant is reliable and knowledgeable."
 
   \charm{Insightful Buyer Technique}
   {3m}
@@ -964,13 +963,13 @@ Essence 3,   At Brawl 5+, the character may add 1wp to the cost of this Charm to
   \charm{Soul-Snaring Pitch}
   {5m, 1wp}
   {Simple}{Indefinite}{Mute, Psyche}
-  {Essence 3, Bureaucracy 5, Irresistible Salesman Spirit}
+  {Essence 3, Bureaucracy 5, All-Seeing Master Procurer, Insightful Buyer Technique}
   The Exalt makes a Persuade action to convince a character that a particular thing is his heart's desire. She rolls (Manipulation + Bureaucracy) with (Essence) automatic successes against the target's Resolve. If successful, a character must spend (Solar's Essence) willpower, or develop a Defining Tie (I must have it) towards an object of the Solar's choice as long as the charm remains active. Resisting Soul-Snaring Pitch makes a character immune to the Charm for one week.
 
   \charm{Enigmatic Bureau Understanding}
   {2m}
   {Reflexive}{Instant}{-}
-  {Bureaucracy 4, Measuring Glance}
+  {Bureaucracy 4}
   The Exalt may activate this charm when she enters the presence of a member of an organization she has control over or belongs to who has developed or lost an intimacy relating to it since they last met. She knows something has changed, and may make a Read Intentions action with regards to the new intimacy without needing to interact with them. If the intimacy was caused by a curse or blessing, she becomes aware of the general effect and purpose of the magic.
 
   At Essence 3, if she succeeds on the Read Intentions action, in addition to learning of the intimacy she also gains a general understanding of what caused it - dissatisfaction, a conversation with a stranger, a bribe, etc. This charm can also now be used to detect curses or blessings that don't modify intimacies.
@@ -978,7 +977,7 @@ Essence 3,   At Brawl 5+, the character may add 1wp to the cost of this Charm to
   \charm{Bureau-Reforming Kata}
   {5m, 1wp}
   {Simple}{Instant}{-}
-  {Essence 2, Bureaucracy 5;, Bureau-Rectifying Method, Enigmatic Bureau Understanding}
+  {Essence 2, Bureaucracy 5, Enigmatic Bureau Understanding}
   When the Solar is aware of hostile magic such as Indolent Official Charm, astrological curses or similar affecting an organization she has control over or influence within, she spends a day moving individuals to new positions, hiring, firing and reorganizing and in so doing cleanses the magic. The organization is immune to that specific power for one month.
 
   With an Essence 3 repurchase she can activate this charm in minutes rather than a full day, and she learns the identity of anyone whose hostile magic she cancels. The organization is immune to the effect for a full season.
@@ -986,7 +985,7 @@ Essence 3,   At Brawl 5+, the character may add 1wp to the cost of this Charm to
   \charm{Order-Conferring Action}
   {6m, 1wp}
   {Simple}{One Season}{-}
-  {Essence 5, Bureaucracy 5, Taboo-Inflicting Diatribe, Subject-Hailing Ideology}
+  {Essence 5, Bureaucracy 5, Bureau-Reforming Kata}
   By spending a day advising an organization (including by proxy), the Solar turns it into a bulwark of Creation. The Wyld cannot penetrate further into territories it controls or operates in (though Fair Folk themselves still might), diseases struggle to cross its borders, and Shadowlands encroach upon it more slowly.
 
   \charm{Enlightened Ministerial Halo}
@@ -1004,18 +1003,18 @@ Essence 3,   At Brawl 5+, the character may add 1wp to the cost of this Charm to
   \charm{Speed the Wheels}
   {8m}
   {Simple}{One task}{-}
-  {Bureaucracy 5, Deft Official's Way}
+  {Bureaucracy 5}
   By speaking with the right individuals and in just the right way, the Solar sets a bureaucracy's wheels in motion at record speed. While this charm doesn't affect material labor (such as building a road or receiving a shipment), the organization, planning, approval, etc of a single task all occur significantly faster. Reduce the time required by two increments.
 
   \charm{Subject-Hailing Ideology}
   {5m}
   {Supplemental}{Instant}{-}
-  {Essence 2, Bureaucracy 5, Bureau Rectifying Method}
+  {Essence 2, Bureaucracy 5, Speed the Wheels}
   This charm supplements any social influence roll. For purposes of this roll, the Solar's target treats a single weakened or abandoned intimacy as though it had its former strength. The intimacy must be related to some official duty or role - marriage, bodyguard, employee, etc.
 
   \charm{Indolent Official Charm}
   {5m}
-  {Simple}{Indefinite}{-}
+  {Simple}{Indefinite}{Stackable}
   {Essence 2, Bureaucracy 5, Speed the Wheels}
   This charm is the reverse of Speed the Wheels - with a sidelong glance and a word in the right ears, a single bureaucratic task grinds to halt. While this charm doesn't affect material labor (such as building a road or receiving a shipment), the organization, planning, approval, etc. of a single task all takes one increment longer.
 
@@ -1024,13 +1023,12 @@ Essence 3,   At Brawl 5+, the character may add 1wp to the cost of this Charm to
   \charm{Taboo-Inflicting Diatribe}
   {6m, 1wp}
   {Simple}{Indefinite}{Stackable, Psyche}
-  {Essence 4, Bureaucracy 5, Foul Air of Argument Technique}
+  {Essence 4, Bureaucracy 5, Indolent Official Charm}
   The Solar repeatedly inveighs against a certain action relating to an organization she controls or has major influence within. Members of her organization gain a Major principle against the action unless they spend 1wp. The behaviors must be specific, and related to the organization - she could not inflict "Stealing is wrong," or but she could give members a Principle of “The company coffers are inviolate” or “Embezzlement from clients is a sin.” This charm may be applied any number of times to a single organization (but only once for a specific intimacy). The intimacy fades if this charm ends.
 
   With an Essence 5 repurchase, at the end of every month in which a person - member or not - interacts with the organization regularly they roll (Willpower). On a failure, they must spend 1wp or gain the intimacy at Minor strength permanently (it doesn't go away when the charm ends, and is in all ways a normal intimacy). As a rule of thumb for the Storyteller, after a season with this charm active half the populace will have the intimacy, and after a few years virtually all of them will. A particularly accepting or hostile population might speed or slow down the spread.
 
 \end{Ability}
-
 \begin{Ability}{Craft}
 
   \charm{Glorious Solar Chef}
@@ -1101,7 +1099,7 @@ Essence 3,   At Brawl 5+, the character may add 1wp to the cost of this Charm to
 
   At Essence 3+, the Exalt may pay fifteen motes, one Willpower to use this Charm on the project scale, working for a full day to cover a considerable number of goods and vehicles or arms and armor, or perhaps a small ship.
 
-  An Essence 5 repurchase extends the duration by two intervals.
+  At Essence 5+, extend the duration by two intervals.
 
   \charm{The Art of Permanence}
   {6m, 1wp}
@@ -1167,7 +1165,7 @@ Essence 3,   At Brawl 5+, the character may add 1wp to the cost of this Charm to
   {5m}
   {Reflexive}{Indefinite}{-}
   {Essence 4, Dodge 5, Seven Shadow Evasion}
-  This charm may be activated at any time. The Solar to dodge the undodgeable, and to resist environmental hazards or effects with (Dexterity + Dodge) instead of (Stamina + Resistance) no matter how implausible doing so might seem. If a hazard would normally be unavoidable, like rain making the Solar wet, difficulty 5 is appropriate.
+  This charm may be activated at any time. The Solar can dodge undodgeable attacks, and can resist environmental hazards or effects with (Dexterity + Dodge) instead of (Stamina + Resistance) no matter how implausible doing so might seem. If a hazard would normally be unavoidable, like rain making the Solar wet, difficulty 5 is appropriate.
 
   \charm{Shadow Over Water}
   {2m}
@@ -1732,7 +1730,7 @@ Essence 3,   At Brawl 5+, the character may add 1wp to the cost of this Charm to
   \charm{Fire and Stones Strike}
   {1m per die or success}
   {Supplemental}{Instant}{-}
-  {Melee 3, Excellent Strike}
+  {Melee 3}
   This charm supplements a Melee attack. If it's Withering, the Solar may spend up to (Strength) motes, adding that many dice to the post-soak damage. If Decisive, she may spend up to (Essence) motes, adding up to that many threshold successes from the attack roll to the raw damage.
 
   \charm{Call the Blade}
@@ -1873,7 +1871,7 @@ Essence 3,   At Brawl 5+, the character may add 1wp to the cost of this Charm to
   \charm{Spirit-Shredding Exorcism}
   {5m, 1 wp}
   {Reflexive}{Instant}{-}
-  {Essence 4, Occult 5, Spirit-Caging Mandala}
+  {Essence 3, Occult 5, Spirit-Caging Mandala}
   This charm may be activated whenever the Lawgiver succeeds at a (Wits + Occult) roll for the prerequisite charm. She rolls (Intelligence + Occult) against the spirit's Resolve, which may not be enhanced by intimacies. If successful, her victim's permanent Essence is reduced by 1 until the end of the scene (which may remove access to powers he no longer meets the prerequisites for), and she resets the difficulty of the roll to cage the spirit.
 
   Subsequent activations of this charm in a scene on the same spirit waive the wp cost. If a spirit is reduced to essence 0, the Solar may choose to either permanently destroy it or keep it trapped without further rolls, and the duration of Spirit-Caging Mandala becomes "one scene."
@@ -1903,20 +1901,20 @@ Essence 3,   At Brawl 5+, the character may add 1wp to the cost of this Charm to
   \subsection*{Sorcery}
 
   \permanentCharm{Terrestrial Circle Sorcery}
-  {Occult 3}
+  {Essence 3, Occult 3}
   This charm may only be learned when the Solar meets the requirements for a shaping ritual - making a pact with a demon or powerful god, studying at the Heptagram, or some other initiation deemed appropriate by the Storyteller.
 
   She gains the ability to learn and cast Terrestrial Circle spells. She learns a shaping ritual immediately. The first spell she learns becomes her control spell.
 
   \permanentCharm{Celestial Circle Sorcery}
-  {Essence 3, Occult 4, Terrestrial Circle Sorcery, any two Terrestrial Circle spells}
-  This charm may only be learned when the Solar meets the requirements for a second shaping ritual - reaffirming her pact with her patron, studying in the Violet Bier of Sorrows, or some other appropriate initiation. It may not be learned early by having Occult as a Supernal Ability.
+  {Essence 4, Occult 4, Terrestrial Circle Sorcery, any two Terrestrial Circle spells}
+  This charm may only be learned when the Solar meets the requirements for a second shaping ritual - reaffirming her pact with her patron, studying in the Violet Bier of Sorrows, or some other appropriate initiation.
 
   She gains the ability to learn and cast Celestial Circle spells. She learns another shaping ritual. The first Celestial Circle spell she learns becomes a second control spell.
 
   \permanentCharm{Solar Circle Sorcery}
   {Essence 5, Occult 5, Celestial Circle Sorcery, any four Terrestrial Circle spells, any two Celestial Circle spells}
-  Like the previous circle, the Solar must meet the requirements for another shaping ritual, and may not be taken early by having Occult as a Supernal Ability.
+  Like the previous circle, the Solar must meet the requirements for another shaping ritual.
 
   The Solar gains the ability to learn and cast Solar Circle spells. She learns a shaping ritual, and the first Solar Circle spell she learns becomes a third control spell.
 
