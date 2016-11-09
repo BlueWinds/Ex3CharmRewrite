@@ -94,15 +94,7 @@
 
 \newcommand{\pg}[1]{
   \begin{textblock}{8.5}(0,0)
-  \ifthenelse{#1<10}{
-    \includegraphics{snippets/00#1.pdf}
-  }{
-    \ifthenelse{#1<100}{
-      \includegraphics{snippets/0#1.pdf}
-    }{
-      \includegraphics{snippets/#1.pdf}
-    }
-  }
+  \includegraphics[page=#1]{Ex3Final.pdf}
   \end{textblock}
   \setcounter{page}{#1}
   \addtocounter{page}{-1}
@@ -110,7 +102,7 @@
 
 \newcounter{pg}
 \newcommand{\pgs}[2]{
-  \IfFileExists{snippets/001.pdf}{
+  \IfFileExists{Ex3Final.pdf}{
     \forloop{pg}{#1}{\value{pg}<#2 \OR \value{pg}=#2}{
       \pg{\arabic{pg}}
       - % Used to clear the page, ends up invisible
@@ -122,7 +114,7 @@
 % Page, left, top, width, height, text
 \newlength{\overlayWidth}
 \newcommand{\pgWithOverlay}[6]{
-  \IfFileExists{snippets/001.pdf}{
+  \IfFileExists{Ex3Final.pdf}{
     \setlength{\overlayWidth}{#4in}
     \addtolength{\overlayWidth}{-25pt}
     \pg{#1}
@@ -138,9 +130,8 @@
     -
     \clearpage
   }{
-    \begin{subsection}{Page #1}
-      #6
-    \end{subsection}
+    \subsection*{Page #1}
+    #6
   }
 }
 
@@ -184,7 +175,7 @@
 \setlength\textheight{659pt}
 \fancyhf{}
 
-\IfFileExists{snippets/001.pdf}{}{
+\IfFileExists{Ex3Final.pdf}{}{
   \renewcommand{\pdfbookmark}[5]{}
 }
 
@@ -213,7 +204,7 @@
 \begin{bgPic}{resources/Character-left.jpg}{resources/Character-right.jpg}
 \begin{multicols}{2}
 
-\IfFileExists{snippets/001.pdf}{
+\IfFileExists{Ex3Final.pdf}{
   Occult thanks to his knowledge of the signs and portents that herald the arrival of demons in Creation. If you want, you can select some Favored Abilities from your Caste’s Ability list, but you can’t take the same Ability as both Caste and Favored. Your choice of Caste and Favored Abilities is important to your character’s development — it’s less expensive to improve selected Abilities, and to learn Charms associated with them.
 }{
   \chapter{Character Creation}
@@ -221,7 +212,7 @@
 
   Select one of your Caste Abilities and one of your Favored Abilities be a Supernal abilities. Your Supernal Abilities is the emblem of your character’s legend, the thing she is the very best at. You have an easier time learning powerful Charms with your Supernal Abilities than any other Ability - Charms in your Supernal Abilities treat your Essence rating 2 higher than your current rating (to a maximum of 5) for all purposes. You can learn Essence 3 charms in these abilities right off the bat during character creation, and use upgrades to them sooner than otherwise. When your character's essence is 4, then a charm in one of your Supernal Abilities that lets you make (Essence + 2) attacks allows you to make 5 (your real Essence 4 + 2, to a maximum of 5).
 
-\IfFileExists{snippets/001.pdf}{
+\IfFileExists{Ex3Final.pdf}{
   \par Once you've selected Caste, Favored and Supernal, divide 28 dots among your Abilities. Abilities start at 0, and you cannot raise them higher than 3 without spending Experience Points. You must assign at least one dot to each Favored ability. As with her Attributes, you should explain any of her Abilities rated at three or more dots. Did your character train under a great master to achieve her five-dot rating in Melee, or is she a self-taught martial genius?
 
   \par Lastly, choose four Specialties for your character. Specialties describe specific focus within an Ability.
@@ -232,24 +223,24 @@
   \par Only one Specialty can apply to a single roll, even if your character has more than one that could be useful.
 \end{sidebar}
 
-  \subsection{Step 4: Merits}
+  \subsection*{Step 4: Merits}
 
     Merits represent a character's assets and quirks, everything from a family business to a stomach that can handle all but the most rancid food and drink. As with Attributes and Abilities, Merits are rated from one to five dots. Remember that although temporary merits come and go during play, those you've purchased (during character creation or with Experience Points) gain a limited amount of plot armor - they're much less likely to fail when you need them most, or wander off of their own accord. For more information on Merits in play, see the Traits chapter.
 
     \par Assign up to ten dots to your character’s Merits. As with other traits, Merits can shape your character’s background and circumstances, and they can also be consequences of your character’s past. Be sure to tie them into your overall concept. Did your character earn his Ally through a previous act of selflessness? Has being Hideous shaped the way she sees others?
 }{}
-  \subsection{Step 5: Charms}
+  \subsection*{Step 5: Charms}
     A Solar’s Charms are natural expressions of her heroic legend, powered by the very Essence of Creation. Can she run for miles without tiring? Can she shoot a diving swallow at a hundred yards? Once you’ve got a mental picture of your character’s legend, pick out {\bf ten} suitable Charms, keeping in mind that each has prerequisites of enlightenment and skill. Don't forget to purchase the Solar Excellency in abilites you want your character to excel at - it's an incredibly powerful charm.
 
-\IfFileExists{snippets/001.pdf}{
+\IfFileExists{Ex3Final.pdf}{
     \par If you took the Martial Arts ability or learn Sorcery (see the Martial Arts and Sorcery chapter for more details), you can also take Martial Arts charms or learn spells, trading in your starting charms on a one-for-one basis.
 
-  \subsection{Step 6: Intimacies and Limit Trigger}
+  \subsection*{Step 6: Intimacies and Limit Trigger}
     Intimacies describe the important parts of your character’s life, from long-held beliefs to feelings toward loved ones or mortal enemies. For more information on Intimacies, see the Traits chapter. Unlike other traits, there’s no limit to how many Intimacies your character can start with, but you must have a minimum of four Intimacies, of which at least one must be Defining, one must be Major, one must be in some way negative (a thing the character opposes or dislikes), and one must be positive (a thing the character supports or likes).
 
     \par Additionally, all Solar Exalted labor under a Great Curse spoken by the enemies of the gods as the Exalted slew them. As a result, your character has a Limit Trigger, a circumstance in which the lingering curse of the dead ancients may rise to trouble him. Select a Limit Trigger from the choices in the traits chapter, or work with your Storyteller to design your own.
 }{}
-  \subsection{Step 7: Experience Points}
+  \subsection*{Step 7: Experience Points}
     You have 50 Experience Points to spend on anything that makes sense for your concept. Spells are considered Caste or Favored if Occult is. You’re allowed to spend these Experience Points at any time during character creation - to help meet the prerequisites of a Charm in step 5, for example.
 
   \begin{tabular}{ll}
@@ -265,8 +256,8 @@
     Charm or Spell (Not Caste/Favored) & 10xp\\
   \end{tabular}
 
-\IfFileExists{snippets/001.pdf}{
-  \subsection{Step 8: Finishing Touches}
+\IfFileExists{Ex3Final.pdf}{
+  \subsection*{Step 8: Finishing Touches}
     Solars start play with Essence one, Willpower five, and seven Health Levels (-0, -1, -1, -2, -2, -4, and Incapacitated). A Solar’s pool of Personal Essence is ([Essence x 5] + 5), while their Peripheral Essence pool is ([Essence x 10] + 20). These traits are explained in further detail in Chapter Four.
 
     \par Each Exalt was a human being before he was Chosen, and he remains so after Exaltation. Being Chosen doesn’t make anyone perfect - as powerful as they are, Solars have nothing to guide them beyond what they bring from their mortal lives. Think about your character’s past and what he was like before his Exaltation. How did he see the world? How did he treat other people? How did other people treat him? Who were his allies, enemies, friends, and loved ones? What faiths and philosophies did his people follow? What other influences played a role in his life? No one is an island, least of all one of the Exalted.
@@ -293,7 +284,7 @@
 \pgs{149}{149}
 \pdfbookmark[1]{Abilities}{Abilities}
 \pgs{150}{151}
-\IfFileExists{snippets/001.pdf}{}{
+\IfFileExists{Ex3Final.pdf}{}{
   \begin{bgPic}{resources/Traits-left.jpg}{resources/Traits-right.jpg}
   \begin{multicols}{2}
 }
@@ -310,7 +301,7 @@
 
 \pdfbookmark[1]{Merits}{Merits}
 
-\IfFileExists{snippets/001.pdf}{
+\IfFileExists{Ex3Final.pdf}{
   \pgWithOverlay{158}{8.1}{12.8}{3.3}{1.25}{{\bf Innate} merits represent unusual facets of a character, physical or mental traits that set them apart from a crowd. They cannot usually be gained or lost during a story without magical intervention.}
   \pgWithOverlay{159}{1.75}{8.5}{3.3}{3.65}{{\bf Purchased} merits are similar, except that they can be purchased at any time during play for XP.
 
@@ -323,17 +314,17 @@
 
 \pgs{160}{162}
 \pgWithOverlay{163}{1.75}{1.3}{3.3}{3.3}{
-  \IfFileExists{snippets/001.pdf}{
+  \IfFileExists{Ex3Final.pdf}{
     This Merit bestows ownership of a hearthstone - a gem formed of concentrated geomantic Essence. Most hearthstones are deliberately formed through Essence concentration in manses, but a few naturally form in demesnes or at sites where Essence has worked prodigious miracles upon the land. If the manse’s owner places the hearthstone in a specially-designed socket in an attuned artifact, then the character enjoys the benefits of standing within the manse wherever she goes.
 
     \vspace{12pt}
-  }{\subsection{Hearthstone Merit}}
+  }{\subsection*{Hearthstone Merit}}
 
   Hearthstones do not provide any magical powers of their own - they are useful purely as a power source for artifice or as a link to the manse they belong to. The two-dot version of this merit links to a 2-dot manse, and similarly with the 4-dot version.
 }
 
 \pgWithOverlay{164}{8.1}{13.3}{3.3}{0.9}{The Martial Artist merit from the original core book does not exist. Martial Arts may be purchased like any other ability.}
-\IfFileExists{snippets/001.pdf}{
+\IfFileExists{Ex3Final.pdf}{
   \pgWithOverlay{165}{1.75}{1.4}{3.3}{0.6}{}
 }{}
 
@@ -353,7 +344,7 @@
 
 \pgs{177}{177}
 
-  \IfFileExists{snippets/001.pdf}{
+  \IfFileExists{Ex3Final.pdf}{
   \begin{bgPic}{resources/Traits-left.jpg}{resources/Traits-right.jpg}
   \begin{multicols}{2}
     \begin{itemize}
@@ -362,14 +353,14 @@
     \end{itemize}
   }{}
 
-  \IfFileExists{snippets/001.pdf}{
+  \IfFileExists{Ex3Final.pdf}{
     \section{Character Advancement}
   }{
     \section*{Character Advancement}
   }
   Character growth is expressed with experience points, given out at the end of every session, which players spend to increase characters’ traits, as well as to buy new Charms and spells. These function exactly as they do during character creation - see the Experience Points table in chapter three. Each character gains five experience points at the end of every session. These points may be spent immediately, or saved to be spent later.
 
-  \subsection{Raising Essence}
+  \subsection*{Raising Essence}
   While it’s possible for a character’s Essence rating to increase in a dramatic moment of blazing glory, it’s more common for the growth to take place over the course of days, weeks or even months. Some Solars  retreat into temporary seclusion in order to commune with their inner divinity, spending time atop mountain peaks, desert plateaus or other elevated places to contemplate the face of the Unconquered Sun and their own burgeoning power.
 
   Characters' Essence ratings increase automatically once they have earned and spent enough experience points on other traits. Essence is the core of a Solar’s power, the beating heart of his enlightened will, and it becomes stronger only when the Solar has grown as an overall hero of Creation, rather than being cultivated directly. The numbers on this table include the starting experience from character creation.
@@ -401,7 +392,7 @@
 
 \begin{bgPic}{resources/Systems-left.jpg}{resources/Systems-right.jpg}
 \begin{multicols}{2}
-\IfFileExists{snippets/001.pdf}{}{
+\IfFileExists{Ex3Final.pdf}{}{
   \section*{Craft Rules}
 }
   \par Basic projects are the simplest tasks a craftsman can undertake, such as making a chair, forging basic tools, shoeing a horse, cooking a meal, or fletching an arrow. They are resolved with a single roll. The character works for an amount of time deemed appropriate by the Storyteller, usually ranging from several minutes to several hours, then makes an (Attribute + Craft) roll against a difficulty set by the Storyteller.
@@ -3008,7 +2999,7 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
 \end{Ability}
 
 \pdfbookmark[0]{Sorcery}{Sorcery}
-\IfFileExists{snippets/001.pdf}{
+\IfFileExists{Ex3Final.pdf}{
 
   % This isn't a "chapter", because those page-break and are unumerated, and this is combined with MA in the core book.
   \begin{center}\chapfont\color{MidnightBlue}\Huge\thispagestyle{fancy}Sorcery\end{center}
@@ -3053,7 +3044,7 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
 \pdfbookmark[1]{The Exalted}{Exalted Antagonists}
 \pgs{540}{550}
 \pdfbookmark[1]{Animals}{Animals}
-\pgWithOverlay{551}{8.1}{7.75}{3.3}{4.5}{\subsection{Animals}
+\pgWithOverlay{551}{8.1}{7.75}{3.3}{4.5}{\subsection*{Animals}
   \vspace{6pt}The animal life of Creation ranges from scurrying rats to rare megafauna and gargantuan saurian beasts. They are pets, beasts of burden, trained combatants, and roaming terrors.
 
   \vspace{6pt}Some animal traits list latent abilities. While an animal might be physically capable of performing these, it has no instinctive drive to do so, and thus requires training to use them. Training an animal to unlock its latent abilities requires a minimum of Survival 3 and a specialty in animal husbandry. The trainer makes an extended roll with an interval of one month and a goal of 10, with a difficulty determined by the animal’s attitude - docile and tamed beasts would be difficulty 1, a wild wolf would be difficulty 2, while a tyrant lizard would be difficulty 5. Training a familiars provides a number of bonus dice equal to the trainer’s Intimacy to the animal. The trainer must spend the entire month interacting with the beast, teaching it words, signals, commands, and running it through exercises daily. Any significant amount of time the trainer spends away from the beast during this time
@@ -3074,32 +3065,31 @@ Creation's martial arts are the stuff of legend, powerful fighting styles that e
 \pgs{602}{603}
 
 \begin{bgPic}{resources/Panoply-left.jpg}{resources/Panoply-right.jpg}
-\pgWithOverlay{604}{8.1}{11.6}{3.3}{2.1}{\vspace{-6pt}\subsection{Evocations}\vspace{6pt}
+\pgWithOverlay{604}{8.1}{11.6}{3.3}{2.1}{\vspace{-6pt}\subsection*{Evocations}\vspace{6pt}
   Legends tell of Exalts who have formed a strong enough bond with their weapon or armor that they could draw magical power through this link. This is, however, nothing more than another way of expressing their normal charms.
 
   \vspace{6pt}"Evocations," as the term is used in Exalted 3e, do not properly exist. They are an unnecessary complication in the already complicated system and lore of Exalted.
 }
 
 
-\IfFileExists{snippets/001.pdf}{
+\IfFileExists{Ex3Final.pdf}{
   \section{The Magical Materials}
   \begin{multicols}{2}
   The five magical materials are the most mystically potent substances known to the craftsmen and savants of Creation, and they almost universally form the basis for artifact creation. The dominant magical material used in an artifact has an enormous impact not only on its character, but on who most strongly covets the item - all Exalted have powerful affinities for a particular magical material, and limited aptitude in establishing a bond with artifacts not of that substance. This has no mechanical impact, but Solars will often feel uncomfortable atuning to Soulsteel artifacts, and Dragon Blooded nervous and overawed by a connection to orichalcum. Some powerful artifacts incorporate multiple magical materials into different parts of its substance.
 
-  \subsection{Jade}
+  \subsection*{Jade}
   Jade is the most common of the magical materials, found in quarries and deposits all across Creation. It resonates with the Dragon-Blooded, and is used not only to forge their artifacts, but as the true currency of the Realm. Jade is the most diverse magical material, appearing in five varieties - while all Dragon-Blooded are equally adept with any variety of jade, most prefer to adorn themselves with jade matching their inborn Aspect. Jade is by far the most common magical material used in composite artifacts.
 
-  \subsection{Moonsilver}
+  \subsection*{Moonsilver}
   Moonsilver is a silvery metal, harder than steel in its unworked state, with a liquid, quicksilver sheen when viewed in dim light. It resonates with the Lunar Exalted, and in the past, Luna’s Chosen felt that for any non-Lunar to carry moonsilver arms and armor burdened them with proving themselves worthy of the substance - it was common for Lunars to challenge the bearers of moonsilver to contests and competitions. In the modern day, the Lunars are prone to simply stealing or seizing any moonsilver artifacts they become aware of, making such wonders dangerous to own.
 
-  \subsection{Orichalcum}
+  \subsection*{Orichalcum}
   Orichalcum is a super-hard, bright, golden metal to which the Solar Exalted feel a natural affinity. The Solars much valued orichalcum, for it resonated with their own Charms far more strongly than any other substance. Orichalcum can sometimes be found in naturally-occurring veins, often on mountains, plateaus, and other elevated locales. In the First Age, a process was known that could refine gold into orichalcum by using lava and mystical mirrors to concentrate the light of the sun, but those refineries were destroyed or abandoned during the Usurpation and the centuries of collapse that followed.
 
-  \subsection{Starmetal}
+  \subsection*{Starmetal}
   Starmetal, once refined and worked, is the least ostentatious of the magical materials - it looks like top-quality steel, with an unusually reflective and polished surface. When light strikes starmetal just so, it gleams in the prismatic colors of the Five Maidens. Starmetal is the rarest magical material, refined from the ore found in fallen stars. The Sidereal Exalted find starmetal alone resonates with their Essence, and use their astrology and sorcery to predict and chart the course of falling stars, then venture out into Creation to recover the meteoric ore. Due to its extreme rarity, most starmetal artifacts sport delicate and minimalist designs, and when starmetal appears in composite artifacts, it is usually in the form of wire filigree or etched designs rather than amalgamated alloy.
 
-
-  \subsection{Soulsteel}
+  \subsection*{Soulsteel}
   Soulsteel is a gruesome magical material, appearing at first glance like black steel. When light strikes it, however, tortured faces can sometimes be glimpsed deep in the metal, and under extended scrutiny, they can be seen (and in the heat of battle, occasionally heard) to writhe and scream. Alone among the magical materials, soulsteel cannot be found in naturally-occurring deposits in Creation, but is instead made in the soul-forges of the Deathlords, pounded together from rare Underworld ores and the souls of those who have angered the lords of the realm of tears and dust. The Abyssal Exalted find that soulsteel resonates with their nature, and are rarely seen in Creation without it. Soulsteel artifacts dating back to the First Age are exceedingly rare, but not unknown.
 
   \end{multicols}
