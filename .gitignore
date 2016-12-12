@@ -1,7 +1,7 @@
-Rewrite.log
-Rewrite.out
-Rewrite.aux
-CharmCards.log
-CharmCards.out
-CharmCards.aux
+*.log
+*.out
+*.aux
+Characters/*.log
+Characters/*.out
+Characters/*.aux
 Ex3Final.pdf

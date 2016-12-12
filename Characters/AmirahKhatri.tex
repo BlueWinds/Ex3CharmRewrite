@@ -1,0 +1,143 @@
+\documentclass[oneside]{book}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{multicol}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in, heightrounded, includefoot]{geometry}
+\usepackage{sectsty}
+\usepackage[bookmarks=true,bookmarksdepth=section]{hyperref}
+\usepackage{graphicx}
+\usepackage{eso-pic}
+\usepackage{changepage}
+\usepackage{ifthen}
+\usepackage{titlesec}
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{forloop}
+\usepackage[absolute,overlay]{textpos}
+\usepackage[space]{grffile}
+
+\title{Charms Rewrite}
+\date{2016-07-26}
+\author{BlueWinds}
+
+\strictpagecheck
+\newfontfamily\chapfont{Envision}
+
+\pagestyle{plain}
+\allsectionsfont{\centering}
+\setlength\parindent{0pt}
+\setlength\parskip{15pt}
+\newlength{\sidewidth}
+\setlength{\sidewidth}{6.25in}
+
+\newcommand{\charm}[6]{
+  \parbox{\linewidth}{
+    \par \textbf{\color{MidnightBlue}#1}\vspace{2pt} \\
+    \ifthenelse{\equal{#5}{-}}{ % No keywords
+      \textbf{Cost:} #2; #3 (#4) \\
+      \textbf {Prereqs:} #6
+    }{ % Has keywords
+      \textbf{Cost:} #2 ; #3 (#4) - #5 \\
+      \textbf {Prereqs:} #6
+    }
+  }
+  \par
+}
+\newcommand{\permanentCharm}[2]{
+  \parbox{\linewidth}{
+    \par \textbf{\color{MidnightBlue}#1} \\
+    \textbf {Permanent} \\
+    \textbf {Prereqs:} #2
+  }
+  \par
+}
+
+\begin{document}
+\begin{multicols}{2}
+
+  \charm{Excellent Solar (Ability)}
+  {1m per die, or 2m per +1 to static value}
+  {Supplemental}
+  {Instant}
+  {-}
+  {(Ability) 1}
+  The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) to a static value derived from (Ability). Remember the “Using Charms and Charm Limitations” section above.
+
+% Copy any charms the character has from Charms.tex or MAcharms/ into this file after this line...
+
+
+  \charm{Speed the Wheels}
+  {8m}
+  {Simple}{One task}{-}
+  {Bureaucracy 5}
+  By speaking with the right individuals and in just the right way, the Solar sets a bureaucracy's wheels in motion at record speed. While this charm doesn't affect material labor (such as building a road or receiving a shipment), the organization, planning, approval, etc of a single task all occur significantly faster. Reduce the time required by two increments.
+
+  \charm{Indolent Official Charm}
+  {5m}
+  {Simple}{Indefinite}{Stackable}
+  {Essence 2, Bureaucracy 5, Speed the Wheels}
+  This charm is the reverse of Speed the Wheels - with a sidelong glance and a word in the right ears, a single bureaucratic task grinds to halt. While this charm doesn't affect material labor (such as building a road or receiving a shipment), the organization, planning, approval, etc. of a single task all takes one increment longer.
+
+  This charm may be active multiple times on a single organization for different projects, but doesn't stack for any given request. It may be used in advance of a request, or speculatively - for example, she could stymie "any police investigation into my business". As long as the motes are committed, such an investigation would take much longer to complete.
+
+  \permanentCharm{Terrestrial Circle Sorcery}
+  {Essence 3, Occult 3}
+  This charm may only be learned when the Solar meets the requirements for a shaping ritual - making a pact with a demon or powerful god, studying at the Heptagram, or some other initiation deemed appropriate by the Storyteller.
+
+  She gains the ability to learn and cast Terrestrial Circle spells. She learns a shaping ritual immediately. The first spell she learns becomes her control spell.
+
+  \permanentCharm{Shadow Pact with Mara}
+  {Terrestrial Circle Sorcery}
+  Whenever she begins a scene in darkness or shadow heavy enough to qualify as concealment for attempting stealth, she gains three sorcerous motes, which last until the end of the scene and can be spent towards any spells she casts.
+
+  Additionally, whenever she takes a shape sorcery action to shape a spell while in stealth, she gains an additional sorcerous mote as long as the spell’s target is unaware of her. She also receives these benefits while under the night sky during the new moon or Calibration, even without being concealed.
+
+  \charm{Demon of the First Circle}
+  {Ritual, 2wp}
+  {Sorcery}{Instant}{-}
+  {Terrestrial Circle Sorcery}
+  The sorcerer conjures one of the least monsters of the Demon Realm into Creation, breaking and binding it to her will with a ritual that begins at sundown, and ends at midnight. A First Circle Demon of the sorcerer’s choice is drawn forth, and must be bound with an (Intelligence + Occult) roll against their Resolve. The sorcerer may choose to either
+
+  \begin{itemize}
+    \item Make the demon her personal slave for a year and a day, giving it a Defining Tie of loyalty to her that cannot be weakened or altered by any means and setting its Resolve to 0 against any influence rolls she makes.
+    \item Assign it to complete a specific task - "Construct a tower using these plans," "Murder Magistrate Yang," "Dig a tunnel through this wall" - for as long as it takes to complete. Task-bound demons form a Defining Principle of "I must complete my task," which is similarly impervious to tampering.
+  \end{itemize}
+
+  On a failed binding roll, the sorcerer must make a (Wits + Occult) roll against a difficulty of the demon’s Willpower to banish it back to Hell. If she fails, then the demon is unleashed, unbound, into Creation - and is most likely very angry at her.
+
+  \charm{Invulnerable Skin of Bronze}
+  {20sm, 1wp}
+  {Sorcery}{One Day}{-}
+  {Terrestrial Circle Sorcery}
+  The sorcerer weaves herself a second skin of shining bronze from magic, supple and flexible as silk but cold and impervious as any metal. She will sink in water or mud, and fragile surfaces won’t support her weight. She gains +6 natural soak and Hardness 6, and becomes immune to poison delivered through skin contact. Her unarmed attacks deal lethal damage and use the traits of medium weapons. She is considered to be wearing medium armor for the purposes of using Martial Arts styles. She gains the following powers while this spell is active:
+
+  \begin{itemize}
+    \item Brazen Aegis Rebuke (3m, 1wp; Reflexive): After being hit with a decisive attack in close combat, the sorcerer may make an immediate Disarm gambit against her foe. This counterattack is undodgeable.
+    \item Invincible God-Metal Flash (10m; Supplemental; Post-Roll): This ability supplements the sorcerer's defense against a decisive attack after it has hit her but before damage is rolled. Reduce the raw damage by (Essence + 5). This spell ends as her bronze skin shatters, and she cannot recast this spell until the sun next crosses the horizon.
+  \end{itemize}
+
+  A sorcerer who knows Invulnerable Skin of Bronze as her control spell adds +(Essence) to her natural soak while the spell in inactive (including when she's dispersed it with Invincible God-Metal Flesh). Her skin takes on a faint bronze tint.
+
+  Distortion (Goal Number: 12): Distorting the spell forces the sorcerer to feel the full weight of her metal skin, imposing a -4 mobility penalty for one scene. Distortion also disables both of the spell’s special powers, and the sorcerer cannot voluntarily end the spell early.
+
+  \charm{Stormwind Rider}
+  {15sm, 1wp}
+  {Sorcery}{One Hour}{-}
+  {Terrestrial Circle Sorcery}
+  The sorcerer creates a servile dust devil to ride. The Stormwind Rider is a flying mount (p. 202), although it cannot take the sorcerer to more than short range above the ground. She uses Occult in place of Ride for all movement rolls related to it. The whirlwind can carry up to (Essence x 2) additional characters, or one hundred pounds of cargo in place of a single passenger.
+
+  The Stormwind can travel at nearly 25 miles an hour and is maneuverable enough to travel through forests or cities. Characters riding it have light cover against attacks made from outside of it, and vice versa. A passenger who is crashed or hit with a decisive attack is knocked out of the whirlwind, and suffers falling damage if applicable.
+
+  In addition, characters with an Essence pool gain access to the following powers while this spell is active:
+  \begin{itemize}
+    \item Enduring Tempest (5m; Reflexive): Once this spell’s duration has elapsed, the sorcerer may use Enduring Tempest to extend its duration for another hour.
+    \item Zephyr Rush (1m, 1wp; Supplemental; Instant): This charm suppelements a reflexive Move action, allowing her to move two range bands rather than one as she whips her whirlwind into a momentary frenzy.
+  \end{itemize}
+
+  A sorcerer who knows Stormwind Rider as her control spell is buffeted by winds whenever she is beset by strong emotions. Sudden movements and intense rages cause a small vortex powerful enough to scatter papers, upset furniture and topple someone caught off-guard.
+
+% ...and before this
+\end{multicols}
+\end{document}
