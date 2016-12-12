@@ -29,10 +29,13 @@ You can probably make this work on any operating system using broadly similar st
 2. Install the fonts under resources/ on your system.
 3. OPTIONAL: If you want a "full book", place your Ex3 book here - `cp /path/to/Ex3 ./Ex3Final.pdf`
 3. The charmTrees/*.pdf files can be rebuilt using Inkscape or another svg editing program. Open the corresponding .svg file and export it as a pdf of the same name. Don't rasterize anything.
-4. Building Charms.pdf is simple: `xelatex -halt-on-error Charms.tex`
+4. Building Charms.pdf is simple: `xelatex -halt-on-error Rewrite.tex`
 5. Build it a second time, exact same command as the first. This will add the pdf bookmarks.
 
 6. OPTIONAL: If you're editing things a lot, it may be helpful to have the pdf automatically recompile. `while inotifywait -e attrib Charms.tex; do xelatex -halt-on-error Charms.tex; done` This may not work for people using systems other than mine, so no promises.
+
+## Charm Cards
+Making charm cards for a character is simple. Copy any charms the character has from Charms.tex or MAcharms/* into CharmCards.tex (near the bottom there is a location shown), then compile it. `xelatex -halt-on-error CharmCards.tex`. This outputs CharmCards.pdf - there you go!
 
 ## Credits
 
