@@ -1,0 +1,131 @@
+\documentclass[oneside]{book}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{multicol}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in, heightrounded, includefoot]{geometry}
+\usepackage{sectsty}
+\usepackage[bookmarks=true,bookmarksdepth=section]{hyperref}
+\usepackage{graphicx}
+\usepackage{eso-pic}
+\usepackage{changepage}
+\usepackage{ifthen}
+\usepackage{titlesec}
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{forloop}
+\usepackage[absolute,overlay]{textpos}
+\usepackage[space]{grffile}
+
+\title{Charms Rewrite}
+\date{2016-07-26}
+\author{BlueWinds}
+
+\strictpagecheck
+\newfontfamily\chapfont{Envision}
+
+\pagestyle{plain}
+\allsectionsfont{\centering}
+\setlength\parindent{0pt}
+\setlength\parskip{15pt}
+\newlength{\sidewidth}
+\setlength{\sidewidth}{6.25in}
+
+\newcommand{\charm}[6]{
+  \parbox{\linewidth}{
+    \par \textbf{\color{MidnightBlue}#1}\vspace{2pt} \\
+    \ifthenelse{\equal{#5}{-}}{ % No keywords
+      \textbf{Cost:} #2; #3 (#4) \\
+      \textbf {Prereqs:} #6
+    }{ % Has keywords
+      \textbf{Cost:} #2 ; #3 (#4) - #5 \\
+      \textbf {Prereqs:} #6
+    }
+  }
+  \par
+}
+\newcommand{\permanentCharm}[2]{
+  \parbox{\linewidth}{
+    \par \textbf{\color{MidnightBlue}#1} \\
+    \textbf {Permanent} \\
+    \textbf {Prereqs:} #2
+  }
+  \par
+}
+
+\begin{document}
+\begin{multicols}{2}
+% Copy any charms the character has from Charms.tex or MAcharms/ into this file after this line...
+
+  \permanentCharm{Uncanny Perception Technique}
+  {Awareness 2}
+  When in the presence of dematerialized spirits, sorcerously-crafted living shadows and other generally invisible or intangible subjects, the Solar experiences strange sensory phenomena appropriate to the nature of the being, such as the sound of bells, the scent of chill winter wind or a coppery taste. She automatically notices the presence of such beings (but not their location) unless they hide from her using Stealth. These sensations are as distinctive as a voice - she'll almost always recognize a spirit or being she's met before.
+
+  \permanentCharm{Seasoned Criminal Method}
+  {Larceny 1}
+  The Solar may adopt or discard any of the following effects reflexively:
+  \begin{itemize}
+    \item Familiarity: She may treat all members of criminal organizations as though they had a Minor Tie of familiarity towards her. They're likely to believe she is a fellow criminal with whom to be treated: a member of the organization, a prospect for initiation, etc.
+    \item Dissonance: Magistrates or other officials seeking to establish her identity suffer a -2 penalty to their Bureaucracy and Investigation actions. Minor characters who do not know her personally but have seen her hanging around the scene of a crime cannot remember doing so.
+    \item Vulnerability: The Exalt makes herself seem the best possible target for a specific type of crime. Confidence men will see an easy mark, gamblers will try to take advantage, thugs will try to mug her, etc.
+    \item Receptivity: Criminals who spot her as someone who will partake of their particular vice. She might be seen as a drug buyer or seller, someone looking to hire a prostitute, or similar. Such parties will be likely to provide her with information about where to go and who to talk to.
+  \end{itemize}
+
+  \charm{Spurious Presence}
+  {6m}
+  {Simple}{One scene}{-}
+  {Larceny 2, Seasoned Criminal Method}
+  As long as the Solar fits into a scene reasonably well and acts as expected for the situation, minor characters receive no Awareness rolls to notice that she's out of place unless they are on special alert. Attempts to discern that she doesn't belong here suffer a -2 penalty, and she may use Larceny instead of Socialize for her Guile if questioned about her presence.
+
+  \charm{Lock-Opening Touch}
+  {5m}
+  {Supplemental}{Instant}{-}
+  {Larceny 2}
+  This charm supplements an attempt to pick a lock. If the lock is mundane, it opens at her touch without need for tools or a roll. Against a magical lock, she may attempt to pick it one interval faster (usually in seconds rather than minutes).
+
+  \charm{Whirling Brush Method}
+  {3m}
+  {Supplemental}{Instant}{Mute}
+  {Linguistics 1}
+  This charm supplements a Linguistics action to copy an existing document (or a short portion of one) or to create a written work requiring little creativity or careful consideration. This action takes two intervals less time. It may also be used to transcribe a spoken conversation - the Solar can keep up with a rapid conversation involving multiple parties.
+
+  \charm{Wound-Mending Care Technique}
+  {5m}
+  {Simple}{Instant}{-}
+  {Medicine 3}
+  The Solar spends an hour doctoring a patient with bandages, herbs or other remedies and rolls (Intelligence + Medicine) against the highest wound penalty he suffers (5 for incapacitated). If he remains in bed for the rest of the day, he heals (Solar's Essence or three, whichever's higher) levels of Bashing or Lethal damage.
+
+  With a repurchase at Essence 3+, Once/Day she may have him instead heal by the time the treatment is complete, with no need for bed rest.
+
+  \charm{Most Excellent Mockingbird}
+  {3m}
+  {Reflexive}{One scene}{-}
+  {Performance 2}
+  The Solar mimics the voice of any character she's spent at least an hour interacting with. Characters not closely familiar with the mimicked voice do not receive an Awareness roll to notice the imposture, and even those closely familiar receive a -2 penalty on their roll.
+
+  \charm{Mastery of Small Manners}
+  {5m}
+  {Reflexive}{One scene}{-}
+  {Socialize 1}
+  This charm may be activated at any time. The Exalt instinctively follows social customs for any culture she's immersed in - greeting, eating, flirting and responding as naturally as a native. She ignores all penalties for unfamiliarity with a culture, and will not unintentionally commit a major faux pas.
+
+  Any characters with a negative Intimacy for foreigners or outsiders treats it as one level weaker when dealing with her. Any characters with positive intimacies towards the culture she's attuned herself to act as though they have a Minor Tie of respect as long as the charm lasts if they don't already have a stronger positive Intimacy towards her.
+
+  \charm{Empty Presence Meditation}
+  {3m}
+  {Simple}{One scene}{-}
+  {Stealth 3, Essence 1, Night Passes Over}
+  As long as the Solar doesn't take overt or sudden action (dashing, drawing a weapon, yelling, etc), characters may not make Awareness rolls to notice the Solar unless they are on special alert, intend to stop everyone (such as guards at a checkpoint), or have Major or Defining intimacy that her presence threatens.
+
+  \charm{Hardship-Surviving Mendicant Spirit}
+  {5m}
+  {Reflexive}{Indefinite}{-}
+  {Survival 3}
+  This charm may be activated at any time. The Solar ignores all environmental penalties to survival rolls. Cold and heat alike are perfectly comfortable for her. She does not suffer from heat stroke, hypothermia, bug bites, plant poisons or similar harmful or uncomfortable environmental effects.
+
+  With an Essence 3+ repurchase, this charm becomes more powerful - she can withstand the heat and toxic fumes in the caldera of an active volcano, breathe underwater, and explore even the hostile environments of the Elemental Poles without danger. Reduce the damage from all environmental sources of damage by her Resistance or Survival rating, which ever's higher.
+
+% ...and before this.
+\end{multicols}
+\end{document}
