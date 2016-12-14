@@ -1,0 +1,128 @@
+\documentclass[oneside]{book}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{multicol}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in, heightrounded, includefoot]{geometry}
+\usepackage{sectsty}
+\usepackage[bookmarks=true,bookmarksdepth=section]{hyperref}
+\usepackage{graphicx}
+\usepackage{eso-pic}
+\usepackage{changepage}
+\usepackage{ifthen}
+\usepackage{titlesec}
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{forloop}
+\usepackage[absolute,overlay]{textpos}
+\usepackage[space]{grffile}
+
+\title{Charms Rewrite}
+\date{2016-07-26}
+\author{BlueWinds}
+
+\strictpagecheck
+\newfontfamily\chapfont{Envision}
+
+\pagestyle{plain}
+\allsectionsfont{\centering}
+\setlength\parindent{0pt}
+\setlength\parskip{15pt}
+\newlength{\sidewidth}
+\setlength{\sidewidth}{6.25in}
+
+\newcommand{\charm}[6]{
+  \parbox{\linewidth}{
+    \par \textbf{\color{MidnightBlue}#1}\vspace{2pt} \\
+    \ifthenelse{\equal{#5}{-}}{ % No keywords
+      \textbf{Cost:} #2; #3 (#4) \\
+      \textbf {Prereqs:} #6
+    }{ % Has keywords
+      \textbf{Cost:} #2 ; #3 (#4) - #5 \\
+      \textbf {Prereqs:} #6
+    }
+  }
+  \par
+}
+\newcommand{\permanentCharm}[2]{
+  \parbox{\linewidth}{
+    \par \textbf{\color{MidnightBlue}#1} \\
+    \textbf {Permanent} \\
+    \textbf {Prereqs:} #2
+  }
+  \par
+}
+
+\begin{document}
+\begin{multicols}{2}
+% Copy any charms the character has from Charms.tex or MAcharms/ into this file after this line...
+
+  \charm{Graceful Crane Stance}
+  {3m}
+  {Reflexive}{One Scene}{-}
+  {Athletics 1}
+  The Exalt has perfect balance, and can stand or run on things too narrow or weak to support her normally, with no chance of falling or breaking through. She automatically succeeds at the (Dexterity + Athletics) roll for such feats as running on a guy wire, standing on a crumbling parapet, balancing on the tip of a pine tree, and similar.
+
+  \permanentCharm{Keen Sense Technique}
+  {Awareness 3, Sensory Acuity Prana}
+  When the Solar purchases this charm, choose Sight, Hearing, or Smell, Taste and Touch.
+
+  The Solar gains three dice on any Awareness roll involving the chosen sense(s).
+
+  With an Essence 2+ repurchase, she chooses a second sense.
+  With an Essence 3+ repurchase, the bonus applies to all the listed senses. In addition, the Solar takes no penalty to rolls because of being blind or deaf. If both, she only takes -2 on tasks that would normally require those senses.
+
+  \charm{Unsurpassed Hearing Discipline}
+  {5m, 1wp}
+  {Simple}{One conversation}{-}
+  {Essence 3, Awareness 5, Keen Sense Technique (Hearing) or Keen Sense Technique x 3}
+  The Solar listens in on conversations that happened in her location up to (Essence x 5) hours prior to her arrival as though it were happening right next to her. She must sit still and listen intently for as much of the conversation as she wishes to hear.
+
+  \charm{Reflex Sidestep Technique}
+  {5m}
+  {Supplemental}{Instant}{Post-roll}
+  {Dodge 3}
+  This charm supplements a dodge against an Ambush. The Solar sets her Evasion to 2 rather than 0, and gains +1 Evasion for every 1 or 2 her opponent rolled on the attack.
+
+  \charm{One Weapon, Two Blows}
+  {3m}
+  {Reflexive}{Instant}{Advantage}
+  {Melee 2}
+  This charm may be activated immediately after one of the Solar's Melee Withering attacks reduces her opponent from higher initiative than her to lower. She makes another Melee attack against that same opponent.
+
+  \charm{Phantom-Conjuring Performance}
+  {2m}
+  {Supplemental}{One Performance}{-}
+  {Essence 2, Performance 4, Respect-Commanding Attitude}
+  This charm supplements any Performance. The Exalt conjures phantom images around her within short range, following along with her performance and aiding it. Apparitions might be other characters seeming to curl out of the smoke of a fire, hints of scenery seen in sunbeams, or rain hitting roof sounding like war-drums to match her tale.
+
+  \charm{Infectious Zealotry Approach}
+  {3m, 1wp}
+  {Reflexive}{One Scene}{-}
+  {Essence 2, Performance 5}
+  With a meaningful glance or supportive nod, the Solar selects an intimacy she thinks her target has, and rolls ([Charisma or Manipulation] + Performance) against his Resolve, unmodified by Intimacies. If successful, and he actually has that intimacy, he treats it as one level more intense until the end of the scene. If she supports a Defining intimacy in this way, her target becomes obsessed, and neglects all other cares in favor of fulfilling his obsession.
+
+  \charm{Memory-Reweaving Discipline}
+  {10m, 1wp}
+  {Simple}{Instant}{Psyche, Group}
+  {Essence 3, Performance 5, Infectious Zealotry Approach}
+  The Solar spends a minute or two spinning a tale, and rolls (Manipulation + Performance), subtracting successes rather than dice for any situational penalties (including bizarre, unbelievable or far-reaching claims). Each character or groups' Resolve she overcomes gains a Minor Intimacy of belief that her story is true. If she exceeds their Resolve by three or more, they instead gain a Major intimacy of belief.
+
+  \charm{Mastery of Small Manners}
+  {5m}
+  {Reflexive}{One scene}{-}
+  {Socialize 1}
+  This charm may be activated at any time. The Exalt instinctively follows social customs for any culture she's immersed in - greeting, eating, flirting and responding as naturally as a native. She ignores all penalties for unfamiliarity with a culture, and will not unintentionally commit a major faux pas.
+
+  Any characters with a negative Intimacy for foreigners or outsiders treats it as one level weaker when dealing with her. Any characters with positive intimacies towards the culture she's attuned herself to act as though they have a Minor Tie of respect as long as the charm lasts if they don't already have a stronger positive Intimacy towards her.
+
+  \charm{Invisible Statue Spirit}
+  {5m}
+  {Reflexive}{Until the Solar moves}{Mute}
+  {Stealth 2}
+  This charm may be activated at any time, rendering the Solar invisible. It lasts as long as the Solar remains completely still.
+
+% ...and before this.
+\end{multicols}
+\end{document}
