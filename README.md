@@ -18,10 +18,10 @@ Feedback is welcome. This is, however, an opinionated rewrite - I will not spend
 ## Compiling
 You can probably make this work on any operating system using broadly similar steps. On linux:
 
-1. Install latex + xeletex. On a debian-based linux: `$ sudo apt-get install texlive-latex-extra texlive-xeletex`
+1. Install latex + xeletex. On a debian-based linux: `$ sudo apt-get install texlive-latex-extra texlive-xetex`
 2. Install the fonts under resources/ on your system.
 3. The charmTrees/*.pdf files can be rebuilt using Inkscape or another svg editing program. Open the corresponding .svg file and export it as a pdf of the same name.
-4. Building Charms.pdf is simple: `$ xeletex -halt-on-error Charms.tex`
+4. Building Charms.pdf is simple: `$ xelatex -halt-on-error Charms.tex`
 
 ## Credits
 
