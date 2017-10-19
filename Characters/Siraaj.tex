@@ -1,0 +1,109 @@
+\documentclass[oneside]{book}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{multicol}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in, heightrounded, includefoot]{geometry}
+\usepackage{sectsty}
+\usepackage[bookmarks=true,bookmarksdepth=section]{hyperref}
+\usepackage{graphicx}
+\usepackage{eso-pic}
+\usepackage{changepage}
+\usepackage{ifthen}
+\usepackage{titlesec}
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{forloop}
+\usepackage[absolute,overlay]{textpos}
+\usepackage[space]{grffile}
+
+\title{Charms Rewrite}
+\date{2016-07-26}
+\author{BlueWinds}
+
+\strictpagecheck
+\newfontfamily\chapfont{Envision}
+
+\pagestyle{plain}
+\allsectionsfont{\centering}
+\setlength\parindent{0pt}
+\setlength\parskip{15pt}
+\newlength{\sidewidth}
+\setlength{\sidewidth}{6.25in}
+
+\newcommand{\charm}[6]{
+  \parbox{\linewidth}{
+    \par \textbf{\color{MidnightBlue}#1}\vspace{2pt} \\
+    \ifthenelse{\equal{#5}{-}}{ % No keywords
+      \textbf{Cost:} #2; #3 (#4) \\
+      \textbf {Prereqs:} #6
+    }{ % Has keywords
+      \textbf{Cost:} #2 ; #3 (#4) - #5 \\
+      \textbf {Prereqs:} #6
+    }
+  }
+  \par
+}
+\newcommand{\permanentCharm}[2]{
+  \parbox{\linewidth}{
+    \par \textbf{\color{MidnightBlue}#1} \\
+    \textbf {Permanent} \\
+    \textbf {Prereqs:} #2
+  }
+  \par
+}
+
+\begin{document}
+\begin{multicols}{2}
+% Copy any charms the character has from Charms.tex or MAcharms/ into this file after this line...
+
+  \charm{Excellent Solar (Ability)}
+  {1m per die, or 2m per +1 to static value}
+  {Supplemental}
+  {Instant}
+  {-}
+  {(Ability) 1}
+  The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) to a static value derived from (Ability). Remember the “Using Charms and Charm Limitations” section above.
+
+  \charm{Graceful Crane Stance}
+  {3m}
+  {Reflexive}{One Scene}{-}
+  {Athletics 1}
+  The Exalt has perfect balance, and can stand or run on things too narrow or weak to support her normally, with no chance of falling or breaking through. She automatically succeeds at the (Dexterity + Athletics) roll for such feats as running on a guy wire, standing on a crumbling parapet, balancing on the tip of a pine tree, and similar.
+
+  \charm{Feather Foot Style}
+  {3m}
+  {Supplemental}{Until the Exalt stops running}{Mute}
+  {Athletics 3, Graceful Crane Stance}
+  This charm supplements a move action, allowing the Exalt to dash over liquid or unstable surfaces as if they were solid and move over surfaces as thin as rice paper without breaking through. She may also move across lava or other dangerous surfaces without getting hurt. As long as she is moving at a quick pace, she need not pay the activation cost again.
+
+  At Essence 2+, she can pause on unstable surfaces without breaking through, changing the duration of this Charm to “one stunt.” She can walk slowly across the surface of a still pond, pause on the crumbling parapet of a castle to give a speech, and so on. This mode does not protect against hazardous surfaces.
+
+  \charm{Spider Foot Style}
+  {3m}
+  {Reflexive}{Essence + 1 Turns}{Mute}
+  {Athletics 4, Feather Foot Style}
+  The Solar can run up walls, stand upside down on horizontal surfaces such as tree branches, bridge bottoms or overhangs, lay flat against a ceiling looking down at her prey, or other similar feats.
+
+  \charm{Triple Distance Attack Technique}
+  {1m}
+  {Supplemental}{Instant}{-}
+  {Thrown 2}
+  This charm supplements a Thrown attack, increasing the weapon's maximum range by two bands.
+
+  \charm{Angle-Tracing Edge}
+  {3m}
+  {Supplemental}{Instant}{-}
+  {Thrown 4}
+  This charm supplements a Thrown attack. Her target receives no bonuses from cover. It also allows her to attack a target in full cover by taking a -3 penalty, unless the Storyteller deems it completely impossible for her weapon to reach him.
+
+  \charm{Craftsman Needs No Tools}
+  {4m}
+  {Supplemental}{One task}{Mute}
+  {Craft 3}
+  This charm supplements a Basic project or personal-scale non-magical Major project, allowing the Solar to work on it without tools, using only her hands. Reduce the time required by two increments.
+
+% ...and before this.
+\end{multicols}
+\end{document}

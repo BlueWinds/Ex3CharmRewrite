@@ -1,0 +1,138 @@
+\documentclass[oneside]{book}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{multicol}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in, heightrounded, includefoot]{geometry}
+\usepackage{sectsty}
+\usepackage[bookmarks=true,bookmarksdepth=section]{hyperref}
+\usepackage{graphicx}
+\usepackage{eso-pic}
+\usepackage{changepage}
+\usepackage{ifthen}
+\usepackage{titlesec}
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{forloop}
+\usepackage[absolute,overlay]{textpos}
+\usepackage[space]{grffile}
+
+\title{Charms Rewrite}
+\date{2016-07-26}
+\author{BlueWinds}
+
+\strictpagecheck
+\newfontfamily\chapfont{Envision}
+
+\pagestyle{plain}
+\allsectionsfont{\centering}
+\setlength\parindent{0pt}
+\setlength\parskip{15pt}
+\newlength{\sidewidth}
+\setlength{\sidewidth}{6.25in}
+
+\newcommand{\charm}[6]{
+  \parbox{\linewidth}{
+    \par \textbf{\color{MidnightBlue}#1}\vspace{2pt} \\
+    \ifthenelse{\equal{#5}{-}}{ % No keywords
+      \textbf{Cost:} #2; #3 (#4) \\
+      \textbf {Prereqs:} #6
+    }{ % Has keywords
+      \textbf{Cost:} #2 ; #3 (#4) - #5 \\
+      \textbf {Prereqs:} #6
+    }
+  }
+  \par
+}
+\newcommand{\permanentCharm}[2]{
+  \parbox{\linewidth}{
+    \par \textbf{\color{MidnightBlue}#1} \\
+    \textbf {Permanent} \\
+    \textbf {Prereqs:} #2
+  }
+  \par
+}
+
+\begin{document}
+\begin{multicols}{2}
+% Copy any charms the character has from Charms.tex or MAcharms/ into this file after this line...
+
+  \charm{Excellent Solar (Ability)}
+  {1m per die, or 2m per +1 to static value}
+  {Supplemental}
+  {Instant}
+  {-}
+  {(Ability) 1}
+  The Solar adds +(motes spent) dice to an (Ability) roll, or +(motes spent / 2) to a static value derived from (Ability). Remember the “Using Charms and Charm Limitations” section above.
+
+  \charm{Sight Without Eyes}
+  {1m}
+  {Supplemental}{Instant}{-}
+  {Archery 3}
+  This charm supplements an Archery attack, allowing the Exalt ignores all penalties for visual conditions. Smoke, fog, and pitch darkness don't hinder her, though other factors such as high winds and cover still apply against the attack.
+
+  At Archery 5+, Essence 3+, she can momentarily see through cover, perceiving her targets as silhouettes the colors of bright anima.
+
+  \permanentCharm{Keen Sense Technique}
+  {Awareness 3, Sensory Acuity Prana}
+  When the Solar purchases this charm, choose \textbf{Sight}, Hearing, or Smell, Taste and Touch.
+
+  The Solar gains three dice on any Awareness roll involving the chosen sense(s).
+
+  With an Essence 2+ repurchase, she chooses a second sense.
+  With an Essence 3+ repurchase, the bonus applies to all the listed senses. In addition, the Solar takes no penalty to rolls because of being blind or deaf. If both, she only takes -2 on tasks that would normally require those senses.
+
+  \charm{Dipping Swallow Defense}
+  {2m}
+  {Supplemental}{Instant}{-}
+  {Melee 1}
+  This charm supplements a Parry. The Solar ignores all non-surprise penalties to her Parry.
+
+  At Essence 2+ she may spend an additional 3m when activating this charm to parry unblockable attacks.
+
+  \charm{Solar Counterattack}
+  {3m}
+  {Reflexive}{Instant}{Counterattack}
+  {Melee 4, Dipping Swallow Defense}
+  This charm may be activated after an attack the Solar attempted to Parry. She makes a Decisive Melee attack against the foe who attacked her.
+
+  \charm{Respect-Commanding Attitude}
+  {5m}
+  {Supplemental}{One Performance}{Group}
+  {Performance 2}
+  This charm supplements any performance. The Solar rolls (Charisma + Performance), and any character with a lower resolve who hears or sees part of it must stop and watch or listen attentively until the performance ends. He may spend 1wp to end the effect. Any character - whether or not their resolve was beaten - who wishes to attack the Solar while the performance continues must either spend 1wp or blend into her demonstration (by posing as actors, a challenging musician, etc).
+
+  It cannot be activated in combat, but lasts until she stops performing if combat breaks out.
+
+  \charm{Enduring Mental Toughness}
+  {1m}
+  {Reflexive}{One day}{-}
+  {Integrity 1}
+  This charm may be activated at any time. The Solar ignores all wound, illness, and crippling penalties to her Resolve or Guile.
+
+  \permanentCharm{Stubborn Boar Defense}
+  {Integrity 2}
+  Once the Solar has resisted a Persuade action, she gains +2 to her Resolve if the issue is raised again by anyone other than her Lunar mate.
+
+  \charm{Trackless Region Navigation}
+  {5m, 1wp}
+  {Reflexive}{Indefinite}{-}
+  {Survival 3, Essence 1}
+  This charm may be activated at any time. The Exalt can find her way safely through even the harshest terrain, leading a group of up to (Essence) Size (if they were a battle group). Enemies can still instigate trouble such as such as rock slides, wildfires, or sudden floods, but her group won't encounter them sheerly by accident. They can cover at least ten miles per day through the harshest of environments, or twenty miles per day through normal wilderness. She automatically succeeds at any Survival rolls to find oases, natural shelter, a river or similar similarly important topographical features.
+
+  \charm{War God Descendent}
+  {3m}
+  {Supplemental}{Instant}{-}
+  {War 1}
+  This charm supplements a Strategic Maneuver roll. The Solar ignores the -1 penalty for troops with poor drill, and upon engaging in battle, battle groups under her command count as having +1 size. The first size loss they take (reducing them their to a size matching the actual number of troops involved) represents very little actual damage to the unit.
+
+  \charm{League of Iron Preparation}
+  {5m}
+  {Simple}{Instant}{-}
+  {War 3, War God Descendant}
+  The Solar spends at least a week training her troops with privation and hardship. They are immune to the Demoralize stratagem, and their morale barely suffers from hunger, bad weather or physical exhaustion. Their leader ignores penalties due to these factors on Strategic Maneuver rolls.
+
+% ...and before this.
+\end{multicols}
+\end{document}
